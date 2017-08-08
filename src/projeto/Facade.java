@@ -2,10 +2,10 @@
 package projeto;
 
 public class Facade {
-	private UserController controladorDeUsuarios;
+	private Controller controladorDeUsuarios;
 
 	public Facade() {
-		this.controladorDeUsuarios = new UserController();
+		this.controladorDeUsuarios = new Controller();
 	}
 
 	public void iniciarSistema() {

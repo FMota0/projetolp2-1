@@ -3,13 +3,13 @@ package testes;
 import org.junit.Test;
 
 import projeto.Emprestimo;
-import projeto.UserController;
+import projeto.Controller;
 
 public class EmprestimoTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void registrarEmprestimoInvalidoTest() {
-		UserController controle = new UserController();
+		Controller controle = new Controller();
 		controle.cadastrarUsuario("Joao", "98888-8888", "sem email");
 		controle.cadastrarTabuleiro("Joao", "98888-8888", "War", 70.0);
 		controle.adicionarPecaPerdida("Joao", "98888-8888", "War", "dado");
@@ -23,7 +23,7 @@ public class EmprestimoTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void devolverItemInvalidoTest() {
-		UserController controle = new UserController();
+		Controller controle = new Controller();
 		controle.cadastrarUsuario("Joao", "98888-8888", "sem email");
 		controle.cadastrarTabuleiro("Joao", "98888-8888", "War", 70.0);
 		controle.adicionarPecaPerdida("Joao", "98888-8888", "War", "dado");
@@ -36,7 +36,7 @@ public class EmprestimoTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void registrarEmprestimoRequerenteInvalidoTest() {
-		UserController controle = new UserController();
+		Controller controle = new Controller();
 		controle.cadastrarUsuario("Carlos", "89999-9999", "sem email");
 
 		// Usuario Invalido (requerente)
@@ -47,7 +47,7 @@ public class EmprestimoTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void registrarEmprestimoUsuarioInvalidoTest() {
-		UserController controle = new UserController();
+		Controller controle = new Controller();
 		controle.cadastrarUsuario("Carlos", "89999-9999", "sem email");
 		// Usuario Invalido (dono)
 		controle.registrarEmprestimo("Lucineia", "99988-7766", "Carlos", "89999-9999", "Game of Thrones", "08/01/2018",

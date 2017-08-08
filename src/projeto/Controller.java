@@ -18,14 +18,14 @@ import itens.Item;
  * @author Hugo, Felipe Mota, Yago Gusmao
  *
  */
-public class UserController {
+public class Controller {
 
 	/**
 	 * 
 	 */
 	private Map<UsuarioId, Usuario> usuarios;
 
-	public UserController() {
+	public Controller() {
 		this.usuarios = new HashMap<UsuarioId, Usuario>();
 	}
 

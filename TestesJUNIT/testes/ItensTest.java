@@ -2,14 +2,14 @@ package testes;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
-import projeto.UserController;
+import projeto.Controller;
 import projeto.Usuario;
 
 public class ItensTest {
 
 	@Test
 	public void listarItensOrdenadosPorNomeTest() {
-		UserController controle = new UserController();
+		Controller controle = new Controller();
 		controle.cadastrarUsuario("yago", "654", "yago@...");
 		controle.cadastrarTabuleiro("yago", "654", "War", 70.0);
 		controle.adicionarPecaPerdida("yago", "654", "War", "dado");
@@ -29,7 +29,7 @@ public class ItensTest {
 	
 	@Test
 	public void listarItensOrdenadosPorValorTest() {
-		UserController controle = new UserController();
+		Controller controle = new Controller();
 		controle.cadastrarUsuario("yago", "654", "yago@...");
 		controle.cadastrarTabuleiro("yago", "654", "War", 70.0);
 		controle.adicionarPecaPerdida("yago", "654", "War", "dado");
@@ -51,7 +51,7 @@ public class ItensTest {
 	
 	@Test
 	public void pesquisarDetalhesItemTest() {
-		UserController controle = new UserController();
+		Controller controle = new Controller();
 		controle.cadastrarUsuario("Maria", "96666-6666", "sem email");
 		controle.cadastrarBluRayFilme("Maria", "96666-6666", "Crepusculo", 1.99, 120, "QUATORZE_ANOS", "ROMANCE", 2008);
 		
@@ -72,7 +72,7 @@ public class ItensTest {
 	
 	@Test( expected = IllegalArgumentException.class)
 	public void pesquisaDetalheItemInvalidoTest(){
-		UserController controle = new UserController();
+		Controller controle = new Controller();
 		controle.cadastrarUsuario("Maria", "96666-6666", "sem email");
 		//Item invalido
 		controle.pesquisarDetalhesItem("Maria", "96666-6666", "The Walking Dead");
