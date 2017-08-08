@@ -23,12 +23,11 @@ public class Usuario {
 	private String nome;
 	private String telefone;
 	private String email;
-	private Map<String, Item> itens;
-	private Map<EmprestimoId,Emprestimo> emprestimos;
+	private ItemController itemController;
+	private EmprestimoController emprestimoController;
 
 	private void verificaSeExisteItem(String nomeItem){
-		if(!this.existeItem(nomeItem))
-			throw new IllegalArgumentException("Item nao encontrado");
+		itemController.verificaSeExisteItem(nomeItem);
 	}
 	
 	public Usuario(String nome, String telefone, String email) {
@@ -40,12 +39,12 @@ public class Usuario {
 		this.nome = nome;
 		this.telefone = telefone;
 		this.email = email;
-		this.itens = new HashMap<String, Item>();
-		this.emprestimos = new HashMap<EmprestimoId,Emprestimo>();
+		this.itemController = new ItemController();
+		this.emprestimoController = new EmprestimoController();
 	}
 
 	public void cadastraItem(Item item) {
-		itens.put(item.getNome(), item);
+		itemController.cadastraItem(item);
 	}
 
 	@Override
@@ -151,7 +150,7 @@ public class Usuario {
 	}
 	
 	public boolean existeItem(String nomeItem){
-		return this.itens.containsKey(nomeItem);
+		return itemController.existeItem(nomeItem);
 	}
 
 	public String getAtributo(String atributo) {
@@ -178,59 +177,46 @@ public class Usuario {
 
 	public String getInfoItem(String nomeItem, String atributo) {
 		
-		this.verificaSeExisteItem(nomeItem);
-		return this.itens.get(nomeItem).getAtributo(atributo);
+		return itemController.getInfoItem(nomeItem, atributo);
 	}
 
 	public boolean adicionarPecaPerdida(String nomeItem, String peca) {
-		
-		this.verificaSeExisteItem(nomeItem);
-		
-		if (!(itens.get(nomeItem) instanceof JogoTabuleiro)) { // WTF hugo ???
-			throw new IllegalArgumentException("Item selecionado nao e jogo de tabuleiro");
-		}
-		JogoTabuleiro item = (JogoTabuleiro) itens.get(nomeItem);
-		return item.adicionarPecaPerdida(peca);
+
+		return itemController.adicionarPecaPerdida(nomeItem, peca);
 	}
 
 	public void removerItem(String nomeItem) {
-		this.verificaSeExisteItem(nomeItem);
-		itens.remove(nomeItem);
+		itemController.removerItem(nomeItem);
 	}
 
 	public void atualizarItem(String nomeItem, String atributo, String valor) {
-		this.verificaSeExisteItem(nomeItem);
-		Item item = this.itens.get(nomeItem);
-		this.itens.remove(nomeItem);
-		item.mudaAtributo(atributo, valor);
-		nomeItem = item.getNome();
-		this.itens.put(nomeItem, item);
+		itemController.atualizarItem(nomeItem, atributo, valor);
 	}
 
 	public void cadastrarEletronico(String nomeItem, double preco, String plataforma) {
-		this.itens.put(nomeItem, new JogoEletronico(nomeItem, preco, plataforma));
+		itemController.cadastrarEletronico(nomeItem, preco, plataforma);
 		
 	}
 
 	public void cadastrarTabuleiro(String nomeItem, double preco) {
-		this.itens.put(nomeItem, new JogoTabuleiro(nomeItem, preco));
+		itemController.cadastrarTabuleiro(nomeItem, preco);
 	}
 
 	public void cadastrarBluRaySerie(String nomeItem, double preco, int duracao, String classificacao, String genero,
 			int temporada) {
-		this.itens.put(nomeItem, new BluRaySerie(nomeItem, preco, duracao, classificacao, genero, temporada));
+		itemController.cadastrarBluRaySerie(nomeItem, preco, duracao, classificacao, genero, temporada);
 		
 	}
 
 	public void cadastrarBluRayShow(String nomeItem, double preco, int duracao, String classificacao, int numeroFaixas,
 			String artista) {
-		this.itens.put(nomeItem, new BluRayShow(nomeItem, preco, duracao, classificacao, numeroFaixas, artista));
+		itemController.cadastrarBluRayShow(nomeItem, preco, duracao, classificacao, numeroFaixas, artista);
 		
 	}
 
 	public void cadastrarBluRayFilme(String nomeItem, double preco, int duracao, String classificacao, String genero,
 			int anoLancamento) {
-		this.itens.put(nomeItem, new BluRayFilme(nomeItem, preco, duracao, classificacao, genero, anoLancamento));
+		itemController.cadastrarBluRayFilme(nomeItem, preco, duracao, classificacao, genero, anoLancamento);
 		
 	}
 
@@ -242,49 +228,34 @@ public class Usuario {
 				throw new NullPointerException("Item nao encontrado");
 		
 		if(nomeDono.equals(this.nome) && telefone.equals(this.telefone))
-			if(!itens.get(nomeItem).getIsEmprestado())
-				emprestimos.put(new EmprestimoId(nomeDono, telefoneDono,
-					nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo), new Emprestimo(nomeDono, telefoneDono,
-					nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo, periodo));
+			if(!itemController.estaEmprestado(nomeItem))
+				emprestimoController.registrarEmprestimo(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo, periodo);
 			else
 				throw new IllegalStateException("Item emprestado no momento");
 		else
-			emprestimos.put(new EmprestimoId(nomeDono, telefoneDono,
-					nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo), new Emprestimo(nomeDono, telefoneDono,
-					nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo, periodo));
+			emprestimoController.registrarEmprestimo(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo, periodo);
+
 	}
 	
 	public void mudaEstadoItem(String nomeItem){
-		if(existeItem(nomeItem))
-			this.itens.get(nomeItem).setIsEmprestado(!this.itens.get(nomeItem).getIsEmprestado());
+		itemController.mudaEstadoItem(nomeItem);
 	}
 
 	public void devolverItem(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente,
 			String nomeItem, String dataEmprestimo, String dataDevolucao) {
 		
-		if(!emprestimos.containsKey(new EmprestimoId(nomeDono, telefoneDono,
-				nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo)))
-			throw new IllegalStateException("Emprestimo nao encontrado");
-
-				
-		
 		if(nomeDono.equals(this.nome) && telefone.equals(this.telefone))
-			if(itens.get(nomeItem).getIsEmprestado())
-				emprestimos.get(new EmprestimoId(nomeDono, telefoneDono,
-					nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo)).setDataDevolucao(dataDevolucao);
+			if(itemController.estaEmprestado(nomeItem))
+				emprestimoController.devolverItem(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo, dataDevolucao);
 			
 	}
 
 	public ArrayList<Item> getListItem() {
-		ArrayList<Item> listagem = new ArrayList<Item>();
-		for(String nomeItem : itens.keySet())
-			listagem.add(this.itens.get(nomeItem));
-		return listagem;
+		return itemController.getListItem();
 	}
 
 	public String pesquisarDetalhesItem(String nomeItem) {
-		this.verificaSeExisteItem(nomeItem);
-		return itens.get(nomeItem).toString();
+		return itemController.pesquisarDetalhesItem(nomeItem);
 	}
 
 }
