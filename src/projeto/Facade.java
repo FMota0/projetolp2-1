@@ -5,11 +5,11 @@ public class Facade {
 	private UserController controladorDeUsuarios;
 
 	public Facade() {
-
+		this.controladorDeUsuarios = new UserController();
 	}
 
 	public void iniciarSistema() {
-		this.controladorDeUsuarios = new UserController();
+		
 	}
 
 	public void cadastrarUsuario(String nome, String telefone, String email) {

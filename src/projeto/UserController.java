@@ -7,7 +7,7 @@ import java.util.Map;
  * 
  * Controlador de usuario
  * 
- * @author Hugo, Felipe Mota, Yago Gusmão
+ * @author Hugo, Felipe Mota, Yago Gusmao
  *
  */
 public class UserController {
