@@ -1,6 +1,7 @@
 
 package projeto;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -272,6 +273,18 @@ public class Usuario {
 				emprestimos.get(new EmprestimoId(nomeDono, telefoneDono,
 					nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo)).setDataDevolucao(dataDevolucao);
 			
+	}
+
+	public ArrayList<Item> getListItem() {
+		ArrayList<Item> listagem = new ArrayList<Item>();
+		for(String nomeItem : itens.keySet())
+			listagem.add(this.itens.get(nomeItem));
+		return listagem;
+	}
+
+	public String pesquisarDetalhesItem(String nomeItem) {
+		this.verificaSeExisteItem(nomeItem);
+		return itens.get(nomeItem).toString();
 	}
 
 }

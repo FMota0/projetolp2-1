@@ -11,9 +11,9 @@ public class OrdemDeValor implements Comparator<Item>{
 		double valor1 = o1.getPreco();
 		double valor2 = o2.getPreco();
 		if(valor1 < valor2)
-			return 1;
-		else if(valor1 > valor2)
 			return -1;
+		else if(valor1 > valor2)
+			return 1;
 		else
 			return 0;
 	}
