@@ -1,13 +1,21 @@
 package projeto;
 
+import java.awt.List;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import java.util.Collections;
+
+import ComparadoresItens.OrdemAlfabetica;
+import ComparadoresItens.OrdemDeValor;
+import itens.Item;
 
 /**
  * 
  * Controlador de usuario
  * 
- * @author Hugo, Felipe Mota, Yago Gusmão
+ * @author Hugo, Felipe Mota, Yago Gusmao
  *
  */
 public class UserController {
@@ -221,4 +229,36 @@ public class UserController {
 
 	}
 
+	public String listarItensOrdenadosPorNome() {
+		String lista = "";
+		ArrayList<Item> superList = new ArrayList<>();
+		for(UsuarioId usuarioId : usuarios.keySet()){
+			for(Item item : this.usuarios.get(usuarioId).getListItem())
+				superList.add(item);
+		}
+		Collections.sort(superList, new OrdemAlfabetica());
+		for(Item item : superList)
+			lista += item.toString() + "|";
+		return lista;
+	}
+
+	public String listarItensOrdenadosPorValor() {
+		String lista = "";
+		ArrayList<Item> superList = new ArrayList<>();
+		for(UsuarioId usuarioId : usuarios.keySet()){
+			for(Item item : this.usuarios.get(usuarioId).getListItem())
+				superList.add(item);
+		}
+		Collections.sort(superList, new OrdemDeValor());
+		for(Item item : superList)
+			lista += item.toString() + "|";
+		return lista;
+	}
+
+	public String pesquisarDetalhesItem(String nome, String telefone, String nomeItem) {
+		this.verificaUsuarioInvalido(nome, telefone);
+		return this.usuarios.get(new UsuarioId(nome, telefone)).pesquisarDetalhesItem(nomeItem);
+	}
+	
+	
 }

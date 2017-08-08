@@ -1,5 +1,7 @@
 package itens;
 
+import java.util.Locale;
+
 public class BluRaySerie extends BluRay {
 	private String genero;
 	private int temporada;
@@ -8,6 +10,19 @@ public class BluRaySerie extends BluRay {
 		super(nomeItem, preco, duracao, classificacao);
 		this.genero = genero;
 		this.temporada = temporada;
-
 	}
+
+	@Override
+	public String toString() {
+		String emprestado;
+		if (this.isEmprestado)
+			emprestado = "Emprestado";
+		else
+			emprestado = "Nao emprestado";
+		return "SERIE: " + this.nome + ", R$ " + this.preco + ", "
+				+ emprestado + ", " + this.duracao + " min, " + this.classificacao + ", " + this.genero
+				+ ", Temporada " + this.temporada;
+	}
+	
+	
 }

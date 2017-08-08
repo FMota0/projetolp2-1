@@ -5,11 +5,11 @@ public class Facade {
 	private UserController controladorDeUsuarios;
 
 	public Facade() {
-
+		this.controladorDeUsuarios = new UserController();
 	}
 
 	public void iniciarSistema() {
-		this.controladorDeUsuarios = new UserController();
+		
 	}
 
 	public void cadastrarUsuario(String nome, String telefone, String email) {
@@ -62,6 +62,10 @@ public class Facade {
 		this.controladorDeUsuarios.cadastrarBluRaySerie(nome, telefone, nomeItem, preco, duracao, classificacao, genero,
 				temporada);
 	}
+	
+	public void adicionarBluRay(String nome, String telefone, String nomeBlurayTemporada, int duracao){
+		
+	}
 
 	public void removerItem(String nome, String telefone, String nomeItem) {
 		this.controladorDeUsuarios.removerItem(nome, telefone, nomeItem);
@@ -70,10 +74,22 @@ public class Facade {
 	public void atualizarItem(String nome, String telefone, String nomeItem, String atributo, String valor) {
 		this.controladorDeUsuarios.atualizarItem(nome, telefone, nomeItem, atributo, valor);
 	}
+	
+	public String listarItensOrdenadosPorNome(){
+		return this.controladorDeUsuarios.listarItensOrdenadosPorNome();
+	}
+	
+	public String listarItensOrdenadosPorValor() {
+		return this.controladorDeUsuarios.listarItensOrdenadosPorValor();
+	}
 
 	public void registrarEmprestimo(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente, String nomeItem, 
 			String dataEmprestimo, int periodo){
 		this.controladorDeUsuarios.registrarEmprestimo(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo, periodo);
+	}
+	
+	public String pesquisarDetalhesItem(String nome, String telefone, String nomeItem){
+		return this.controladorDeUsuarios.pesquisarDetalhesItem(nome, telefone, nomeItem);
 	}
 	
 	public void devolverItem(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente, String nomeItem, 
