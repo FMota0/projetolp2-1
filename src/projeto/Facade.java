@@ -97,6 +97,12 @@ public class Facade {
 		this.controladorDeUsuarios.devolverItem(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo, dataDevolucao);
 	}
 	
+	public String listarEmprestimosUsuarioEmprestando(String nomeDono, String telefoneDono){
+		
+		return this.controladorDeUsuarios.listarEmprestimosUsuarioEmprestando(nomeDono, telefoneDono);
+	}
+
+	
 	
 	public void fecharSistema() {
 

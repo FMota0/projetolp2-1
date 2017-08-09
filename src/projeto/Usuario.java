@@ -2,9 +2,11 @@
 package projeto;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import ComparadoresEmprestimo.OrdemAlfabeticaItem;
 import itens.BluRayFilme;
 import itens.BluRaySerie;
 import itens.BluRayShow;
@@ -258,4 +260,7 @@ public class Usuario {
 		return itemController.pesquisarDetalhesItem(nomeItem);
 	}
 
+	public String listarEmprestimosUsuarioEmprestando(String nomeDono, String telefoneDono){
+		return this.emprestimoController.listarEmprestimosUsuarioEmprestando(nomeDono, telefoneDono);
+	}
 }

@@ -10,17 +10,21 @@ public class EmprestimoId {
 	private String telefoneRequerenteItem;
 	private String nomeItem;
 	private String dataEmprestimo;
-	
-	public EmprestimoId(String nomeDonoItem, String telefoneDonoItem, String nomeRequerenteItem, String telefoneRequerente, String nomeItem,
-			String dataEmprestimo){
-		
+
+	public EmprestimoId(String nomeDonoItem, String telefoneDonoItem, String nomeRequerenteItem,
+			String telefoneRequerente, String nomeItem, String dataEmprestimo) {
+
 		this.nomeDonoItem = nomeDonoItem;
 		this.telefoneDonoItem = telefoneDonoItem;
 		this.nomeRequerenteItem = nomeRequerenteItem;
 		this.telefoneRequerenteItem = telefoneRequerente;
 		this.nomeItem = nomeItem;
 		this.dataEmprestimo = dataEmprestimo;
-		
+
+	}
+
+	public boolean isDono(String nomeDono, String telefoneDono) {
+		return this.nomeDonoItem.equals(nomeDono) && this.telefoneDonoItem.equals(telefoneDono);
 	}
 
 	@Override
@@ -78,6 +82,4 @@ public class EmprestimoId {
 		return true;
 	}
 
-	
-	
 }

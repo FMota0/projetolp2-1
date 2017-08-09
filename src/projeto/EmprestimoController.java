@@ -1,7 +1,12 @@
 package projeto;
 
+import java.awt.List;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+
+import ComparadoresEmprestimo.OrdemAlfabeticaItem;
 
 public class EmprestimoController {
 
@@ -33,4 +38,17 @@ public class EmprestimoController {
 		
 	}
 	
+	public String listarEmprestimosUsuarioEmprestando(String nomeDono, String telefoneDono){
+		ArrayList<Emprestimo> emprestimo = new ArrayList<>();
+		for(EmprestimoId emprestimoId : this.emprestimos.keySet())
+			if(emprestimoId.isDono(nomeDono, telefoneDono))
+				emprestimo.add(this.emprestimos.get(emprestimoId));
+		if(emprestimo.size() == 0)
+			return "Nenhum item emprestado";
+		Collections.sort(emprestimo, new OrdemAlfabeticaItem());
+		String lista = "Emprestimos: ";
+		for(Emprestimo emp : emprestimo)
+			lista += emp.toString() + "|";
+		return lista;
+	}
 }
