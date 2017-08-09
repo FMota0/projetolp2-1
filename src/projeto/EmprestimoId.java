@@ -82,4 +82,8 @@ public class EmprestimoId {
 		return true;
 	}
 
+	public boolean isRequerente(String nome, String telefone) {
+		return this.nomeRequerenteItem.equals(nome) && this.telefoneRequerenteItem.equals(telefone);
+	}
+
 }

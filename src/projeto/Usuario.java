@@ -246,9 +246,11 @@ public class Usuario {
 	public void devolverItem(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente,
 			String nomeItem, String dataEmprestimo, String dataDevolucao) {
 		
-		if(nomeDono.equals(this.nome) && telefone.equals(this.telefone))
+		if(nomeDono.equals(this.nome) && telefoneDono.equals(this.telefone)){
 			if(itemController.estaEmprestado(nomeItem))
 				emprestimoController.devolverItem(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo, dataDevolucao);
+		} else if(nomeRequerente.equals(this.nome) && telefoneRequerente.equals(this.telefone))
+			emprestimoController.devolverItem(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo, dataDevolucao);
 			
 	}
 
@@ -262,5 +264,9 @@ public class Usuario {
 
 	public String listarEmprestimosUsuarioEmprestando(String nomeDono, String telefoneDono){
 		return this.emprestimoController.listarEmprestimosUsuarioEmprestando(nomeDono, telefoneDono);
+	}
+	
+	public String listarEmprestimosUsuarioPegandoEmprestado(String nome, String telefone){
+		return this.emprestimoController.listarEmprestimosUsuarioPegandoEmprestado(nome, telefone);
 	}
 }
