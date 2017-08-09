@@ -1,7 +1,5 @@
 package projeto;
 
-import itens.Item;
-
 public class EmprestimoId {
 
 	private String nomeDonoItem;
@@ -21,6 +19,54 @@ public class EmprestimoId {
 		this.nomeItem = nomeItem;
 		this.dataEmprestimo = dataEmprestimo;
 
+	}
+
+	public String getNomeDonoItem() {
+		return nomeDonoItem;
+	}
+
+	public void setNomeDonoItem(String nomeDonoItem) {
+		this.nomeDonoItem = nomeDonoItem;
+	}
+
+	public String getTelefoneDonoItem() {
+		return telefoneDonoItem;
+	}
+
+	public void setTelefoneDonoItem(String telefoneDonoItem) {
+		this.telefoneDonoItem = telefoneDonoItem;
+	}
+
+	public String getNomeRequerenteItem() {
+		return nomeRequerenteItem;
+	}
+
+	public void setNomeRequerenteItem(String nomeRequerenteItem) {
+		this.nomeRequerenteItem = nomeRequerenteItem;
+	}
+
+	public String getTelefoneRequerenteItem() {
+		return telefoneRequerenteItem;
+	}
+
+	public void setTelefoneRequerenteItem(String telefoneRequerenteItem) {
+		this.telefoneRequerenteItem = telefoneRequerenteItem;
+	}
+
+	public String getNomeItem() {
+		return nomeItem;
+	}
+
+	public void setNomeItem(String nomeItem) {
+		this.nomeItem = nomeItem;
+	}
+
+	public String getDataEmprestimo() {
+		return dataEmprestimo;
+	}
+
+	public void setDataEmprestimo(String dataEmprestimo) {
+		this.dataEmprestimo = dataEmprestimo;
 	}
 
 	public boolean isDono(String nomeDono, String telefoneDono) {

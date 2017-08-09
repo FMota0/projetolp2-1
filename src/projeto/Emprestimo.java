@@ -8,11 +8,8 @@ import itens.Item;
 
 public class Emprestimo {
 
-	private String nomeDonoItem;
-	private String telefoneDonoItem;
-	private String nomeRequerenteItem;
-	private String telefoneRequerenteItem;
-	private String nomeItem;
+
+	private EmprestimoId emprestimoid;
 	private LocalDate dataInicialEmprestimo;
 	private int numeroDiasParaEmprestimo;
 	private LocalDate dataDeDevolucao;
@@ -29,63 +26,30 @@ public class Emprestimo {
 	public Emprestimo(String nomeDonoItem, String telefoneDonoItem, String nomeRequerenteItem, String telefoneRequerente, String nomeItem,
 			String dataInicialEmprestimo, int numeroDiasParaEmprestimo){
 		
-		this.nomeDonoItem = nomeDonoItem;
-		this.telefoneDonoItem = telefoneDonoItem;
-		this.nomeRequerenteItem = nomeRequerenteItem;
-		this.telefoneRequerenteItem = telefoneRequerente;
-		this.nomeItem = nomeItem;
+		this.emprestimoid = new EmprestimoId(nomeDonoItem, telefoneDonoItem, nomeRequerenteItem, telefoneRequerente, nomeItem, dataInicialEmprestimo);
 		this.dataInicialEmprestimo = this.parse(dataInicialEmprestimo);
 		this.numeroDiasParaEmprestimo = numeroDiasParaEmprestimo;
 		this.dataDeDevolucao = null;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((nomeItem == null) ? 0 : nomeItem.hashCode());
-		result = prime * result + ((nomeDonoItem == null) ? 0 : nomeDonoItem.hashCode());
-		result = prime * result + ((nomeRequerenteItem == null) ? 0 : nomeRequerenteItem.hashCode());
-		result = prime * result + ((telefoneDonoItem == null) ? 0 : telefoneDonoItem.hashCode());
-		result = prime * result + ((telefoneRequerenteItem == null) ? 0 : telefoneRequerenteItem.hashCode());
-		return result;
-	}
-
 	public String getNomeDonoItem() {
-		return nomeDonoItem;
+		return this.emprestimoid.getNomeDonoItem();
 	}
 
 	public String getTelefoneDonoItem() {
-		return telefoneDonoItem;
+		return this.emprestimoid.getTelefoneDonoItem();
 	}
 
 	public String getNomeRequerenteItem() {
-		return nomeRequerenteItem;
+		return this.emprestimoid.getNomeRequerenteItem();
 	}
 
 	public String getTelefoneRequerenteItem() {
-		return telefoneRequerenteItem;
+		return this.emprestimoid.getTelefoneRequerenteItem();
 	}
 
 	public String getNomeItem() {
-		return nomeItem;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Emprestimo other = (Emprestimo) obj;
-		if((other.getNomeDonoItem().equals(this.nomeDonoItem)) && (other.getTelefoneDonoItem().equals(this.telefoneDonoItem)) && 
-				(other.getNomeRequerenteItem().equals(this.nomeRequerenteItem)) && (other.getTelefoneDonoItem().equals(this.telefoneRequerenteItem)) && 
-				(other.getNomeItem().equals(this.nomeItem))){
-			return true;
-		}
-		return false;
+		return this.emprestimoid.getNomeItem();
 	}
 
 	public void setDataDevolucao(String dataDevolucao) {
@@ -111,12 +75,52 @@ public class Emprestimo {
 			entregado = "Emprestimo em andamento";
 		else
 			entregado = this.dataDevolucao();
-		return "EMPRESTIMO - De: " + this.nomeDonoItem + 
-				", Para: " + this.nomeRequerenteItem + 
-				", " + this.nomeItem + ", " + 
+		return "EMPRESTIMO - De: " + this.emprestimoid.getNomeDonoItem() + 
+				", Para: " + this.emprestimoid.getNomeRequerenteItem() + 
+				", " + this.emprestimoid.getNomeItem() + ", " + 
 				this.dataInicial() + 
 				", " + this.numeroDiasParaEmprestimo + 
 				" dias, ENTREGA: " + entregado;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((dataDeDevolucao == null) ? 0 : dataDeDevolucao.hashCode());
+		result = prime * result + ((dataInicialEmprestimo == null) ? 0 : dataInicialEmprestimo.hashCode());
+		result = prime * result + ((emprestimoid == null) ? 0 : emprestimoid.hashCode());
+		result = prime * result + numeroDiasParaEmprestimo;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Emprestimo other = (Emprestimo) obj;
+		if (dataDeDevolucao == null) {
+			if (other.dataDeDevolucao != null)
+				return false;
+		} else if (!dataDeDevolucao.equals(other.dataDeDevolucao))
+			return false;
+		if (dataInicialEmprestimo == null) {
+			if (other.dataInicialEmprestimo != null)
+				return false;
+		} else if (!dataInicialEmprestimo.equals(other.dataInicialEmprestimo))
+			return false;
+		if (emprestimoid == null) {
+			if (other.emprestimoid != null)
+				return false;
+		} else if (!emprestimoid.equals(other.emprestimoid))
+			return false;
+		if (numeroDiasParaEmprestimo != other.numeroDiasParaEmprestimo)
+			return false;
+		return true;
 	}
 	
 	
