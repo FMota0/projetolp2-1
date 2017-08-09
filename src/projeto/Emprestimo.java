@@ -1,5 +1,9 @@
 package projeto;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.Arrays;
+
 import itens.Item;
 
 public class Emprestimo {
@@ -9,9 +13,18 @@ public class Emprestimo {
 	private String nomeRequerenteItem;
 	private String telefoneRequerenteItem;
 	private String nomeItem;
-	private String dataInicialEmprestimo[];
+	private LocalDate dataInicialEmprestimo;
 	private int numeroDiasParaEmprestimo;
-	private String dataDeDevolucao[];
+	private LocalDate dataDeDevolucao;
+	
+	private LocalDate parse(String format){
+		String lista[] = format.split("/"); // DD - MM - YYYY
+		int dia = Integer.parseInt(lista[0]);
+		int mes = Integer.parseInt(lista[1]);
+		int ano = Integer.parseInt(lista[2]);
+		LocalDate date = LocalDate.of(ano, mes, dia);
+		return date;
+	}
 	
 	public Emprestimo(String nomeDonoItem, String telefoneDonoItem, String nomeRequerenteItem, String telefoneRequerente, String nomeItem,
 			String dataInicialEmprestimo, int numeroDiasParaEmprestimo){
@@ -21,8 +34,9 @@ public class Emprestimo {
 		this.nomeRequerenteItem = nomeRequerenteItem;
 		this.telefoneRequerenteItem = telefoneRequerente;
 		this.nomeItem = nomeItem;
-		this.dataInicialEmprestimo = dataInicialEmprestimo.split("/");
+		this.dataInicialEmprestimo = this.parse(dataInicialEmprestimo);
 		this.numeroDiasParaEmprestimo = numeroDiasParaEmprestimo;
+		this.dataDeDevolucao = null;
 	}
 
 	@Override
@@ -75,7 +89,36 @@ public class Emprestimo {
 	}
 
 	public void setDataDevolucao(String dataDevolucao) {
-		this.dataDeDevolucao = dataDevolucao.split("/");
+		this.dataDeDevolucao = this.parse(dataDevolucao);
 	}
+	
+	private String dataInicial(){ // eu nao sei mexer com LocalDate e nem pesquisar no google. Felipe
+		return this.dataInicialEmprestimo.getDayOfMonth() + "/" + 
+			   this.dataInicialEmprestimo.getMonthValue() + "/" + 
+			   this.dataInicialEmprestimo.getYear();
+	}
+	
+	private String dataDevolucao(){
+		return this.dataDeDevolucao.getDayOfMonth() + "/" + 
+			   this.dataDeDevolucao.getMonthValue() + "/" + 
+			   this.dataDeDevolucao.getYear();
+	}
+
+	@Override
+	public String toString() {
+		String entregado;
+		if(this.dataDeDevolucao == null)
+			entregado = "Emprestimo em andamento";
+		else
+			entregado = this.dataDevolucao();
+		return "EMPRESTIMO - De: " + this.nomeDonoItem + 
+				", Para: " + this.nomeRequerenteItem + 
+				", " + this.nomeItem + ", " + 
+				this.dataInicial() + 
+				", " + this.numeroDiasParaEmprestimo + 
+				" dias, ENTREGA: " + entregado;
+	}
+	
+	
 
 }

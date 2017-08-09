@@ -447,5 +447,14 @@ public class Controller {
 		this.verificaUsuarioInvalido(nome, telefone);
 		return this.usuarios.get(new UsuarioId(nome, telefone)).pesquisarDetalhesItem(nomeItem);
 	}
-
+	
+	public String listarEmprestimosUsuarioEmprestando(String nomeDono, String telefoneDono){
+		this.verificaUsuarioInvalido(nomeDono, telefoneDono);
+		return this.usuarios.get(new UsuarioId(nomeDono, telefoneDono)).listarEmprestimosUsuarioEmprestando(nomeDono, telefoneDono);
+	}
+	
+	public String listarEmprestimosUsuarioPegandoEmprestado(String nome, String telefone){
+		this.verificaUsuarioInvalido(nome, telefone);
+		return this.usuarios.get(new UsuarioId(nome, telefone)).listarEmprestimosUsuarioPegandoEmprestado(nome, telefone);
+	}
 }
