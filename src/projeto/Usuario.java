@@ -199,6 +199,7 @@ public class Usuario {
 						nomeItem, dataEmprestimo, periodo);
 				itemController.registrarEmprestimo(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem,
 						dataEmprestimo);
+				itemController.contaEmprestimo(nomeItem);
 			} else
 				throw new IllegalStateException("Item emprestado no momento");
 		else
@@ -286,6 +287,14 @@ public class Usuario {
 	}
 	public ArrayList<Item> listarItensNaoEmprestados(){
 		return this.itemController.getListItemNaoEmprestado();
+	}
+
+	public ArrayList<Item> listarItensEmprestados() {
+		return this.itemController.getListItemEmprestado();
+	}
+
+	public ArrayList<Item> listarTop10Itens() {
+		return this.itemController.listarTop10Itens();
 	}
 
 }

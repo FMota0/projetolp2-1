@@ -14,14 +14,14 @@ public class BluRaySerie extends BluRay {
 
 	@Override
 	public String toString() {
-		String emprestado;
-		if (this.isEmprestado)
-			emprestado = "Emprestado";
-		else
-			emprestado = "Nao emprestado";
 		return "SERIE: " + this.nome + ", R$ " + this.preco + ", "
-				+ emprestado + ", " + this.duracao + " min, " + this.classificacao + ", " + this.genero
+				+ super.toString() + ", " + this.duracao + " min, " + this.classificacao + ", " + this.genero
 				+ ", Temporada " + this.temporada;
+	}
+	
+	public String toStringTop10(){
+		return super.emprestimos + " emprestimos - SERIE: " + super.nome + ", R$ " + super.preco + ", " + super.toString() + ", " + super.duracao + " min, " + super.classificacao + ", " + this.genero + ", Temporada " + this.temporada;  
+		
 	}
 	
 	

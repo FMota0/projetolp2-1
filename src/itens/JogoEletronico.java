@@ -12,13 +12,8 @@ public class JogoEletronico extends Item {
 
 	@Override
 	public String toString() {
-		String emprestado;
-		if (this.isEmprestado)
-			emprestado = "Emprestado";
-		else
-			emprestado = "Nao emprestado";
 		return "JOGO ELETRONICO: " + this.nome + ", R$ " + this.preco
-				+ ", " + emprestado + ", " + this.plataforma;
+				+ ", " + super.toString() + ", " + this.plataforma;
 	}
 
 }

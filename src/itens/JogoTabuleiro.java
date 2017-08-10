@@ -18,18 +18,22 @@ public class JogoTabuleiro extends Item{
 
 	@Override
 	public String toString() {
-		String emprestado;
-		if (this.isEmprestado)
-			emprestado = "Emprestado";
-		else
-			emprestado = "Nao emprestado";
 		String hasPecasPerdidas;
 		if(this.pecasPerdidas.size() > 0)
 			hasPecasPerdidas = "COM PECAS PERDIDAS";
 		else
 			hasPecasPerdidas = "COMPLETO";
 		return "JOGO DE TABULEIRO: " + this.nome + ", R$ " + this.preco + ", "
-				+ emprestado + ", " + hasPecasPerdidas;
+				+ super.toString() + ", " + hasPecasPerdidas;
+	}
+	
+	public String toStringTop10(){
+		String hasPecasPerdidas;
+		if(this.pecasPerdidas.size() > 0)
+			hasPecasPerdidas = "COM PECAS PERDIDAS";
+		else
+			hasPecasPerdidas = "COMPLETO";
+		return super.emprestimos + " emprestimos - JOGO DE TABULEIRO: " + super.nome + ", R$ " + this.preco + ", " + super.toString() + ", " + hasPecasPerdidas;
 	}
 	
 }

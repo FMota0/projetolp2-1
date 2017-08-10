@@ -14,13 +14,8 @@ public class BluRayShow extends BluRay{
 	
 	@Override
 	public String toString() {
-		String emprestado;
-		if (this.isEmprestado)
-			emprestado = "Emprestado";
-		else
-			emprestado = "Nao emprestado";
 		return "SHOW: " + this.nome + ", R$ " + this.preco + ", "
-				+ emprestado + ", " + this.duracao + " min, " + this.classificacao + ", " + this.artista
+				+ super.toString() + ", " + this.duracao + " min, " + this.classificacao + ", " + this.artista
 				+ ", " + this.numeroFaixas + " faixas";
 	}
 

@@ -131,4 +131,28 @@ public class ItemController {
 		return (ArrayList<EmprestimoId>)this.itens.get(nomeItem).getEmprestimosId();
 	}
 
+	public ArrayList<Item> getListItemEmprestado() {
+		ArrayList<Item> listagem = new ArrayList<Item>();
+		for (String nomeItem : itens.keySet())
+			if(this.itens.get(nomeItem).getIsEmprestado()) {
+				listagem.add(this.itens.get(nomeItem));
+			}
+		return listagem;
+	}
+
+	public void contaEmprestimo(String nomeItem) {
+		itens.get(nomeItem).contaEmprestimo();
+		
+	}
+
+	public ArrayList<Item> listarTop10Itens() {
+		ArrayList<Item> array = new ArrayList<Item>();
+		for (String nomeItem : itens.keySet()){
+			if (itens.get(nomeItem).getNumEmprestimos() >= 1){
+				array.add(itens.get(nomeItem));
+			}
+		}
+		return array;
+	}
+
 }

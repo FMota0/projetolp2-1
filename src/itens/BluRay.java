@@ -9,5 +9,7 @@ public abstract class BluRay extends Item{
 		this.duracao = duracao;
 		this.classificacao = classificacao;
 	}
-
+	public String toString(){
+		return super.toString();
+	}
 }

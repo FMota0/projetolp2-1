@@ -114,6 +114,14 @@ public class Facade {
 		return this.controladorDeUsuarios.listarItensNaoEmprestados();
 	}
 	
+	public String listarItensEmprestados(){
+		return this.controladorDeUsuarios.listarItensEmprestados();
+	}
+	
+	public String listarTop10Itens(){
+		return this.controladorDeUsuarios.listarTop10Itens();
+	}
+	
 	public void fecharSistema() {
 
 	}

@@ -1,14 +1,13 @@
 package projeto;
 
-import java.awt.List;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import java.util.Collections;
-
 import ComparadoresItens.OrdemAlfabetica;
 import ComparadoresItens.OrdemDeValor;
+import ComparadoresItens.OrdemEmprestimos;
 import itens.Item;
 
 /**
@@ -487,5 +486,45 @@ public class Controller {
 		}
 		return mensagem;
 	}
+
+	public String listarItensEmprestados() {
+		String mensagem = "";
+		ArrayList<Item> superlist = new ArrayList<Item>();
+		for(UsuarioId usuarioId : usuarios.keySet()) {
+			for	(Item item : usuarios.get(usuarioId).listarItensEmprestados())
+				superlist.add(item);
+		}
+		Collections.sort(superlist, new OrdemAlfabetica());
+		for(Item item : superlist) {
+			mensagem += item.toStringEmprestado()+ "|";
+		}
+		return mensagem;
+	}
+
+	public String listarTop10Itens() {
+		String mensagem = "";
+		int i = 1;
+		ArrayList<Item> superlist = new ArrayList<Item>();
+		for (UsuarioId usuarioId : usuarios.keySet()){
+			for (Item item: usuarios.get(usuarioId).listarTop10Itens()){
+				superlist.add(item);
+			}
+		}
+		Collections.sort(superlist, new OrdemEmprestimos());
+		for(Item item : superlist) { 
+			if (i > 10)
+				break;
+			mensagem += i + ") " + item.toStringTop10() + "|";
+			i += 1;
+		}
+		return mensagem;
+	}
+	//<1) 2 emprestimos - JOGO DE TABULEIRO: War, R$ 70.0, Emprestado, COM PECAS PERDIDAS|2) 1 emprestimos - SERIE: The Walking Dead, R$ 79.99, Nao emprestado, 120 min, DEZESSEIS_ANOS, SUSPENSE, Temporada 1|3) 1 emprestimos - JOGO DE TABULEIRO: Xadrez de Bruxo, R$ 1000.0, Emprestado, COMPLETO|>, 
+	//<1) 2 emprestimos - JOGO DE TABULEIRO: War, R$ 70.0, Emprestado, COM PECAS PERDIDAS|1) 1 emprestimos - SERIE: The Walking Dead, R$ 79.99, Nao emprestado, 120 min, DEZESSEIS_ANOS, SUSPENSE, Temporada1|1) 1 emprestimos - JOGO DE TABULEIRO: Xadrez de Bruxo, R$ 1000.0, Emprestado, COMPLETO|>
+	
+
+
+
+	
 	
 }

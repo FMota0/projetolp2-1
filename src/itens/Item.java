@@ -12,6 +12,7 @@ public abstract class Item {
 	protected String nome;
 	protected boolean isEmprestado;
 	protected ArrayList<EmprestimoId> emprestimoIds;
+	protected int emprestimos;
 
 	private void validePreco(double preco) {
 		if (preco < 0)
@@ -51,7 +52,15 @@ public abstract class Item {
 		this.validePreco(preco);
 		this.nome = nome;
 	}
-
+	
+	public void contaEmprestimo(){
+		this.emprestimos += 1;
+	}
+	
+	public int getNumEmprestimos(){
+		return this.emprestimos;
+	}
+	
 	public void addEmprestimo(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente,
 			String nomeItem, String dataEmprestimo) {
 		emprestimoIds.add(
@@ -91,5 +100,20 @@ public abstract class Item {
 	public void setIsEmprestado(boolean emprestimo) {
 		this.isEmprestado = emprestimo;
 	}
+	
+	public String toStringEmprestado(){
+		return "Dono do item: " + emprestimoIds.get(emprestimoIds.size()-1).getNomeDonoItem() + ", Nome do item emprestado: " + this.nome;
+	}
+	
+	public String toString(){
+		if (this.isEmprestado)
+			return  "Emprestado";
+		else
+			return  "Nao emprestado";
+	}
+	public String toStringTop10() {
+		return null;
+	}
+	
 
 }
