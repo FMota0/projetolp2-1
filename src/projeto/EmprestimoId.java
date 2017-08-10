@@ -37,6 +37,13 @@ public class EmprestimoId {
 		this.telefoneDonoItem = telefoneDonoItem;
 	}
 
+	@Override
+	public String toString() {
+		return "EmprestimoId [nomeDonoItem=" + nomeDonoItem + ", telefoneDonoItem=" + telefoneDonoItem
+				+ ", nomeRequerenteItem=" + nomeRequerenteItem + ", telefoneRequerenteItem=" + telefoneRequerenteItem
+				+ ", nomeItem=" + nomeItem + ", dataEmprestimo=" + dataEmprestimo + "]";
+	}
+
 	public String getNomeRequerenteItem() {
 		return nomeRequerenteItem;
 	}
@@ -72,6 +79,8 @@ public class EmprestimoId {
 	public boolean isDono(String nomeDono, String telefoneDono) {
 		return this.nomeDonoItem.equals(nomeDono) && this.telefoneDonoItem.equals(telefoneDono);
 	}
+
+
 
 	@Override
 	public int hashCode() {

@@ -106,6 +106,13 @@ public class Facade {
 		return this.controladorDeUsuarios.listarEmprestimosUsuarioPegandoEmprestado(nome, telefone);
 	}
 	
+	public String listarEmprestimosItem(String nomeItem) {
+		return this.controladorDeUsuarios.listarEmprestimosItem(nomeItem);
+	}
+	
+	public String listarItensNaoEmprestados() {
+		return this.controladorDeUsuarios.listarItensNaoEmprestados();
+	}
 	
 	public void fecharSistema() {
 
