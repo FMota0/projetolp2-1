@@ -1,28 +1,64 @@
 package itens;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import projeto.EmprestimoId;
+
+/**
+ * Instacia itens
+ * 
+ * @author Hugo, Felipe Mota, Yago Gusmao
+ *
+ */
 public abstract class Item {
-	
+
 	protected double preco;
 	protected String nome;
 	protected boolean isEmprestado;
-	
-	private void validePreco(double preco){
+	protected List<EmprestimoId> emprestimoIds;
+
+	/**
+	 * Verifica a validez da entrada do preco do item
+	 * 
+	 * @param preco
+	 *            Preco de venda do item
+	 */
+	private void validePreco(double preco) {
 		if (preco < 0)
 			throw new IllegalArgumentException("Preco invalido");
 	}
-	private void valideNome(String nome){
-		if(nome == null || nome.trim().equals(""))
+
+	/**
+	 * Verifica a validez da entrada do nome do usuario.
+	 * 
+	 * @param nome
+	 *            Nome do usuario
+	 */
+	private void valideNome(String nome) {
+		if (nome == null || nome.trim().equals(""))
 			throw new IllegalArgumentException("Nome de usuario invalido");
 	}
-	
-	public Item(String nome, double preco){
-		
+
+	/**
+	 * Construtor de um item
+	 * 
+	 * @param nome
+	 *            Nome do item
+	 * @param preco
+	 *            Preco de venda do item
+	 */
+	public Item(String nome, double preco) {
+
 		this.valideNome(nome);
 		this.validePreco(preco);
-		
+
 		this.preco = preco;
 		this.nome = nome;
 		this.isEmprestado = false;
+		this.emprestimoIds = new ArrayList<EmprestimoId>();
 	}
 
 	public double getPreco() {
@@ -42,34 +78,75 @@ public abstract class Item {
 		this.validePreco(preco);
 		this.nome = nome;
 	}
-	
+
+	/**
+	 * Adiciona novo emprestimo no registro de emprestimos
+	 * 
+	 * @param nomeDono
+	 * @param telefoneDono
+	 * @param nomeRequerente
+	 * @param telefoneRequerente
+	 * @param nomeItem
+	 * @param dataEmprestimo
+	 */
+	public void addEmprestimo(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente,
+			String nomeItem, String dataEmprestimo) {
+		emprestimoIds.add(
+				new EmprestimoId(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo));
+
+	}
+
+	/**
+	 * Recupera historico de emprestimos
+	 * 
+	 * @return lista de todos os emprestimos
+	 */
+	public List<EmprestimoId> getEmprestimosId() {
+		return (ArrayList<EmprestimoId>) emprestimoIds;
+	}
+
+	/**
+	 * Modifica atributo (nome ou preco) de item
+	 * 
+	 * @param atributo
+	 *            Atributo para modificacao
+	 * @param valor
+	 *            Informacao atual para substituicao
+	 */
 	public void mudaAtributo(String atributo, String valor) {
 
-		if(atributo.toLowerCase().equals("preco"))
+		if (atributo.toLowerCase().equals("preco"))
 			this.setPreco(Double.parseDouble(valor));
-		else if(atributo.toLowerCase().equals("nome"))
+		else if (atributo.toLowerCase().equals("nome"))
 			this.setNome(valor);
 		else
 			throw new IllegalArgumentException("Argumento invalido");
-		
+
 	}
 
-	public String getAtributo(String atributo){
-		
-		if(atributo.toLowerCase().equals("preco"))
+	/**
+	 * Retorna informacao de um atributo do item (nome ou preco)
+	 * 
+	 * @param atributo
+	 *            Atributo desejado para informacao
+	 * @return detalhes do atributo
+	 */
+	public String getAtributo(String atributo) {
+
+		if (atributo.toLowerCase().equals("preco"))
 			return "" + this.getPreco();
-		else if(atributo.toLowerCase().equals("nome"))
+		else if (atributo.toLowerCase().equals("nome"))
 			return this.getNome();
 		else
 			throw new IllegalArgumentException("Argumento invalido");
 	}
-	
+
 	public boolean getIsEmprestado() {
 		return isEmprestado;
 	}
 
-	public void setIsEmprestado(boolean emprestimo){
+	public void setIsEmprestado(boolean emprestimo) {
 		this.isEmprestado = emprestimo;
 	}
-	
+
 }

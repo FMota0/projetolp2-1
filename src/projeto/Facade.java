@@ -2,10 +2,10 @@
 package projeto;
 
 public class Facade {
-	private UserController controladorDeUsuarios;
+	private Controller controladorDeUsuarios;
 
 	public Facade() {
-		this.controladorDeUsuarios = new UserController();
+		this.controladorDeUsuarios = new Controller();
 	}
 
 	public void iniciarSistema() {
@@ -97,6 +97,22 @@ public class Facade {
 		this.controladorDeUsuarios.devolverItem(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo, dataDevolucao);
 	}
 	
+	public String listarEmprestimosUsuarioEmprestando(String nomeDono, String telefoneDono){
+		
+		return this.controladorDeUsuarios.listarEmprestimosUsuarioEmprestando(nomeDono, telefoneDono);
+	}
+
+	public String listarEmprestimosUsuarioPegandoEmprestado(String nome, String telefone){
+		return this.controladorDeUsuarios.listarEmprestimosUsuarioPegandoEmprestado(nome, telefone);
+	}
+	
+	public String listarEmprestimosItem(String nomeItem) {
+		return this.controladorDeUsuarios.listarEmprestimosItem(nomeItem);
+	}
+	
+	public String listarItensNaoEmprestados() {
+		return this.controladorDeUsuarios.listarItensNaoEmprestados();
+	}
 	
 	public void fecharSistema() {
 

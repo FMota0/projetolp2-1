@@ -1,7 +1,5 @@
 package projeto;
 
-import itens.Item;
-
 public class EmprestimoId {
 
 	private String nomeDonoItem;
@@ -10,18 +8,79 @@ public class EmprestimoId {
 	private String telefoneRequerenteItem;
 	private String nomeItem;
 	private String dataEmprestimo;
-	
-	public EmprestimoId(String nomeDonoItem, String telefoneDonoItem, String nomeRequerenteItem, String telefoneRequerente, String nomeItem,
-			String dataEmprestimo){
-		
+
+	public EmprestimoId(String nomeDonoItem, String telefoneDonoItem, String nomeRequerenteItem,
+			String telefoneRequerente, String nomeItem, String dataEmprestimo) {
+
 		this.nomeDonoItem = nomeDonoItem;
 		this.telefoneDonoItem = telefoneDonoItem;
 		this.nomeRequerenteItem = nomeRequerenteItem;
 		this.telefoneRequerenteItem = telefoneRequerente;
 		this.nomeItem = nomeItem;
 		this.dataEmprestimo = dataEmprestimo;
-		
+
 	}
+
+	public String getNomeDonoItem() {
+		return nomeDonoItem;
+	}
+
+	public void setNomeDonoItem(String nomeDonoItem) {
+		this.nomeDonoItem = nomeDonoItem;
+	}
+
+	public String getTelefoneDonoItem() {
+		return telefoneDonoItem;
+	}
+
+	public void setTelefoneDonoItem(String telefoneDonoItem) {
+		this.telefoneDonoItem = telefoneDonoItem;
+	}
+
+	@Override
+	public String toString() {
+		return "EmprestimoId [nomeDonoItem=" + nomeDonoItem + ", telefoneDonoItem=" + telefoneDonoItem
+				+ ", nomeRequerenteItem=" + nomeRequerenteItem + ", telefoneRequerenteItem=" + telefoneRequerenteItem
+				+ ", nomeItem=" + nomeItem + ", dataEmprestimo=" + dataEmprestimo + "]";
+	}
+
+	public String getNomeRequerenteItem() {
+		return nomeRequerenteItem;
+	}
+
+	public void setNomeRequerenteItem(String nomeRequerenteItem) {
+		this.nomeRequerenteItem = nomeRequerenteItem;
+	}
+
+	public String getTelefoneRequerenteItem() {
+		return telefoneRequerenteItem;
+	}
+
+	public void setTelefoneRequerenteItem(String telefoneRequerenteItem) {
+		this.telefoneRequerenteItem = telefoneRequerenteItem;
+	}
+
+	public String getNomeItem() {
+		return nomeItem;
+	}
+
+	public void setNomeItem(String nomeItem) {
+		this.nomeItem = nomeItem;
+	}
+
+	public String getDataEmprestimo() {
+		return dataEmprestimo;
+	}
+
+	public void setDataEmprestimo(String dataEmprestimo) {
+		this.dataEmprestimo = dataEmprestimo;
+	}
+
+	public boolean isDono(String nomeDono, String telefoneDono) {
+		return this.nomeDonoItem.equals(nomeDono) && this.telefoneDonoItem.equals(telefoneDono);
+	}
+
+
 
 	@Override
 	public int hashCode() {
@@ -78,6 +137,8 @@ public class EmprestimoId {
 		return true;
 	}
 
-	
-	
+	public boolean isRequerente(String nome, String telefone) {
+		return this.nomeRequerenteItem.equals(nome) && this.telefoneRequerenteItem.equals(telefone);
+	}
+
 }

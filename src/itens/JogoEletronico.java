@@ -2,9 +2,25 @@ package itens;
 
 import java.util.Locale;
 
+/**
+ * Instancia itens do tipo Jogo Eletronico
+ * 
+ * @author HugoAddobbati
+ *
+ */
 public class JogoEletronico extends Item {
 	private String plataforma;
 
+	/**
+	 * Construtor de um item JogoEletronico
+	 * 
+	 * @param nome
+	 *            Nome do Jogo
+	 * @param preco
+	 *            Preco de venda do item
+	 * @param plataforma
+	 *            Plataforma de funcionamento do jogo
+	 */
 	public JogoEletronico(String nome, double preco, String plataforma) {
 		super(nome, preco);
 		this.plataforma = plataforma;
@@ -17,8 +33,7 @@ public class JogoEletronico extends Item {
 			emprestado = "Emprestado";
 		else
 			emprestado = "Nao emprestado";
-		return "JOGO ELETRONICO: " + this.nome + ", R$ " + this.preco
-				+ ", " + emprestado + ", " + this.plataforma;
+		return "JOGO ELETRONICO: " + this.nome + ", R$ " + this.preco + ", " + emprestado + ", " + this.plataforma;
 	}
 
 }

@@ -2,9 +2,11 @@
 package projeto;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import ComparadoresEmprestimo.OrdemAlfabeticaItem;
 import itens.BluRayFilme;
 import itens.BluRaySerie;
 import itens.BluRayShow;
@@ -15,68 +17,30 @@ import itens.JogoTabuleiro;
 /**
  * Usuario representado por : Nome Telefone Email Conjunto de itens;
  * 
- * @author Hugo
+ * @author Hugo, Yago
  * 
  */
 public class Usuario {
 
-	private String nome;
-	private String telefone;
+	private UsuarioId usuarioid;
 	private String email;
-	private Map<String, Item> itens;
-	private Map<EmprestimoId,Emprestimo> emprestimos;
+	private ItemController itemController;
+	private EmprestimoController emprestimoController;
 
-	private void verificaSeExisteItem(String nomeItem){
-		if(!this.existeItem(nomeItem))
-			throw new IllegalArgumentException("Item nao encontrado");
-	}
-	
 	public Usuario(String nome, String telefone, String email) {
 
 		this.valideNome(nome);
 		this.valideTelefone(telefone);
 		this.valideEmail(email);
 
-		this.nome = nome;
-		this.telefone = telefone;
 		this.email = email;
-		this.itens = new HashMap<String, Item>();
-		this.emprestimos = new HashMap<EmprestimoId,Emprestimo>();
+		this.usuarioid = new UsuarioId(nome, telefone);
+		this.itemController = new ItemController();
+		this.emprestimoController = new EmprestimoController();
 	}
 
 	public void cadastraItem(Item item) {
-		itens.put(item.getNome(), item);
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-		result = prime * result + ((telefone == null) ? 0 : telefone.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Usuario other = (Usuario) obj;
-		if (nome == null) {
-			if (other.nome != null)
-				return false;
-		} else if (!nome.equals(other.nome))
-			return false;
-		if (telefone == null) {
-			if (other.telefone != null)
-				return false;
-		} else if (!telefone.equals(other.telefone))
-			return false;
-		return true;
+		itemController.cadastraItem(item);
 	}
 
 	/**
@@ -119,21 +83,22 @@ public class Usuario {
 	}
 
 	public String getNome() {
-		return nome;
+		return usuarioid.getNome();
 	}
 
 	public void setNome(String nome) {
 		this.valideNome(nome);
-		this.nome = nome;
+		this.usuarioid.setNome(nome);
 	}
 
 	public String getTelefone() {
-		return telefone;
+		return usuarioid.getTelefone();
 	}
 
 	public void setTelefone(String telefone) {
 		this.valideTelefone(telefone);
-		this.telefone = telefone;
+		this.usuarioid.setTelefone(telefone);
+		;
 	}
 
 	public String getEmail() {
@@ -147,11 +112,11 @@ public class Usuario {
 
 	@Override
 	public String toString() {
-		return nome + ", " + email + ", " + telefone;
+		return usuarioid.getNome() + ", " + email + ", " + this.email;
 	}
-	
-	public boolean existeItem(String nomeItem){
-		return this.itens.containsKey(nomeItem);
+
+	public boolean existeItem(String nomeItem) {
+		return itemController.existeItem(nomeItem);
 	}
 
 	public String getAtributo(String atributo) {
@@ -177,114 +142,150 @@ public class Usuario {
 	}
 
 	public String getInfoItem(String nomeItem, String atributo) {
-		
-		this.verificaSeExisteItem(nomeItem);
-		return this.itens.get(nomeItem).getAtributo(atributo);
+
+		return itemController.getInfoItem(nomeItem, atributo);
 	}
 
 	public boolean adicionarPecaPerdida(String nomeItem, String peca) {
-		
-		this.verificaSeExisteItem(nomeItem);
-		
-		if (!(itens.get(nomeItem) instanceof JogoTabuleiro)) { // WTF hugo ???
-			throw new IllegalArgumentException("Item selecionado nao e jogo de tabuleiro");
-		}
-		JogoTabuleiro item = (JogoTabuleiro) itens.get(nomeItem);
-		return item.adicionarPecaPerdida(peca);
+
+		return itemController.adicionarPecaPerdida(nomeItem, peca);
 	}
 
 	public void removerItem(String nomeItem) {
-		this.verificaSeExisteItem(nomeItem);
-		itens.remove(nomeItem);
+		itemController.removerItem(nomeItem);
 	}
 
 	public void atualizarItem(String nomeItem, String atributo, String valor) {
-		this.verificaSeExisteItem(nomeItem);
-		Item item = this.itens.get(nomeItem);
-		this.itens.remove(nomeItem);
-		item.mudaAtributo(atributo, valor);
-		nomeItem = item.getNome();
-		this.itens.put(nomeItem, item);
+		itemController.atualizarItem(nomeItem, atributo, valor);
 	}
 
 	public void cadastrarEletronico(String nomeItem, double preco, String plataforma) {
-		this.itens.put(nomeItem, new JogoEletronico(nomeItem, preco, plataforma));
-		
+		itemController.cadastrarEletronico(nomeItem, preco, plataforma);
+
 	}
 
 	public void cadastrarTabuleiro(String nomeItem, double preco) {
-		this.itens.put(nomeItem, new JogoTabuleiro(nomeItem, preco));
+		itemController.cadastrarTabuleiro(nomeItem, preco);
 	}
 
 	public void cadastrarBluRaySerie(String nomeItem, double preco, int duracao, String classificacao, String genero,
 			int temporada) {
-		this.itens.put(nomeItem, new BluRaySerie(nomeItem, preco, duracao, classificacao, genero, temporada));
-		
+		itemController.cadastrarBluRaySerie(nomeItem, preco, duracao, classificacao, genero, temporada);
+
 	}
 
 	public void cadastrarBluRayShow(String nomeItem, double preco, int duracao, String classificacao, int numeroFaixas,
 			String artista) {
-		this.itens.put(nomeItem, new BluRayShow(nomeItem, preco, duracao, classificacao, numeroFaixas, artista));
-		
+		itemController.cadastrarBluRayShow(nomeItem, preco, duracao, classificacao, numeroFaixas, artista);
+
 	}
 
 	public void cadastrarBluRayFilme(String nomeItem, double preco, int duracao, String classificacao, String genero,
 			int anoLancamento) {
-		this.itens.put(nomeItem, new BluRayFilme(nomeItem, preco, duracao, classificacao, genero, anoLancamento));
-		
+		itemController.cadastrarBluRayFilme(nomeItem, preco, duracao, classificacao, genero, anoLancamento);
+
 	}
 
 	public void registrarEmprestimo(String nomeDono, String telefoneDono, String nomeRequerente,
 			String telefoneRequerente, String nomeItem, String dataEmprestimo, int periodo) {
-		
-		if(nomeDono.equals(this.nome) && telefone.equals(this.telefone))
-			if(!existeItem(nomeItem))
+
+		if (nomeDono.equals(this.usuarioid.getNome()) && telefoneDono.equals(this.usuarioid.getTelefone()))
+			if (!existeItem(nomeItem))
 				throw new NullPointerException("Item nao encontrado");
-		
-		if(nomeDono.equals(this.nome) && telefone.equals(this.telefone))
-			if(!itens.get(nomeItem).getIsEmprestado())
-				emprestimos.put(new EmprestimoId(nomeDono, telefoneDono,
-					nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo), new Emprestimo(nomeDono, telefoneDono,
-					nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo, periodo));
-			else
+
+		if (nomeDono.equals(this.usuarioid.getNome()) && telefoneDono.equals(this.usuarioid.getTelefone()))
+			if (!itemController.estaEmprestado(nomeItem)) {
+				emprestimoController.registrarEmprestimo(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente,
+						nomeItem, dataEmprestimo, periodo);
+				itemController.registrarEmprestimo(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem,
+						dataEmprestimo);
+			} else
 				throw new IllegalStateException("Item emprestado no momento");
 		else
-			emprestimos.put(new EmprestimoId(nomeDono, telefoneDono,
-					nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo), new Emprestimo(nomeDono, telefoneDono,
-					nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo, periodo));
+			emprestimoController.registrarEmprestimo(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente,
+					nomeItem, dataEmprestimo, periodo);
+
 	}
-	
-	public void mudaEstadoItem(String nomeItem){
-		if(existeItem(nomeItem))
-			this.itens.get(nomeItem).setIsEmprestado(!this.itens.get(nomeItem).getIsEmprestado());
+
+	public void mudaEstadoItem(String nomeItem) {
+		itemController.mudaEstadoItem(nomeItem);
 	}
 
 	public void devolverItem(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente,
 			String nomeItem, String dataEmprestimo, String dataDevolucao) {
-		
-		if(!emprestimos.containsKey(new EmprestimoId(nomeDono, telefoneDono,
-				nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo)))
-			throw new IllegalStateException("Emprestimo nao encontrado");
 
-				
-		
-		if(nomeDono.equals(this.nome) && telefone.equals(this.telefone))
-			if(itens.get(nomeItem).getIsEmprestado())
-				emprestimos.get(new EmprestimoId(nomeDono, telefoneDono,
-					nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo)).setDataDevolucao(dataDevolucao);
-			
+		if (nomeDono.equals(this.usuarioid.getNome()) && telefoneDono.equals(this.usuarioid.getTelefone())) {
+			if (itemController.estaEmprestado(nomeItem))
+				emprestimoController.devolverItem(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem,
+						dataEmprestimo, dataDevolucao);
+		} else if (nomeRequerente.equals(this.usuarioid.getNome())
+				&& telefoneRequerente.equals(this.usuarioid.getTelefone()))
+			emprestimoController.devolverItem(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem,
+					dataEmprestimo, dataDevolucao);
+
 	}
 
 	public ArrayList<Item> getListItem() {
-		ArrayList<Item> listagem = new ArrayList<Item>();
-		for(String nomeItem : itens.keySet())
-			listagem.add(this.itens.get(nomeItem));
-		return listagem;
+		return itemController.getListItem();
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((usuarioid == null) ? 0 : usuarioid.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (usuarioid == null) {
+			if (other.usuarioid != null)
+				return false;
+		} else if (!usuarioid.equals(other.usuarioid))
+			return false;
+		return true;
 	}
 
 	public String pesquisarDetalhesItem(String nomeItem) {
-		this.verificaSeExisteItem(nomeItem);
-		return itens.get(nomeItem).toString();
+		return itemController.pesquisarDetalhesItem(nomeItem);
+	}
+
+	public String listarEmprestimosUsuarioEmprestando(String nomeDono, String telefoneDono) {
+		return this.emprestimoController.listarEmprestimosUsuarioEmprestando(nomeDono, telefoneDono);
+	}
+
+	public String listarEmprestimosUsuarioPegandoEmprestado(String nome, String telefone) {
+		return this.emprestimoController.listarEmprestimosUsuarioPegandoEmprestado(nome, telefone);
+	}
+
+	public String listarEmprestimosItem(String nomeItem) {
+		String mensagem = "";
+		if (itemController.existeItem(nomeItem)) {
+			{
+				mensagem += emprestimoController.toStringEmprestimo(itemController.getEmprestimos(nomeItem));
+
+			}
+		}
+		return mensagem;
+		
+
+	}
+	public ArrayList<Item> listarItensNaoEmprestados(){
+		return this.itemController.getListItemNaoEmprestado();
 	}
 
 }

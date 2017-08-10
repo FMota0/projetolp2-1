@@ -13,19 +13,17 @@ import itens.Item;
 
 /**
  * 
- * Controlador de usuario
+ * Classe responsavel pela implementação dos metodos das atividades que o
+ * usuario pode realizar.
  * 
  * @author Hugo, Felipe Mota, Yago Gusmao
  *
  */
-public class UserController {
+public class Controller {
 
-	/**
-	 * 
-	 */
 	private Map<UsuarioId, Usuario> usuarios;
 
-	public UserController() {
+	public Controller() {
 		this.usuarios = new HashMap<UsuarioId, Usuario>();
 	}
 
@@ -101,10 +99,28 @@ public class UserController {
 
 	}
 
+	/**
+	 * Verifica se usuario ja existe no sistema.
+	 * 
+	 * @param nome
+	 *            Nome do usuario
+	 * @param telefone
+	 *            Telefone do usuario
+	 * @return Usuario cadastrado com os paramentros dados
+	 */
 	public boolean existeUsuario(String nome, String telefone) {
 		return usuarios.containsKey(new UsuarioId(nome, telefone));
 	}
 
+	/**
+	 * Recupera informacoes do usuario requerido (toString)
+	 * 
+	 * @param nome
+	 *            Nome do usuario
+	 * @param telefone
+	 *            telefone do usuario
+	 * @return Padrao textual das informacoes do usuario requerido
+	 */
 	public String listarUsuario(String nome, String telefone) {
 
 		this.verificaUsuarioInvalido(nome, telefone);
@@ -121,6 +137,17 @@ public class UserController {
 		return str;
 	}
 
+	/**
+	 * Recupera informacao de um atributo especifico do usuario requerido
+	 * 
+	 * @param nome
+	 *            Nome do usuario
+	 * @param telefone
+	 *            Telefone do usuario
+	 * @param atributo
+	 *            Atributo desejado para informacoes
+	 * @return informacoes do atributo do usuario
+	 */
 	public String getInfoUsuario(String nome, String telefone, String atributo) {
 
 		this.verificaUsuarioInvalido(nome, telefone);
@@ -401,6 +428,7 @@ public class UserController {
 
 	/**
 	 * Retorna uma lista de todos os itens registrados em ordem lexicográfica
+	 * 
 	 * @return lista de todos os itens registrados
 	 */
 	public String listarItensOrdenadosPorNome() {
@@ -417,7 +445,9 @@ public class UserController {
 	}
 
 	/**
-	 * Retorna uma lista de todos os itens registrados em ordem por seus respectivos precos
+	 * Retorna uma lista de todos os itens registrados em ordem por seus respectivos
+	 * precos
+	 * 
 	 * @return lista de todos os itens registrados
 	 */
 	public String listarItensOrdenadosPorValor() {
@@ -435,6 +465,7 @@ public class UserController {
 
 	/**
 	 * Informar detalhes de um item pesquisado
+	 * 
 	 * @param nome
 	 *            Nome do usuario dono do item
 	 * @param telefone
@@ -446,6 +477,68 @@ public class UserController {
 	public String pesquisarDetalhesItem(String nome, String telefone, String nomeItem) {
 		this.verificaUsuarioInvalido(nome, telefone);
 		return this.usuarios.get(new UsuarioId(nome, telefone)).pesquisarDetalhesItem(nomeItem);
+	}
+
+	/**
+	 * Recura historio de emprestimos onde o usuario emprestou seus itens para outros usuarios.
+	 * @param nomeDono
+	 * Nome do usuario dono do item
+	 * @param telefoneDono
+	 * Telefone do usuario dono do item
+	 * @return lista com todos os emprestimos que o usuario emprestou itens.
+	 */
+	public String listarEmprestimosUsuarioEmprestando(String nomeDono, String telefoneDono) {
+		this.verificaUsuarioInvalido(nomeDono, telefoneDono);
+		return this.usuarios.get(new UsuarioId(nomeDono, telefoneDono)).listarEmprestimosUsuarioEmprestando(nomeDono,
+				telefoneDono);
+	}
+
+	/**
+	 * Recupera historio de emprestimos onde o usuario pegou emprestado itens de outros usuario.
+	 * @param nome
+	 * Nome do usuario
+	 * @param telefone
+	 * Telefone do usuario
+	 * @return lista com todos os emprestimos que o usuario pegou itens emprestados.
+	 */
+	public String listarEmprestimosUsuarioPegandoEmprestado(String nome, String telefone) {
+		this.verificaUsuarioInvalido(nome, telefone);
+		return this.usuarios.get(new UsuarioId(nome, telefone)).listarEmprestimosUsuarioPegandoEmprestado(nome,
+				telefone);
+	}
+
+	/**
+	 * Recupera historico de emprestimos do item.
+	 * @param nomeItem
+	 * Nome do item
+	 * @return lista com todos os emprestimos do item.
+	 */
+	public String listarEmprestimosItem(String nomeItem) {
+		String mensagem = "Emprestimos associados ao item: ";
+		for (UsuarioId usuarioId : usuarios.keySet()) {
+			mensagem += usuarios.get(usuarioId).listarEmprestimosItem(nomeItem);
+		}
+		if (mensagem.equals("Emprestimos associados ao item: "))
+			return "Nenhum emprestimos associados ao item";
+		return mensagem;
+	}
+
+	/**
+	 * Recupera lista de todos os itens que estam disponiveis para emprestimos.
+	 * @return lista de itens nao emprestados
+	 */
+	public String listarItensNaoEmprestados() {
+		String mensagem = "";
+		ArrayList<Item> superlist = new ArrayList<Item>();
+		for (UsuarioId usuarioId : usuarios.keySet()) {
+			for (Item item : usuarios.get(usuarioId).listarItensNaoEmprestados())
+				superlist.add(item);
+		}
+		Collections.sort(superlist, new OrdemAlfabetica());
+		for (Item item : superlist) {
+			mensagem += item.toString() + "|";
+		}
+		return mensagem;
 	}
 
 }
