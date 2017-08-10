@@ -145,7 +145,7 @@ public class Controller {
 			String plataforma) {
 
 		this.verificaUsuarioInvalido(nomeUsuario, telefoneUsuario);
-
+		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).addReputacao((preco/10));
 		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).cadastrarEletronico(nomeItem, preco, plataforma);
 	}
 
@@ -164,7 +164,7 @@ public class Controller {
 	public void cadastrarTabuleiro(String nomeUsuario, String telefoneUsuario, String nomeItem, double preco) {
 
 		this.verificaUsuarioInvalido(nomeUsuario, telefoneUsuario);
-
+		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).addReputacao((preco/10));
 		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).cadastrarTabuleiro(nomeItem, preco);
 	}
 
@@ -192,7 +192,7 @@ public class Controller {
 			int duracao, String classificacao, String genero, int temporada) {
 
 		this.verificaUsuarioInvalido(nomeUsuario, telefoneUsuario);
-
+		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).addReputacao((preco/10));
 		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).cadastrarBluRaySerie(nomeItem, preco, duracao,
 				classificacao, genero, temporada);
 	}
@@ -221,7 +221,7 @@ public class Controller {
 			int duracao, String classificacao, int numeroFaixas, String artista) {
 
 		this.verificaUsuarioInvalido(nomeUsuario, telefoneUsuario);
-
+		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).addReputacao((preco/10));
 		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).cadastrarBluRayShow(nomeItem, preco, duracao,
 				classificacao, numeroFaixas, artista);
 	}
@@ -250,7 +250,7 @@ public class Controller {
 			int duracao, String classificacao, String genero, int anoLancamento) {
 
 		this.verificaUsuarioInvalido(nomeUsuario, telefoneUsuario);
-
+		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).addReputacao((preco/10));
 		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).cadastrarBluRayFilme(nomeItem, preco, duracao,
 				classificacao, genero, anoLancamento);
 
@@ -393,6 +393,8 @@ public class Controller {
 				telefoneRequerente, nomeItem, dataEmprestimo, dataDevolucao);
 		usuarios.get(new UsuarioId(nomeRequerente, telefoneRequerente)).devolverItem(nomeDono, telefoneDono,
 				nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo, dataDevolucao);
+		usuarios.get(new UsuarioId(nomeRequerente, telefoneRequerente)).addReputacaoDevolve(nomeDono, telefoneDono,
+				nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo, usuarios.get(new UsuarioId(nomeDono, telefoneDono)).getPrecoItem(nomeItem));
 
 		usuarios.get(new UsuarioId(nomeDono, telefoneDono)).mudaEstadoItem(nomeItem);
 

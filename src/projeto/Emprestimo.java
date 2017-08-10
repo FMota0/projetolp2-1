@@ -6,19 +6,19 @@ import java.util.Map;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 
 import itens.Item;
 
 public class Emprestimo {
 
-
 	private EmprestimoId emprestimoid;
 	private LocalDate dataInicialEmprestimo;
 	private int numeroDiasParaEmprestimo;
 	private LocalDate dataDeDevolucao;
-	
-	private LocalDate parse(String format){
+
+	private LocalDate parse(String format) {
 		String lista[] = format.split("/"); // DD - MM - YYYY
 		int dia = Integer.parseInt(lista[0]);
 		int mes = Integer.parseInt(lista[1]);
@@ -26,11 +26,12 @@ public class Emprestimo {
 		LocalDate date = LocalDate.of(ano, mes, dia);
 		return date;
 	}
-	
-	public Emprestimo(String nomeDonoItem, String telefoneDonoItem, String nomeRequerenteItem, String telefoneRequerente, String nomeItem,
-			String dataInicialEmprestimo, int numeroDiasParaEmprestimo){
-		
-		this.emprestimoid = new EmprestimoId(nomeDonoItem, telefoneDonoItem, nomeRequerenteItem, telefoneRequerente, nomeItem, dataInicialEmprestimo);
+
+	public Emprestimo(String nomeDonoItem, String telefoneDonoItem, String nomeRequerenteItem,
+			String telefoneRequerente, String nomeItem, String dataInicialEmprestimo, int numeroDiasParaEmprestimo) {
+
+		this.emprestimoid = new EmprestimoId(nomeDonoItem, telefoneDonoItem, nomeRequerenteItem, telefoneRequerente,
+				nomeItem, dataInicialEmprestimo);
 		this.dataInicialEmprestimo = this.parse(dataInicialEmprestimo);
 		this.numeroDiasParaEmprestimo = numeroDiasParaEmprestimo;
 		this.dataDeDevolucao = null;
@@ -59,32 +60,28 @@ public class Emprestimo {
 	public void setDataDevolucao(String dataDevolucao) {
 		this.dataDeDevolucao = this.parse(dataDevolucao);
 	}
-	
-	private String dataInicial(){ // eu nao sei mexer com LocalDate e nem pesquisar no google. Felipe
-		return this.dataInicialEmprestimo.getDayOfMonth() + "/" + 
-			   this.dataInicialEmprestimo.getMonthValue() + "/" + 
-			   this.dataInicialEmprestimo.getYear();
+
+	private String dataInicial() { // eu nao sei mexer com LocalDate e nem
+									// pesquisar no google. Felipe
+		return this.dataInicialEmprestimo.getDayOfMonth() + "/" + this.dataInicialEmprestimo.getMonthValue() + "/"
+				+ this.dataInicialEmprestimo.getYear();
 	}
-	
-	private String dataDevolucao(){
-		return this.dataDeDevolucao.getDayOfMonth() + "/" + 
-			   this.dataDeDevolucao.getMonthValue() + "/" + 
-			   this.dataDeDevolucao.getYear();
+
+	private String dataDevolucao() {
+		return this.dataDeDevolucao.getDayOfMonth() + "/" + this.dataDeDevolucao.getMonthValue() + "/"
+				+ this.dataDeDevolucao.getYear();
 	}
 
 	@Override
 	public String toString() {
 		String entregado;
-		if(this.dataDeDevolucao == null)
+		if (this.dataDeDevolucao == null)
 			entregado = "Emprestimo em andamento";
 		else
 			entregado = this.dataDevolucao();
-		return "EMPRESTIMO - De: " + this.emprestimoid.getNomeDonoItem() + 
-				", Para: " + this.emprestimoid.getNomeRequerenteItem() + 
-				", " + this.emprestimoid.getNomeItem() + ", " + 
-				this.dataInicial() + 
-				", " + this.numeroDiasParaEmprestimo + 
-				" dias, ENTREGA: " + entregado;
+		return "EMPRESTIMO - De: " + this.emprestimoid.getNomeDonoItem() + ", Para: "
+				+ this.emprestimoid.getNomeRequerenteItem() + ", " + this.emprestimoid.getNomeItem() + ", "
+				+ this.dataInicial() + ", " + this.numeroDiasParaEmprestimo + " dias, ENTREGA: " + entregado;
 	}
 
 	@Override
@@ -126,8 +123,20 @@ public class Emprestimo {
 			return false;
 		return true;
 	}
-	
-	
-	
+
+	private int getElapsedDate() {
+		if (!(dataDeDevolucao == null)) {
+			return ((int) dataInicialEmprestimo.until(dataDeDevolucao, ChronoUnit.DAYS));
+		}
+		throw new IllegalArgumentException("Emprestimo ainda em andamento");
+	}
+
+	public int getDiasMulta() {
+		if (this.getElapsedDate() > this.numeroDiasParaEmprestimo) {
+			return this.getElapsedDate() - numeroDiasParaEmprestimo;
+		} else {
+			return 0;
+		}
+	}
 
 }

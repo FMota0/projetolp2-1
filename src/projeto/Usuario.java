@@ -26,6 +26,7 @@ public class Usuario {
 	private String email;
 	private ItemController itemController;
 	private EmprestimoController emprestimoController;
+	private ReputacaoController reputacaoController;
 
 	public Usuario(String nome, String telefone, String email) {
 
@@ -37,12 +38,8 @@ public class Usuario {
 		this.usuarioid = new UsuarioId(nome, telefone);
 		this.itemController = new ItemController();
 		this.emprestimoController = new EmprestimoController();
+		this.reputacaoController = new ReputacaoController();
 	}
-
-	public void cadastraItem(Item item) {
-		itemController.cadastraItem(item);
-	}
-
 	/**
 	 * Validando o nome do usuario
 	 * 
@@ -109,6 +106,14 @@ public class Usuario {
 		this.valideEmail(email);
 		this.email = email;
 	}
+	
+	public void addReputacao(double reputacao){
+		this.reputacaoController.addReputacao(reputacao);
+	}
+	
+	public double getReputacao(){
+		return this.reputacaoController.getReputacao();
+	}
 
 	@Override
 	public String toString() {
@@ -156,6 +161,7 @@ public class Usuario {
 	}
 
 	public void atualizarItem(String nomeItem, String atributo, String valor) {
+		
 		itemController.atualizarItem(nomeItem, atributo, valor);
 	}
 
@@ -166,6 +172,7 @@ public class Usuario {
 
 	public void cadastrarTabuleiro(String nomeItem, double preco) {
 		itemController.cadastrarTabuleiro(nomeItem, preco);
+		
 	}
 
 	public void cadastrarBluRaySerie(String nomeItem, double preco, int duracao, String classificacao, String genero,
@@ -200,6 +207,7 @@ public class Usuario {
 				itemController.registrarEmprestimo(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem,
 						dataEmprestimo);
 				itemController.contaEmprestimo(nomeItem);
+				reputacaoController.addReputacao(itemController.getPrecoItem(nomeItem)/10);
 			} else
 				throw new IllegalStateException("Item emprestado no momento");
 		else
@@ -219,6 +227,8 @@ public class Usuario {
 			if (itemController.estaEmprestado(nomeItem))
 				emprestimoController.devolverItem(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem,
 						dataEmprestimo, dataDevolucao);
+			else 
+				throw new IllegalStateException("Item nao emprestado no momento");
 		} else if (nomeRequerente.equals(this.usuarioid.getNome())
 				&& telefoneRequerente.equals(this.usuarioid.getTelefone()))
 			emprestimoController.devolverItem(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem,
@@ -295,6 +305,22 @@ public class Usuario {
 
 	public ArrayList<Item> listarTop10Itens() {
 		return this.itemController.listarTop10Itens();
+	}
+	
+	public double getPrecoItem(String nomeItem){
+		return this.itemController.getPrecoItem(nomeItem);
+	}
+	public void addReputacaoDevolve(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente, String nomeItem, String dataEmprestimo, double preco) {
+		int diasMulta = emprestimoController.getMulta(nomeDono, telefoneDono,
+				nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo);
+		if (diasMulta > 0){
+			this.reputacaoController.addReputacao(-(preco/100) * diasMulta);
+			
+		}
+		else{
+			this.reputacaoController.addReputacao((preco/20));
+		}
+		
 	}
 
 }

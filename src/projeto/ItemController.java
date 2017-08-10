@@ -155,4 +155,8 @@ public class ItemController {
 		return array;
 	}
 
+	public double getPrecoItem(String nomeItem) {
+		return itens.get(nomeItem).getPreco();
+	}
+
 }

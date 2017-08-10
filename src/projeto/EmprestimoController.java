@@ -1,6 +1,5 @@
 package projeto;
 
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -66,15 +65,19 @@ public class EmprestimoController {
 			lista += emp.toString() + "|";
 		return lista;
 	}
-	
-	
+
 	public String toStringEmprestimo(ArrayList<EmprestimoId> emprestimosid) {
 		String mensagem = "";
 		for (EmprestimoId emprestimoid : emprestimosid) {
 			mensagem += emprestimos.get(emprestimoid).toString() + "|";
 		}
 		return mensagem;
-				
-		
+
 	}
+
+	public int getMulta(String nomeDono,String  telefoneDono,
+			String nomeRequerente,String  telefoneRequerente,String  nomeItem,String dataEmprestimo) {
+		return emprestimos.get(new EmprestimoId(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo)).getDiasMulta();
+	}
+
 }
