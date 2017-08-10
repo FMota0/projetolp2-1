@@ -401,6 +401,7 @@ public class Controller {
 
 	/**
 	 * Retorna uma lista de todos os itens registrados em ordem lexicográfica
+	 * 
 	 * @return lista de todos os itens registrados
 	 */
 	public String listarItensOrdenadosPorNome() {
@@ -417,7 +418,9 @@ public class Controller {
 	}
 
 	/**
-	 * Retorna uma lista de todos os itens registrados em ordem por seus respectivos precos
+	 * Retorna uma lista de todos os itens registrados em ordem por seus respectivos
+	 * precos
+	 * 
 	 * @return lista de todos os itens registrados
 	 */
 	public String listarItensOrdenadosPorValor() {
@@ -435,6 +438,7 @@ public class Controller {
 
 	/**
 	 * Informar detalhes de um item pesquisado
+	 * 
 	 * @param nome
 	 *            Nome do usuario dono do item
 	 * @param telefone
@@ -447,14 +451,41 @@ public class Controller {
 		this.verificaUsuarioInvalido(nome, telefone);
 		return this.usuarios.get(new UsuarioId(nome, telefone)).pesquisarDetalhesItem(nomeItem);
 	}
-	
-	public String listarEmprestimosUsuarioEmprestando(String nomeDono, String telefoneDono){
+
+	public String listarEmprestimosUsuarioEmprestando(String nomeDono, String telefoneDono) {
 		this.verificaUsuarioInvalido(nomeDono, telefoneDono);
-		return this.usuarios.get(new UsuarioId(nomeDono, telefoneDono)).listarEmprestimosUsuarioEmprestando(nomeDono, telefoneDono);
+		return this.usuarios.get(new UsuarioId(nomeDono, telefoneDono)).listarEmprestimosUsuarioEmprestando(nomeDono,
+				telefoneDono);
+	}
+
+	public String listarEmprestimosUsuarioPegandoEmprestado(String nome, String telefone) {
+		this.verificaUsuarioInvalido(nome, telefone);
+		return this.usuarios.get(new UsuarioId(nome, telefone)).listarEmprestimosUsuarioPegandoEmprestado(nome,
+				telefone);
+	}
+
+	public String listarEmprestimosItem(String nomeItem) {
+		String mensagem = "Emprestimos associados ao item: ";
+		for (UsuarioId usuarioId : usuarios.keySet()) {
+			mensagem += usuarios.get(usuarioId).listarEmprestimosItem(nomeItem);
+		}
+		if (mensagem.equals("Emprestimos associados ao item: "))
+			return "Nenhum emprestimos associados ao item";
+		return mensagem;
+	}
+
+	public String listarItensNaoEmprestados() {
+		String mensagem = "";
+		ArrayList<Item> superlist = new ArrayList<Item>();
+		for(UsuarioId usuarioId : usuarios.keySet()) {
+			for	(Item item : usuarios.get(usuarioId).listarItensNaoEmprestados())
+				superlist.add(item);
+		}
+		Collections.sort(superlist, new OrdemAlfabetica());
+		for(Item item : superlist) {
+			mensagem += item.toString() + "|";
+		}
+		return mensagem;
 	}
 	
-	public String listarEmprestimosUsuarioPegandoEmprestado(String nome, String telefone){
-		this.verificaUsuarioInvalido(nome, telefone);
-		return this.usuarios.get(new UsuarioId(nome, telefone)).listarEmprestimosUsuarioPegandoEmprestado(nome, telefone);
-	}
 }

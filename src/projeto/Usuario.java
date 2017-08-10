@@ -17,7 +17,7 @@ import itens.JogoTabuleiro;
 /**
  * Usuario representado por : Nome Telefone Email Conjunto de itens;
  * 
- * @author Hugo, Yago 
+ * @author Hugo, Yago
  * 
  */
 public class Usuario {
@@ -26,13 +26,13 @@ public class Usuario {
 	private String email;
 	private ItemController itemController;
 	private EmprestimoController emprestimoController;
-	
+
 	public Usuario(String nome, String telefone, String email) {
 
 		this.valideNome(nome);
 		this.valideTelefone(telefone);
 		this.valideEmail(email);
-		
+
 		this.email = email;
 		this.usuarioid = new UsuarioId(nome, telefone);
 		this.itemController = new ItemController();
@@ -97,7 +97,8 @@ public class Usuario {
 
 	public void setTelefone(String telefone) {
 		this.valideTelefone(telefone);
-		this.usuarioid.setTelefone(telefone);;
+		this.usuarioid.setTelefone(telefone);
+		;
 	}
 
 	public String getEmail() {
@@ -113,8 +114,8 @@ public class Usuario {
 	public String toString() {
 		return usuarioid.getNome() + ", " + email + ", " + this.email;
 	}
-	
-	public boolean existeItem(String nomeItem){
+
+	public boolean existeItem(String nomeItem) {
 		return itemController.existeItem(nomeItem);
 	}
 
@@ -141,7 +142,7 @@ public class Usuario {
 	}
 
 	public String getInfoItem(String nomeItem, String atributo) {
-		
+
 		return itemController.getInfoItem(nomeItem, atributo);
 	}
 
@@ -160,7 +161,7 @@ public class Usuario {
 
 	public void cadastrarEletronico(String nomeItem, double preco, String plataforma) {
 		itemController.cadastrarEletronico(nomeItem, preco, plataforma);
-		
+
 	}
 
 	public void cadastrarTabuleiro(String nomeItem, double preco) {
@@ -170,51 +171,58 @@ public class Usuario {
 	public void cadastrarBluRaySerie(String nomeItem, double preco, int duracao, String classificacao, String genero,
 			int temporada) {
 		itemController.cadastrarBluRaySerie(nomeItem, preco, duracao, classificacao, genero, temporada);
-		
+
 	}
 
 	public void cadastrarBluRayShow(String nomeItem, double preco, int duracao, String classificacao, int numeroFaixas,
 			String artista) {
 		itemController.cadastrarBluRayShow(nomeItem, preco, duracao, classificacao, numeroFaixas, artista);
-		
+
 	}
 
 	public void cadastrarBluRayFilme(String nomeItem, double preco, int duracao, String classificacao, String genero,
 			int anoLancamento) {
 		itemController.cadastrarBluRayFilme(nomeItem, preco, duracao, classificacao, genero, anoLancamento);
-		
+
 	}
 
 	public void registrarEmprestimo(String nomeDono, String telefoneDono, String nomeRequerente,
 			String telefoneRequerente, String nomeItem, String dataEmprestimo, int periodo) {
-		
-		if(nomeDono.equals(this.usuarioid.getNome()) && telefoneDono.equals(this.usuarioid.getTelefone()))
-			if(!existeItem(nomeItem))
+
+		if (nomeDono.equals(this.usuarioid.getNome()) && telefoneDono.equals(this.usuarioid.getTelefone()))
+			if (!existeItem(nomeItem))
 				throw new NullPointerException("Item nao encontrado");
-		
-		if(nomeDono.equals(this.usuarioid.getNome()) && telefoneDono.equals(this.usuarioid.getTelefone()))
-			if(!itemController.estaEmprestado(nomeItem))
-				emprestimoController.registrarEmprestimo(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo, periodo);
-			else
+
+		if (nomeDono.equals(this.usuarioid.getNome()) && telefoneDono.equals(this.usuarioid.getTelefone()))
+			if (!itemController.estaEmprestado(nomeItem)) {
+				emprestimoController.registrarEmprestimo(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente,
+						nomeItem, dataEmprestimo, periodo);
+				itemController.registrarEmprestimo(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem,
+						dataEmprestimo);
+			} else
 				throw new IllegalStateException("Item emprestado no momento");
 		else
-			emprestimoController.registrarEmprestimo(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo, periodo);
+			emprestimoController.registrarEmprestimo(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente,
+					nomeItem, dataEmprestimo, periodo);
 
 	}
-	
-	public void mudaEstadoItem(String nomeItem){
+
+	public void mudaEstadoItem(String nomeItem) {
 		itemController.mudaEstadoItem(nomeItem);
 	}
 
 	public void devolverItem(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente,
 			String nomeItem, String dataEmprestimo, String dataDevolucao) {
-		
-		if(nomeDono.equals(this.usuarioid.getNome()) && telefoneDono.equals(this.usuarioid.getTelefone())){
-			if(itemController.estaEmprestado(nomeItem))
-				emprestimoController.devolverItem(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo, dataDevolucao);
-		} else if(nomeRequerente.equals(this.usuarioid.getNome()) && telefoneRequerente.equals(this.usuarioid.getTelefone()))
-			emprestimoController.devolverItem(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo, dataDevolucao);
-			
+
+		if (nomeDono.equals(this.usuarioid.getNome()) && telefoneDono.equals(this.usuarioid.getTelefone())) {
+			if (itemController.estaEmprestado(nomeItem))
+				emprestimoController.devolverItem(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem,
+						dataEmprestimo, dataDevolucao);
+		} else if (nomeRequerente.equals(this.usuarioid.getNome())
+				&& telefoneRequerente.equals(this.usuarioid.getTelefone()))
+			emprestimoController.devolverItem(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem,
+					dataEmprestimo, dataDevolucao);
+
 	}
 
 	public ArrayList<Item> getListItem() {
@@ -256,11 +264,28 @@ public class Usuario {
 		return itemController.pesquisarDetalhesItem(nomeItem);
 	}
 
-	public String listarEmprestimosUsuarioEmprestando(String nomeDono, String telefoneDono){
+	public String listarEmprestimosUsuarioEmprestando(String nomeDono, String telefoneDono) {
 		return this.emprestimoController.listarEmprestimosUsuarioEmprestando(nomeDono, telefoneDono);
 	}
-	
-	public String listarEmprestimosUsuarioPegandoEmprestado(String nome, String telefone){
+
+	public String listarEmprestimosUsuarioPegandoEmprestado(String nome, String telefone) {
 		return this.emprestimoController.listarEmprestimosUsuarioPegandoEmprestado(nome, telefone);
 	}
+
+	public String listarEmprestimosItem(String nomeItem) {
+		String mensagem = "";
+		if (itemController.existeItem(nomeItem)) {
+			{
+				mensagem += emprestimoController.toStringEmprestimo(itemController.getEmprestimos(nomeItem));
+
+			}
+		}
+		return mensagem;
+		
+
+	}
+	public ArrayList<Item> listarItensNaoEmprestados(){
+		return this.itemController.getListItemNaoEmprestado();
+	}
+
 }

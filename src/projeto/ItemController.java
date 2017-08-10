@@ -14,38 +14,38 @@ import itens.JogoTabuleiro;
 public class ItemController {
 
 	private Map<String, Item> itens;
-	
-	public ItemController(){
+
+	public ItemController() {
 		itens = new HashMap<String, Item>();
 	}
-	
-	public void verificaSeExisteItem(String nomeItem){
-		if(!this.existeItem(nomeItem))
+
+	public void verificaSeExisteItem(String nomeItem) {
+		if (!this.existeItem(nomeItem))
 			throw new IllegalArgumentException("Item nao encontrado");
 	}
 
-	public boolean existeItem(String nomeItem){
+	public boolean existeItem(String nomeItem) {
 		return this.itens.containsKey(nomeItem);
 	}
 
 	public void cadastraItem(Item item) {
 		itens.put(item.getNome(), item);
 	}
-	
-	public boolean estaEmprestado(String nomeItem){
+
+	public boolean estaEmprestado(String nomeItem) {
 		return itens.get(nomeItem).getIsEmprestado();
 	}
-	
+
 	public String getInfoItem(String nomeItem, String atributo) {
-		
+
 		this.verificaSeExisteItem(nomeItem);
 		return this.itens.get(nomeItem).getAtributo(atributo);
 	}
-	
+
 	public boolean adicionarPecaPerdida(String nomeItem, String peca) {
-		
+
 		this.verificaSeExisteItem(nomeItem);
-		
+
 		if (!(itens.get(nomeItem) instanceof JogoTabuleiro)) { // WTF hugo ???
 			throw new IllegalArgumentException("Item selecionado nao e jogo de tabuleiro");
 		}
@@ -69,7 +69,7 @@ public class ItemController {
 
 	public void cadastrarEletronico(String nomeItem, double preco, String plataforma) {
 		this.itens.put(nomeItem, new JogoEletronico(nomeItem, preco, plataforma));
-		
+
 	}
 
 	public void cadastrarTabuleiro(String nomeItem, double preco) {
@@ -79,30 +79,39 @@ public class ItemController {
 	public void cadastrarBluRaySerie(String nomeItem, double preco, int duracao, String classificacao, String genero,
 			int temporada) {
 		this.itens.put(nomeItem, new BluRaySerie(nomeItem, preco, duracao, classificacao, genero, temporada));
-		
+
 	}
 
 	public void cadastrarBluRayShow(String nomeItem, double preco, int duracao, String classificacao, int numeroFaixas,
 			String artista) {
 		this.itens.put(nomeItem, new BluRayShow(nomeItem, preco, duracao, classificacao, numeroFaixas, artista));
-		
+
 	}
 
 	public void cadastrarBluRayFilme(String nomeItem, double preco, int duracao, String classificacao, String genero,
 			int anoLancamento) {
 		this.itens.put(nomeItem, new BluRayFilme(nomeItem, preco, duracao, classificacao, genero, anoLancamento));
-		
+
 	}
-	
-	public void mudaEstadoItem(String nomeItem){
-		if(existeItem(nomeItem))
+
+	public void mudaEstadoItem(String nomeItem) {
+		if (existeItem(nomeItem))
 			this.itens.get(nomeItem).setIsEmprestado(!this.itens.get(nomeItem).getIsEmprestado());
 	}
-	
+
 	public ArrayList<Item> getListItem() {
 		ArrayList<Item> listagem = new ArrayList<Item>();
-		for(String nomeItem : itens.keySet())
+		for (String nomeItem : itens.keySet())
 			listagem.add(this.itens.get(nomeItem));
+		return listagem;
+	}
+	
+	public ArrayList<Item> getListItemNaoEmprestado(){
+		ArrayList<Item> listagem = new ArrayList<Item>();
+		for (String nomeItem : itens.keySet())
+			if(!this.itens.get(nomeItem).getIsEmprestado()) {
+				listagem.add(this.itens.get(nomeItem));
+			}
 		return listagem;
 	}
 
@@ -111,5 +120,15 @@ public class ItemController {
 		return itens.get(nomeItem).toString();
 	}
 
+	public void registrarEmprestimo(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente,
+			String nomeItem, String dataEmprestimo) {
+		if(this.existeItem(nomeItem)) {
+			this.itens.get(nomeItem).addEmprestimo(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo);
+		}
+	}
 	
+	public ArrayList<EmprestimoId> getEmprestimos(String nomeItem){
+		return (ArrayList<EmprestimoId>)this.itens.get(nomeItem).getEmprestimosId();
+	}
+
 }
