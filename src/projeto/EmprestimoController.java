@@ -131,12 +131,11 @@ public class EmprestimoController {
 	}
 
 	/**
-	 * Gera representacao textual de um emprestimo entre dois usuarios
+	 * Gera representacao textual de todos os emprestimos do sistema
 	 * 
 	 * @param emprestimosid
-	 *            Objeto chave do mapa de emprestimos. Contem as informacoes de
-	 *            ambos os usuarios e do item
-	 * @return representacao textual do emprestimo
+	 *            Colecao de emprestimos
+	 * @return representacao textual de todos os emprestimos
 	 */
 	public String toStringEmprestimo(ArrayList<EmprestimoId> emprestimosid) {
 		String mensagem = "";

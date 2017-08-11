@@ -9,6 +9,22 @@ public class EmprestimoId {
 	private String nomeItem;
 	private String dataEmprestimo;
 
+	/**
+	 * Construtor do EmprestimoId
+	 * 
+	 * @param nomeDonoItem
+	 *            Nome do usuario dono do item
+	 * @param telefoneDonoItem
+	 *            Telefone do usuario dono do item
+	 * @param nomeRequerenteItem
+	 *            Nome do usuario requerente do item
+	 * @param telefoneRequerente
+	 *            Telefone do usuario requerente do item
+	 * @param nomeItem
+	 *            Nome do item
+	 * @param dataEmprestimo
+	 *            Data da realizacao do emprestimo
+	 */
 	public EmprestimoId(String nomeDonoItem, String telefoneDonoItem, String nomeRequerenteItem,
 			String telefoneRequerente, String nomeItem, String dataEmprestimo) {
 
@@ -38,6 +54,9 @@ public class EmprestimoId {
 	}
 
 	@Override
+	/**
+	 * Retorna representacao textual de um EmprestimoId
+	 */
 	public String toString() {
 		return "EmprestimoId [nomeDonoItem=" + nomeDonoItem + ", telefoneDonoItem=" + telefoneDonoItem
 				+ ", nomeRequerenteItem=" + nomeRequerenteItem + ", telefoneRequerenteItem=" + telefoneRequerenteItem
@@ -76,13 +95,23 @@ public class EmprestimoId {
 		this.dataEmprestimo = dataEmprestimo;
 	}
 
+	/**
+	 * Valida se o usuario eh dono do item
+	 * 
+	 * @param nomeDono
+	 *            Nome do usuario
+	 * @param telefoneDono
+	 *            Telefone do usuario
+	 * @return
+	 */
 	public boolean isDono(String nomeDono, String telefoneDono) {
 		return this.nomeDonoItem.equals(nomeDono) && this.telefoneDonoItem.equals(telefoneDono);
 	}
 
-
-
 	@Override
+	/**
+	 * Personaliza hashCode do objeto EmprestimoId
+	 */
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -96,6 +125,9 @@ public class EmprestimoId {
 	}
 
 	@Override
+	/**
+	 * Personaliza equals do objeto EmprestimoId
+	 */
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -137,6 +169,15 @@ public class EmprestimoId {
 		return true;
 	}
 
+	/**
+	 * Verifica a validade do usuario requerente do item
+	 * 
+	 * @param nome
+	 *            Nome do usuario requerente do item
+	 * @param telefone
+	 *            Telefone do usuario requerente do item
+	 * @return boolean
+	 */
 	public boolean isRequerente(String nome, String telefone) {
 		return this.nomeRequerenteItem.equals(nome) && this.telefoneRequerenteItem.equals(telefone);
 	}

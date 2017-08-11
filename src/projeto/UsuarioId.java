@@ -3,23 +3,24 @@ package projeto;
 /**
  * Identificador para usuario
  * 
- * @author Felipe Mota, Yago Gusmao 
+ * @author Felipe Mota, Yago Gusmao
  */
 public class UsuarioId {
 
 	private String nome;
 	private String telefone;
-	
+
 	/**
-	 * Validando  o nome do usuario
+	 * Validando o nome do usuario
+	 * 
 	 * @param nome
-	 * 		Nome do usuario
+	 *            Nome do usuario
 	 */
-	private void valideNome(String nome){
-		
-		if(nome == null || nome.trim().equals(""))
+	private void valideNome(String nome) {
+
+		if (nome == null || nome.trim().equals(""))
 			throw new IllegalArgumentException("Nome de usuario invalido");
-		
+
 	}
 
 	public void setNome(String nome) {
@@ -39,27 +40,39 @@ public class UsuarioId {
 	}
 
 	/**
-	 * Validando telefone do usuario
+	 * Valida telefone do usuario
+	 * 
 	 * @param telefone
-	 * 		Telefone do usuario
+	 *            Telefone do usuario
 	 */
-	private void valideTelefone(String telefone){
-		
-		if(telefone == null || telefone.trim().equals(""))
+	private void valideTelefone(String telefone) {
+
+		if (telefone == null || telefone.trim().equals(""))
 			throw new IllegalArgumentException("Telefone de usuario invalido");
-	
+
 	}
-	
-	public UsuarioId(String nome, String telefone){
-		
+
+	/**
+	 * Construtor do UsuarioId
+	 * 
+	 * @param nome
+	 *            Nome
+	 * @param telefone
+	 *            Telefone
+	 */
+	public UsuarioId(String nome, String telefone) {
+
 		this.valideNome(nome);
 		this.valideTelefone(telefone);
-		
+
 		this.nome = nome;
 		this.telefone = telefone;
 	}
 
 	@Override
+	/**
+	 * Personalizacao do hashCode do UsuarioId
+	 */
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -69,6 +82,9 @@ public class UsuarioId {
 	}
 
 	@Override
+	/**
+	 * Personalizacao do equals do UsuarioId
+	 */
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -89,5 +105,5 @@ public class UsuarioId {
 			return false;
 		return true;
 	}
-	
+
 }

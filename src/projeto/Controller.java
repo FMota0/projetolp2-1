@@ -27,11 +27,27 @@ public class Controller {
 		this.usuarios = new HashMap<UsuarioId, Usuario>();
 	}
 
+	/**
+	 * Verifica a validade dos dados do usuario
+	 * 
+	 * @param nome
+	 *            Nome do usuario
+	 * @param telefone
+	 *            Telefone do usuario
+	 */
 	private void verificaUsuarioInvalido(String nome, String telefone) {
 		if (!this.existeUsuario(nome, telefone))
 			throw new IllegalArgumentException("Usuario invalido");
 	}
 
+	/**
+	 * Verifica se o usuario ja esta cadastrado
+	 * 
+	 * @param nome
+	 *            Nome do usuario
+	 * @param telefone
+	 *            Telefone do usuario
+	 */
 	private void verificaUsuarioJaCadastrado(String nome, String telefone) {
 		if (this.existeUsuario(nome, telefone))
 			throw new IllegalArgumentException("Usuario ja cadastrado");
@@ -129,6 +145,9 @@ public class Controller {
 	}
 
 	@Override
+	/**
+	 * Retorna representacao textual de todos os usuarios.
+	 */
 	public String toString() {
 		String str = "";
 		for (UsuarioId usuarioid : usuarios.keySet()) {
@@ -480,11 +499,13 @@ public class Controller {
 	}
 
 	/**
-	 * Recura historio de emprestimos onde o usuario emprestou seus itens para outros usuarios.
+	 * Recura historio de emprestimos onde o usuario emprestou seus itens para
+	 * outros usuarios.
+	 * 
 	 * @param nomeDono
-	 * Nome do usuario dono do item
+	 *            Nome do usuario dono do item
 	 * @param telefoneDono
-	 * Telefone do usuario dono do item
+	 *            Telefone do usuario dono do item
 	 * @return lista com todos os emprestimos que o usuario emprestou itens.
 	 */
 	public String listarEmprestimosUsuarioEmprestando(String nomeDono, String telefoneDono) {
@@ -494,11 +515,13 @@ public class Controller {
 	}
 
 	/**
-	 * Recupera historio de emprestimos onde o usuario pegou emprestado itens de outros usuario.
+	 * Recupera historio de emprestimos onde o usuario pegou emprestado itens de
+	 * outros usuario.
+	 * 
 	 * @param nome
-	 * Nome do usuario
+	 *            Nome do usuario
 	 * @param telefone
-	 * Telefone do usuario
+	 *            Telefone do usuario
 	 * @return lista com todos os emprestimos que o usuario pegou itens emprestados.
 	 */
 	public String listarEmprestimosUsuarioPegandoEmprestado(String nome, String telefone) {
@@ -509,8 +532,9 @@ public class Controller {
 
 	/**
 	 * Recupera historico de emprestimos do item.
+	 * 
 	 * @param nomeItem
-	 * Nome do item
+	 *            Nome do item
 	 * @return lista com todos os emprestimos do item.
 	 */
 	public String listarEmprestimosItem(String nomeItem) {
@@ -525,6 +549,7 @@ public class Controller {
 
 	/**
 	 * Recupera lista de todos os itens que estam disponiveis para emprestimos.
+	 * 
 	 * @return lista de itens nao emprestados
 	 */
 	public String listarItensNaoEmprestados() {
