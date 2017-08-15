@@ -5,7 +5,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import projeto.EmprestimoId;
-
+/**
+ * Instacia itens
+ * 
+ * @author Hugo, Felipe Mota, Yago Gusmao
+ *
+ */
 public abstract class Item {
 
 	protected double preco;
@@ -13,17 +18,39 @@ public abstract class Item {
 	protected boolean isEmprestado;
 	protected ArrayList<EmprestimoId> emprestimoIds;
 	protected int emprestimos;
-
+	
+	/**
+	 * Verifica a validez da entrada do preco do item
+	 * 
+	 * @param preco
+	 *            Preco de venda do item
+	 */
+	
 	private void validePreco(double preco) {
 		if (preco < 0)
 			throw new IllegalArgumentException("Preco invalido");
 	}
-
+	
+	/**
+	 * Verifica a validez da entrada do nome do usuario.
+	 * 
+	 * @param nome
+	 *            Nome do usuario
+	 */
+	
 	private void valideNome(String nome) {
 		if (nome == null || nome.trim().equals(""))
 			throw new IllegalArgumentException("Nome de usuario invalido");
 	}
-
+	/**
+	 * Construtor de um item
+	 * 
+	 * @param nome
+	 *            Nome do item
+	 * @param preco
+	 *            Preco de venda do item
+	 */
+	
 	public Item(String nome, double preco) {
 
 		this.valideNome(nome);
@@ -61,17 +88,41 @@ public abstract class Item {
 		return this.emprestimos;
 	}
 	
+	/**
+	 * Adiciona novo emprestimo no registro de emprestimos
+	 * 
+	 * @param nomeDono
+	 * @param telefoneDono
+	 * @param nomeRequerente
+	 * @param telefoneRequerente
+	 * @param nomeItem
+	 * @param dataEmprestimo
+	 */
 	public void addEmprestimo(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente,
 			String nomeItem, String dataEmprestimo) {
 		emprestimoIds.add(
 				new EmprestimoId(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo));
 
 	}
-
+	
+	/**
+	 * Recupera historico de emprestimos
+	 * 
+	 * @return lista de todos os emprestimos
+	 */
+	
 	public ArrayList<EmprestimoId> getEmprestimosId() {
 		return (ArrayList<EmprestimoId>) emprestimoIds;
 	}
-
+	
+	/**
+	 * Modifica atributo (nome ou preco) de item
+	 * 
+	 * @param atributo
+	 *            Atributo para modificacao
+	 * @param valor
+	 *            Informacao atual para substituicao
+	 */
 	public void mudaAtributo(String atributo, String valor) {
 
 		if (atributo.toLowerCase().equals("preco"))
@@ -82,6 +133,13 @@ public abstract class Item {
 			throw new IllegalArgumentException("Argumento invalido");
 
 	}
+	/**
+	 * Retorna informacao de um atributo do item (nome ou preco)
+	 * 
+	 * @param atributo
+	 *            Atributo desejado para informacao
+	 * @return detalhes do atributo
+	 */
 
 	public String getAtributo(String atributo) {
 

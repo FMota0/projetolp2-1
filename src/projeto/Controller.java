@@ -27,12 +27,26 @@ public class Controller {
 	public Controller() {
 		this.usuarios = new HashMap<UsuarioId, Usuario>();
 	}
-
+	/**
+	 * Verifica a validade dos dados do usuario
+	 * 
+	 * @param nome
+	 *            Nome do usuario
+	 * @param telefone
+	 *            Telefone do usuario
+	 */
 	private void verificaUsuarioInvalido(String nome, String telefone) {
 		if (!this.existeUsuario(nome, telefone))
 			throw new IllegalArgumentException("Usuario invalido");
 	}
-
+	/**
+	 * Verifica se o usuario ja esta cadastrado
+	 * 
+	 * @param nome
+	 *            Nome do usuario
+	 * @param telefone
+	 *            Telefone do usuario
+	 */
 	private void verificaUsuarioJaCadastrado(String nome, String telefone) {
 		if (this.existeUsuario(nome, telefone))
 			throw new IllegalArgumentException("Usuario ja cadastrado");
@@ -99,18 +113,36 @@ public class Controller {
 																// usuario
 
 	}
-
+	/**
+	 * Verifica se usuario ja existe no sistema.
+	 * 
+	 * @param nome
+	 *            Nome do usuario
+	 * @param telefone
+	 *            Telefone do usuario
+	 * @return Usuario cadastrado com os paramentros dados
+	 */
 	public boolean existeUsuario(String nome, String telefone) {
 		return usuarios.containsKey(new UsuarioId(nome, telefone));
 	}
-
+	/**
+	 * Recupera informacoes do usuario requerido (toString)
+	 * 
+	 * @param nome
+	 *            Nome do usuario
+	 * @param telefone
+	 *            telefone do usuario
+	 * @return Padrao textual das informacoes do usuario requerido
+	 */
 	public String listarUsuario(String nome, String telefone) {
 
 		this.verificaUsuarioInvalido(nome, telefone);
 
 		return this.usuarios.get(new UsuarioId(nome, telefone)).toString();
 	}
-
+	/**
+	 * Retorna representacao textual de todos os usuarios.
+	 */
 	@Override
 	public String toString() {
 		String str = "";
@@ -119,7 +151,17 @@ public class Controller {
 		}
 		return str;
 	}
-
+	/**
+	 * Recupera informacao de um atributo especifico do usuario requerido
+	 * 
+	 * @param nome
+	 *            Nome do usuario
+	 * @param telefone
+	 *            Telefone do usuario
+	 * @param atributo
+	 *            Atributo desejado para informacoes
+	 * @return informacoes do atributo do usuario
+	 */
 	public String getInfoUsuario(String nome, String telefone, String atributo) {
 
 		this.verificaUsuarioInvalido(nome, telefone);
@@ -452,19 +494,43 @@ public class Controller {
 		this.verificaUsuarioInvalido(nome, telefone);
 		return this.usuarios.get(new UsuarioId(nome, telefone)).pesquisarDetalhesItem(nomeItem);
 	}
-
+	/**
+	 * Recura historio de emprestimos onde o usuario emprestou seus itens para
+	 * outros usuarios.
+	 * 
+	 * @param nomeDono
+	 *            Nome do usuario dono do item
+	 * @param telefoneDono
+	 *            Telefone do usuario dono do item
+	 * @return lista com todos os emprestimos que o usuario emprestou itens.
+	 */
 	public String listarEmprestimosUsuarioEmprestando(String nomeDono, String telefoneDono) {
 		this.verificaUsuarioInvalido(nomeDono, telefoneDono);
 		return this.usuarios.get(new UsuarioId(nomeDono, telefoneDono)).listarEmprestimosUsuarioEmprestando(nomeDono,
 				telefoneDono);
 	}
-
+	/**
+	 * Recupera historio de emprestimos onde o usuario pegou emprestado itens de
+	 * outros usuario.
+	 * 
+	 * @param nome
+	 *            Nome do usuario
+	 * @param telefone
+	 *            Telefone do usuario
+	 * @return lista com todos os emprestimos que o usuario pegou itens emprestados.
+	 */
 	public String listarEmprestimosUsuarioPegandoEmprestado(String nome, String telefone) {
 		this.verificaUsuarioInvalido(nome, telefone);
 		return this.usuarios.get(new UsuarioId(nome, telefone)).listarEmprestimosUsuarioPegandoEmprestado(nome,
 				telefone);
 	}
-
+	/**
+	 * Recupera historico de emprestimos do item.
+	 * 
+	 * @param nomeItem
+	 *            Nome do item
+	 * @return lista com todos os emprestimos do item.
+	 */
 	public String listarEmprestimosItem(String nomeItem) {
 		String mensagem = "Emprestimos associados ao item: ";
 		for (UsuarioId usuarioId : usuarios.keySet()) {
@@ -474,7 +540,11 @@ public class Controller {
 			return "Nenhum emprestimos associados ao item";
 		return mensagem;
 	}
-
+	/**
+	 * Recupera lista de todos os itens que estam disponiveis para emprestimos.
+	 * 
+	 * @return lista de itens nao emprestados
+	 */
 	public String listarItensNaoEmprestados() {
 		String mensagem = "";
 		ArrayList<Item> superlist = new ArrayList<Item>();
@@ -488,7 +558,7 @@ public class Controller {
 		}
 		return mensagem;
 	}
-
+	
 	public String listarItensEmprestados() {
 		String mensagem = "";
 		ArrayList<Item> superlist = new ArrayList<Item>();

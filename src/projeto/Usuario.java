@@ -114,16 +114,30 @@ public class Usuario {
 	public double getReputacao(){
 		return this.reputacaoController.getReputacao();
 	}
-
+	/**
+	 * Representacao textual de um usuario
+	 */
 	@Override
 	public String toString() {
 		return usuarioid.getNome() + ", " + email + ", " + this.email;
 	}
-
+	/**
+	 * Verifica se item ja esta cadastrado
+	 * 
+	 * @param nomeItem
+	 *            Nome do item
+	 * @return boolean
+	 */
 	public boolean existeItem(String nomeItem) {
 		return itemController.existeItem(nomeItem);
 	}
-
+	/**
+	 * Retorna atributo do usuario
+	 * 
+	 * @param atributo
+	 *            Atributo desejado
+	 * @return conteudo do atributo
+	 */
 	public String getAtributo(String atributo) {
 		if (atributo.toLowerCase().equals("nome"))
 			return this.getNome();
@@ -134,7 +148,14 @@ public class Usuario {
 		else
 			throw new IllegalArgumentException("Atributo de usuario invalido");
 	}
-
+	/**
+	 * Modifica conteudo do atributo do usuario
+	 * 
+	 * @param atributo
+	 *            Nome do atributo
+	 * @param valor
+	 *            Novo conteudo do atributo
+	 */
 	public void mudaAtributo(String atributo, String valor) {
 		if (atributo.toLowerCase().equals("nome"))
 			this.setNome(valor);
@@ -145,54 +166,160 @@ public class Usuario {
 		else
 			throw new IllegalArgumentException("Atributo de usuario invalido");
 	}
-
+	/**
+	 * Retorna conteudo de um atributo do item de um usuario
+	 * 
+	 * @param nomeItem
+	 *            Nome do item
+	 * @param atributo
+	 *            Atributo desejado
+	 * @return conteudo do atributo
+	 */
 	public String getInfoItem(String nomeItem, String atributo) {
 
 		return itemController.getInfoItem(nomeItem, atributo);
 	}
-
+	/**
+	 * Adiciona peca perdida em jogo de tabuleiro
+	 * 
+	 * @param nomeItem
+	 *            Nome do item
+	 * @param peca
+	 *            Nome da peca
+	 * @return boolean
+	 */
 	public boolean adicionarPecaPerdida(String nomeItem, String peca) {
 
 		return itemController.adicionarPecaPerdida(nomeItem, peca);
 	}
-
+	/**
+	 * Remove item de usuario
+	 * 
+	 * @param nomeItem
+	 *            Nome do item
+	 */
 	public void removerItem(String nomeItem) {
 		itemController.removerItem(nomeItem);
 	}
-
+	/**
+	 * Atualiza atributo de um item
+	 * 
+	 * @param nomeItem
+	 *            Nome do item
+	 * @param atributo
+	 *            Nome do atributo
+	 * @param valor
+	 *            Novo conteudo para o atributo
+	 */
 	public void atualizarItem(String nomeItem, String atributo, String valor) {
 		
 		itemController.atualizarItem(nomeItem, atributo, valor);
 	}
-
+	/**
+	 * Cadastra jogo eletrico
+	 * 
+	 * @param nomeItem
+	 *            Nome do item
+	 * @param preco
+	 *            Preco de venda
+	 * @param plataforma
+	 *            Plataforna de leitura do jogo
+	 */
 	public void cadastrarEletronico(String nomeItem, double preco, String plataforma) {
 		itemController.cadastrarEletronico(nomeItem, preco, plataforma);
 
 	}
-
+	/**
+	 * Cadastra jogo de tabuleiro
+	 * 
+	 * @param nomeItem
+	 *            Nome do item
+	 * @param preco
+	 *            Preco de venda
+	 */
 	public void cadastrarTabuleiro(String nomeItem, double preco) {
 		itemController.cadastrarTabuleiro(nomeItem, preco);
 		
 	}
-
+	/**
+	 * Cadastra BluRay de Serie
+	 * 
+	 * @param nomeItem
+	 *            Nome do Item
+	 * @param preco
+	 *            Preco de venda
+	 * @param duracao
+	 *            Duracao em minutos do BluRay
+	 * @param classificacao
+	 *            Classificao indicativa da serie
+	 * @param genero
+	 *            Genero da serie
+	 * @param temporada
+	 *            Temporada
+	 */
 	public void cadastrarBluRaySerie(String nomeItem, double preco, int duracao, String classificacao, String genero,
 			int temporada) {
 		itemController.cadastrarBluRaySerie(nomeItem, preco, duracao, classificacao, genero, temporada);
 
 	}
-
+	/**
+	 * Cadastra BluRay de Show
+	 * 
+	 * @param nomeItem
+	 *            Nome do Item
+	 * @param preco
+	 *            Preco de venda
+	 * @param duracao
+	 *            Duracao em minutos do Show
+	 * @param numeroFaixas
+	 *            Numero de faixas do show
+	 * @param artista
+	 *            Artista do show
+	 */
 	public void cadastrarBluRayShow(String nomeItem, double preco, int duracao, String classificacao, int numeroFaixas,
 			String artista) {
 		itemController.cadastrarBluRayShow(nomeItem, preco, duracao, classificacao, numeroFaixas, artista);
 
 	}
-
+	/**
+	 * Cadastra BluRay de Filme
+	 * 
+	 * @param nomeItem
+	 *            Nome do Item
+	 * @param preco
+	 *            Preco de venda
+	 * @param duracao
+	 *            Duracao em minutos do Filme
+	 * @param classificacao
+	 *            Classificacao indicativa do filme
+	 * @param genero
+	 *            Genero do filme
+	 * @param anoLancamento
+	 *            Ano de lancamento do filme
+	 */
 	public void cadastrarBluRayFilme(String nomeItem, double preco, int duracao, String classificacao, String genero,
 			int anoLancamento) {
 		itemController.cadastrarBluRayFilme(nomeItem, preco, duracao, classificacao, genero, anoLancamento);
 
 	}
-
+	/**
+	 * Registra emprestimo de item
+	 * 
+	 * @param nomeDono
+	 *            Nome do usuario dono do item
+	 * @param telefoneDono
+	 *            Telefone do usuario dono do item
+	 * @param nomeRequerente
+	 *            Nome do usuario requerente do item
+	 * @param telefoneRequerente
+	 *            Telefone do usuario requerente do item
+	 * @param nomeItem
+	 *            Nome do item
+	 * @param dataEmprestimo
+	 *            Data da realizacao do emprestimo
+	 * @param periodo
+	 *            Duracao em dias do emprestimo
+	 */
 	public void registrarEmprestimo(String nomeDono, String telefoneDono, String nomeRequerente,
 			String telefoneRequerente, String nomeItem, String dataEmprestimo, int periodo) {
 
@@ -215,11 +342,33 @@ public class Usuario {
 					nomeItem, dataEmprestimo, periodo);
 
 	}
-
+	/**
+	 * Modifica estado do item
+	 * 
+	 * @param nomeItem
+	 *            Nome do item
+	 */
 	public void mudaEstadoItem(String nomeItem) {
 		itemController.mudaEstadoItem(nomeItem);
 	}
-
+	/**
+	 * Registra a devolucao de um item
+	 * 
+	 * @param nomeDono
+	 *            Nome do usuario dono do item
+	 * @param telefoneDono
+	 *            Telefone do usuario dono do item
+	 * @param nomeRequerente
+	 *            Nome do usuario requerente do item
+	 * @param telefoneRequerente
+	 *            Telefone do usuario requerente do item
+	 * @param nomeItem
+	 *            Nome do item
+	 * @param dataEmprestimo
+	 *            Data da realizacao do emprestimo
+	 * @param dataDevolucao
+	 *            Data da realizacao da devolucao do emprestimo
+	 */
 	public void devolverItem(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente,
 			String nomeItem, String dataEmprestimo, String dataDevolucao) {
 
@@ -270,19 +419,47 @@ public class Usuario {
 			return false;
 		return true;
 	}
-
+	/**
+	 * Retorna as informacoes de um item
+	 * 
+	 * @param nomeItem
+	 *            Nome do item
+	 * @return representacao textual das informacoes do item
+	 */
 	public String pesquisarDetalhesItem(String nomeItem) {
 		return itemController.pesquisarDetalhesItem(nomeItem);
 	}
-
+	/**
+	 * * Retorna historico de emprestimos de itens do usario que foram emprestados
+	 * 
+	 * @param nomeDono
+	 *            Nome do usuario
+	 * @param telefoneDono
+	 *            Telefone do usuario
+	 * @return lista do historico de emprestimos do usuario
+	 */
 	public String listarEmprestimosUsuarioEmprestando(String nomeDono, String telefoneDono) {
 		return this.emprestimoController.listarEmprestimosUsuarioEmprestando(nomeDono, telefoneDono);
 	}
-
+	/**
+	 * Retorna historico de emprestimos de itens que o usuario pegou emprestado
+	 * 
+	 * @param nome
+	 *            Nome do usuario
+	 * @param telefone
+	 *            Telefone do usuario
+	 * @return lista do historico de emprestimos do usuario
+	 */
 	public String listarEmprestimosUsuarioPegandoEmprestado(String nome, String telefone) {
 		return this.emprestimoController.listarEmprestimosUsuarioPegandoEmprestado(nome, telefone);
 	}
-
+	/**
+	 * Retorna historico dos emprestimos de um item
+	 * 
+	 * @param nomeItem
+	 *            Nome do item
+	 * @return lista dos emprestimos do item
+	 */
 	public String listarEmprestimosItem(String nomeItem) {
 		String mensagem = "";
 		if (itemController.existeItem(nomeItem)) {
@@ -295,6 +472,11 @@ public class Usuario {
 		
 
 	}
+	/**
+	 * Recupera a lista de todos os itens que nao estao emprestados no momento
+	 * 
+	 * @return lista de itens nao emprestados
+	 */
 	public ArrayList<Item> listarItensNaoEmprestados(){
 		return this.itemController.getListItemNaoEmprestado();
 	}

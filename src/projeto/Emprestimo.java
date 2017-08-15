@@ -10,14 +10,25 @@ import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 
 import itens.Item;
-
+/**
+ * Instancia emprestimo de um item.
+ * 
+ * @author Hugo Addobbati, Yago Gusmao
+ *
+ */
 public class Emprestimo {
 
 	private EmprestimoId emprestimoid;
 	private LocalDate dataInicialEmprestimo;
 	private int numeroDiasParaEmprestimo;
 	private LocalDate dataDeDevolucao;
-
+	
+	/**
+	 * Gera representacao comparavel de data
+	 * 
+	 * @param format
+	 * @return LocalDate
+	 */
 	private LocalDate parse(String format) {
 		String lista[] = format.split("/"); // DD - MM - YYYY
 		int dia = Integer.parseInt(lista[0]);
@@ -26,7 +37,24 @@ public class Emprestimo {
 		LocalDate date = LocalDate.of(ano, mes, dia);
 		return date;
 	}
-
+	/**
+	 * Construtor de um emprestimo.
+	 * 
+	 * @param nomeDonoItem
+	 *            Nome do usuario dono do item
+	 * @param telefoneDonoItem
+	 *            Telefone do usuario dono do item
+	 * @param nomeRequerenteItem
+	 *            Nome do usuario requerente do item
+	 * @param telefoneRequerente
+	 *            Telefone do usuario requerente do item
+	 * @param nomeItem
+	 *            Nome do item
+	 * @param dataInicialEmprestimo
+	 *            Data inicial do emprestimo
+	 * @param numeroDiasParaEmprestimo
+	 *            Numero de dias de duracao do emprestimo
+	 */
 	public Emprestimo(String nomeDonoItem, String telefoneDonoItem, String nomeRequerenteItem,
 			String telefoneRequerente, String nomeItem, String dataInicialEmprestimo, int numeroDiasParaEmprestimo) {
 
@@ -36,42 +64,77 @@ public class Emprestimo {
 		this.numeroDiasParaEmprestimo = numeroDiasParaEmprestimo;
 		this.dataDeDevolucao = null;
 	}
-
+	/**
+	 * Recupera nome do usuario dono do item.
+	 * 
+	 * @return nome do usuario
+	 */
 	public String getNomeDonoItem() {
 		return this.emprestimoid.getNomeDonoItem();
 	}
-
+	/**
+	 * Recupera telefone do usuario dono do item.
+	 * 
+	 * @return telefone do usuario
+	 */
 	public String getTelefoneDonoItem() {
 		return this.emprestimoid.getTelefoneDonoItem();
 	}
-
+	/**
+	 * Recupera nome do usuario requerente do item.
+	 * 
+	 * @return nome do usuario
+	 */
 	public String getNomeRequerenteItem() {
 		return this.emprestimoid.getNomeRequerenteItem();
 	}
-
+	/**
+	 * Recupera telefone do usuario requerente do item.
+	 * 
+	 * @return telefone do usuario
+	 */
 	public String getTelefoneRequerenteItem() {
 		return this.emprestimoid.getTelefoneRequerenteItem();
 	}
-
+	/**
+	 * Recupera nome do item.
+	 * 
+	 * @return nome do item
+	 */
 	public String getNomeItem() {
 		return this.emprestimoid.getNomeItem();
 	}
-
+	/**
+	 * Modifica data de devolucao do item emprestado.
+	 * 
+	 * @param dataDevolucao
+	 *            Data de devolução do item
+	 */
 	public void setDataDevolucao(String dataDevolucao) {
 		this.dataDeDevolucao = this.parse(dataDevolucao);
 	}
-
+	/**
+	 * Gera string da data inicial do emprestimo
+	 * 
+	 * @return representacao textual da data
+	 */
 	private String dataInicial() { // eu nao sei mexer com LocalDate e nem
 									// pesquisar no google. Felipe
 		return this.dataInicialEmprestimo.getDayOfMonth() + "/" + this.dataInicialEmprestimo.getMonthValue() + "/"
 				+ this.dataInicialEmprestimo.getYear();
 	}
-
+	/**
+	 * Gera string da data de devolucao do emprestimo
+	 * 
+	 * @return representacao textual da data
+	 */
 	private String dataDevolucao() {
 		return this.dataDeDevolucao.getDayOfMonth() + "/" + this.dataDeDevolucao.getMonthValue() + "/"
 				+ this.dataDeDevolucao.getYear();
 	}
-
+	/**
+	 * Retorna representacao textual de um emprestimo.
+	 */
 	@Override
 	public String toString() {
 		String entregado;
@@ -83,7 +146,9 @@ public class Emprestimo {
 				+ this.emprestimoid.getNomeRequerenteItem() + ", " + this.emprestimoid.getNomeItem() + ", "
 				+ this.dataInicial() + ", " + this.numeroDiasParaEmprestimo + " dias, ENTREGA: " + entregado;
 	}
-
+	/**
+	 * Personaliza hashCode do objeto emprestimo.
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -94,7 +159,9 @@ public class Emprestimo {
 		result = prime * result + numeroDiasParaEmprestimo;
 		return result;
 	}
-
+	/**
+	 * Personaliza o equals do objeto emprestimo.
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
