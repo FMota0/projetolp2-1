@@ -145,6 +145,8 @@ public class Usuario {
 			return this.getTelefone();
 		else if (atributo.toLowerCase().equals("email"))
 			return this.getEmail();
+		else if (atributo.toLowerCase().equals("reputacao"))
+			return "" + this.getReputacao();
 		else
 			throw new IllegalArgumentException("Atributo de usuario invalido");
 	}

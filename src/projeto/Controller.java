@@ -187,7 +187,7 @@ public class Controller {
 			String plataforma) {
 
 		this.verificaUsuarioInvalido(nomeUsuario, telefoneUsuario);
-		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).addReputacao((preco/10));
+		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).addReputacao((preco/20));
 		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).cadastrarEletronico(nomeItem, preco, plataforma);
 	}
 
@@ -206,7 +206,7 @@ public class Controller {
 	public void cadastrarTabuleiro(String nomeUsuario, String telefoneUsuario, String nomeItem, double preco) {
 
 		this.verificaUsuarioInvalido(nomeUsuario, telefoneUsuario);
-		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).addReputacao((preco/10));
+		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).addReputacao((preco/20));
 		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).cadastrarTabuleiro(nomeItem, preco);
 	}
 
@@ -234,7 +234,7 @@ public class Controller {
 			int duracao, String classificacao, String genero, int temporada) {
 
 		this.verificaUsuarioInvalido(nomeUsuario, telefoneUsuario);
-		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).addReputacao((preco/10));
+		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).addReputacao((preco/20));
 		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).cadastrarBluRaySerie(nomeItem, preco, duracao,
 				classificacao, genero, temporada);
 	}
@@ -263,7 +263,7 @@ public class Controller {
 			int duracao, String classificacao, int numeroFaixas, String artista) {
 
 		this.verificaUsuarioInvalido(nomeUsuario, telefoneUsuario);
-		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).addReputacao((preco/10));
+		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).addReputacao((preco/20));
 		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).cadastrarBluRayShow(nomeItem, preco, duracao,
 				classificacao, numeroFaixas, artista);
 	}
@@ -292,7 +292,7 @@ public class Controller {
 			int duracao, String classificacao, String genero, int anoLancamento) {
 
 		this.verificaUsuarioInvalido(nomeUsuario, telefoneUsuario);
-		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).addReputacao((preco/10));
+		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).addReputacao((preco/20));
 		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).cadastrarBluRayFilme(nomeItem, preco, duracao,
 				classificacao, genero, anoLancamento);
 
@@ -591,10 +591,7 @@ public class Controller {
 		}
 		return mensagem;
 	}
-	//<1) 2 emprestimos - JOGO DE TABULEIRO: War, R$ 70.0, Emprestado, COM PECAS PERDIDAS|2) 1 emprestimos - SERIE: The Walking Dead, R$ 79.99, Nao emprestado, 120 min, DEZESSEIS_ANOS, SUSPENSE, Temporada 1|3) 1 emprestimos - JOGO DE TABULEIRO: Xadrez de Bruxo, R$ 1000.0, Emprestado, COMPLETO|>, 
-	//<1) 2 emprestimos - JOGO DE TABULEIRO: War, R$ 70.0, Emprestado, COM PECAS PERDIDAS|1) 1 emprestimos - SERIE: The Walking Dead, R$ 79.99, Nao emprestado, 120 min, DEZESSEIS_ANOS, SUSPENSE, Temporada1|1) 1 emprestimos - JOGO DE TABULEIRO: Xadrez de Bruxo, R$ 1000.0, Emprestado, COMPLETO|>
 	
-
 
 
 	
