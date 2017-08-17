@@ -19,8 +19,8 @@ public class JogoEletronico extends Item {
 	 * @param plataforma
 	 *            Plataforma de funcionamento do jogo
 	 */
-	public JogoEletronico(String nome, double preco, String plataforma) {
-		super(nome, preco);
+	public JogoEletronico(String nome, double preco, String plataforma, String nomeDono, String telefoneDono) {
+		super(nome, preco, nomeDono, telefoneDono);
 		this.plataforma = plataforma;
 	}
 
@@ -28,6 +28,10 @@ public class JogoEletronico extends Item {
 	public String toString() {
 		return "JOGO ELETRONICO: " + this.nome + ", R$ " + this.preco
 				+ ", " + super.toString() + ", " + this.plataforma;
+	}
+	
+	public String toStringTop10() {
+		return this.toString();
 	}
 
 }

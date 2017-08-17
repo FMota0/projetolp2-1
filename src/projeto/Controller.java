@@ -3,12 +3,19 @@ package projeto;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import ComparadoresEmprestimo.OrdemAlfabeticaItem;
 import ComparadoresItens.OrdemAlfabetica;
 import ComparadoresItens.OrdemDeValor;
 import ComparadoresItens.OrdemEmprestimos;
+import itens.BluRayFilme;
+import itens.BluRaySerie;
+import itens.BluRayShow;
 import itens.Item;
+import itens.JogoEletronico;
+import itens.JogoTabuleiro;
 
 /**
  * 
@@ -23,10 +30,15 @@ public class Controller {
 	 * 
 	 */
 	private Map<UsuarioId, Usuario> usuarios;
+	private Map<EmprestimoId, Emprestimo> emprestimos;
+	private List<Item> itens;
 
 	public Controller() {
 		this.usuarios = new HashMap<UsuarioId, Usuario>();
+		this.emprestimos = new HashMap<EmprestimoId, Emprestimo>();
+		this.itens = new ArrayList<Item>();
 	}
+
 	/**
 	 * Verifica a validade dos dados do usuario
 	 * 
@@ -39,6 +51,7 @@ public class Controller {
 		if (!this.existeUsuario(nome, telefone))
 			throw new IllegalArgumentException("Usuario invalido");
 	}
+
 	/**
 	 * Verifica se o usuario ja esta cadastrado
 	 * 
@@ -113,6 +126,7 @@ public class Controller {
 																// usuario
 
 	}
+
 	/**
 	 * Verifica se usuario ja existe no sistema.
 	 * 
@@ -125,6 +139,7 @@ public class Controller {
 	public boolean existeUsuario(String nome, String telefone) {
 		return usuarios.containsKey(new UsuarioId(nome, telefone));
 	}
+
 	/**
 	 * Recupera informacoes do usuario requerido (toString)
 	 * 
@@ -140,6 +155,7 @@ public class Controller {
 
 		return this.usuarios.get(new UsuarioId(nome, telefone)).toString();
 	}
+
 	/**
 	 * Retorna representacao textual de todos os usuarios.
 	 */
@@ -151,6 +167,7 @@ public class Controller {
 		}
 		return str;
 	}
+
 	/**
 	 * Recupera informacao de um atributo especifico do usuario requerido
 	 * 
@@ -187,8 +204,8 @@ public class Controller {
 			String plataforma) {
 
 		this.verificaUsuarioInvalido(nomeUsuario, telefoneUsuario);
-		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).addReputacao((preco/20));
-		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).cadastrarEletronico(nomeItem, preco, plataforma);
+		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).addReputacao((preco / 20));
+		this.itens.add(new JogoEletronico(nomeItem, preco, plataforma, nomeUsuario, telefoneUsuario));
 	}
 
 	/**
@@ -206,8 +223,8 @@ public class Controller {
 	public void cadastrarTabuleiro(String nomeUsuario, String telefoneUsuario, String nomeItem, double preco) {
 
 		this.verificaUsuarioInvalido(nomeUsuario, telefoneUsuario);
-		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).addReputacao((preco/20));
-		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).cadastrarTabuleiro(nomeItem, preco);
+		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).addReputacao((preco / 20));
+		this.itens.add(new JogoTabuleiro(nomeItem, preco, nomeUsuario, telefoneUsuario));
 	}
 
 	/**
@@ -234,9 +251,9 @@ public class Controller {
 			int duracao, String classificacao, String genero, int temporada) {
 
 		this.verificaUsuarioInvalido(nomeUsuario, telefoneUsuario);
-		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).addReputacao((preco/20));
-		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).cadastrarBluRaySerie(nomeItem, preco, duracao,
-				classificacao, genero, temporada);
+		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).addReputacao((preco / 20));
+		this.itens.add(new BluRaySerie(nomeItem, preco, duracao, classificacao, genero, temporada, nomeUsuario,
+				telefoneUsuario));
 	}
 
 	/**
@@ -263,9 +280,9 @@ public class Controller {
 			int duracao, String classificacao, int numeroFaixas, String artista) {
 
 		this.verificaUsuarioInvalido(nomeUsuario, telefoneUsuario);
-		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).addReputacao((preco/20));
-		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).cadastrarBluRayShow(nomeItem, preco, duracao,
-				classificacao, numeroFaixas, artista);
+		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).addReputacao((preco / 20));
+		this.itens.add(new BluRayShow(nomeItem, preco, duracao, classificacao, numeroFaixas, artista, nomeUsuario,
+				telefoneUsuario));
 	}
 
 	/**
@@ -292,10 +309,9 @@ public class Controller {
 			int duracao, String classificacao, String genero, int anoLancamento) {
 
 		this.verificaUsuarioInvalido(nomeUsuario, telefoneUsuario);
-		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).addReputacao((preco/20));
-		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).cadastrarBluRayFilme(nomeItem, preco, duracao,
-				classificacao, genero, anoLancamento);
-
+		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).addReputacao((preco / 20));
+		this.itens.add(new BluRayFilme(nomeItem, preco, duracao, classificacao, genero, anoLancamento, nomeUsuario,
+				telefoneUsuario));
 	}
 
 	/**
@@ -314,8 +330,13 @@ public class Controller {
 	public String getInfoItem(String nome, String telefone, String nomeItem, String atributo) {
 
 		this.verificaUsuarioInvalido(nome, telefone);
-
-		return usuarios.get(new UsuarioId(nome, telefone)).getInfoItem(nomeItem, atributo);
+		existeItem(nomeItem, nome, telefone);
+		for (Item item : itens) {
+			if (item.getNome().equalsIgnoreCase(nomeItem) && item.getNomeDono().equalsIgnoreCase(nome)
+					&& item.getTelefoneDono().equalsIgnoreCase(telefone))
+				return item.getAtributo(atributo);
+		}
+		return "";
 	}
 
 	/**
@@ -333,8 +354,17 @@ public class Controller {
 	public void adicionarPecaPerdida(String nome, String telefone, String nomeItem, String peca) {
 
 		this.verificaUsuarioInvalido(nome, telefone);
-
-		usuarios.get(new UsuarioId(nome, telefone)).adicionarPecaPerdida(nomeItem, peca);
+		existeItem(nomeItem, nome, telefone);
+		for (Item item : itens) {
+			if (item.getNome().equalsIgnoreCase(nomeItem) && item.getNomeDono().equalsIgnoreCase(nome)
+					&& item.getTelefoneDono().equalsIgnoreCase(telefone)) {
+				if (!(item instanceof JogoTabuleiro)) {
+					throw new IllegalArgumentException("Item selecionado nao e jogo de tabuleiro");
+				}
+				JogoTabuleiro item2 = (JogoTabuleiro) item;
+				item2.adicionarPecaPerdida(peca);
+			}
+		}
 	}
 
 	/**
@@ -348,10 +378,14 @@ public class Controller {
 	 *            Nome de item
 	 */
 	public void removerItem(String nome, String telefone, String nomeItem) {
-
 		this.verificaUsuarioInvalido(nome, telefone);
-
-		usuarios.get(new UsuarioId(nome, telefone)).removerItem(nomeItem);
+		existeItem(nomeItem, nome, telefone);
+		for (Item item : itens) {
+			if (item.getNome().equalsIgnoreCase(nomeItem) && item.getNomeDono().equalsIgnoreCase(nome)
+					&& item.getTelefoneDono().equalsIgnoreCase(telefone))
+				itens.remove(item);
+			break;
+		}
 	}
 
 	/**
@@ -370,8 +404,14 @@ public class Controller {
 	public void atualizarItem(String nome, String telefone, String nomeItem, String atributo, String valor) {
 
 		this.verificaUsuarioInvalido(nome, telefone);
+		this.verificaUsuarioInvalido(nome, telefone);
+		existeItem(nomeItem, nome, telefone);
+		for (Item item : itens) {
+			if (item.getNome().equalsIgnoreCase(nomeItem) && item.getNomeDono().equalsIgnoreCase(nome)
+					&& item.getTelefoneDono().equalsIgnoreCase(telefone))
+				item.mudaAtributo(atributo, valor);
+		}
 
-		usuarios.get(new UsuarioId(nome, telefone)).atualizarItem(nomeItem, atributo, valor);
 	}
 
 	/**
@@ -397,14 +437,24 @@ public class Controller {
 
 		this.verificaUsuarioInvalido(nomeDono, telefoneDono);
 		this.verificaUsuarioInvalido(nomeRequerente, telefoneRequerente);
-
-		usuarios.get(new UsuarioId(nomeDono, telefoneDono)).registrarEmprestimo(nomeDono, telefoneDono, nomeRequerente,
-				telefoneRequerente, nomeItem, dataEmprestimo, periodo);
-		usuarios.get(new UsuarioId(nomeRequerente, telefoneRequerente)).registrarEmprestimo(nomeDono, telefoneDono,
-				nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo, periodo);
-
-		usuarios.get(new UsuarioId(nomeDono, telefoneDono)).mudaEstadoItem(nomeItem);
-
+		existeItem(nomeItem, nomeDono, telefoneDono);
+		for (Item item : itens) {
+			if (item.getNome().equalsIgnoreCase(nomeItem) && item.getNomeDono().equalsIgnoreCase(nomeDono)
+					&& item.getTelefoneDono().equalsIgnoreCase(telefoneDono)) {
+				if (item.getIsEmprestado()) {
+					throw new IllegalStateException("Item emprestado no momento");
+				}
+				emprestimos.put(
+						new EmprestimoId(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem,
+								dataEmprestimo),
+						new Emprestimo(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem,
+								dataEmprestimo, periodo));
+				item.addEmprestimo(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem,
+						dataEmprestimo);
+				item.contaEmprestimo();
+				usuarios.get(new UsuarioId(nomeDono, telefoneDono)).addReputacao(item.getPreco() / 10);
+			}
+		}
 	}
 
 	/**
@@ -430,16 +480,43 @@ public class Controller {
 
 		this.verificaUsuarioInvalido(nomeDono, telefoneDono);
 		this.verificaUsuarioInvalido(nomeRequerente, telefoneRequerente);
+		existeItem(nomeItem, nomeDono, telefoneDono);
+		if (!emprestimos.containsKey(
+				new EmprestimoId(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo)))
+			throw new IllegalStateException("Emprestimo nao encontrado");
+		for (Item item : itens) {
+			if (item.getNome().equalsIgnoreCase(nomeItem) && item.getNomeDono().equalsIgnoreCase(nomeDono)
+					&& item.getTelefoneDono().equalsIgnoreCase(telefoneDono)) {
+				if (item.getIsEmprestado()) {
+					emprestimos.get(new EmprestimoId(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente,
+							nomeItem, dataEmprestimo)).setDataDevolucao(dataDevolucao);
+					item.mudaEstadoItem();
+					int diasmulta = emprestimos.get(new EmprestimoId(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente,
+							nomeItem, dataEmprestimo)).getDiasMulta();
+					if(diasmulta > 0) {
+							usuarios.get(new UsuarioId(nomeRequerente, telefoneRequerente)).addReputacao(-(item.getPreco()/100)*diasmulta);
+					}
+					else {
+						usuarios.get(new UsuarioId(nomeRequerente, telefoneRequerente)).addReputacao(item.getPreco()/20);
+					}
 
-		usuarios.get(new UsuarioId(nomeDono, telefoneDono)).devolverItem(nomeDono, telefoneDono, nomeRequerente,
-				telefoneRequerente, nomeItem, dataEmprestimo, dataDevolucao);
-		usuarios.get(new UsuarioId(nomeRequerente, telefoneRequerente)).devolverItem(nomeDono, telefoneDono,
-				nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo, dataDevolucao);
-		usuarios.get(new UsuarioId(nomeRequerente, telefoneRequerente)).addReputacaoDevolve(nomeDono, telefoneDono,
-				nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo, usuarios.get(new UsuarioId(nomeDono, telefoneDono)).getPrecoItem(nomeItem));
+				} else {
+					throw new IllegalStateException("Item nao emprestado no momento");
+				}
+			}
+		}
 
-		usuarios.get(new UsuarioId(nomeDono, telefoneDono)).mudaEstadoItem(nomeItem);
+	}
 
+	private void existeItem(String nomeItem, String nome, String telefone) {
+		boolean achou = false;
+		for (Item item : itens) {
+			if (item.getNome().equalsIgnoreCase(nomeItem) && item.getNomeDono().equalsIgnoreCase(nome)
+					&& item.getTelefoneDono().equalsIgnoreCase(telefone))
+				achou = true;
+		}
+		if (!achou)
+			throw new IllegalArgumentException("Item nao encontrado");
 	}
 
 	/**
@@ -449,13 +526,8 @@ public class Controller {
 	 */
 	public String listarItensOrdenadosPorNome() {
 		String lista = "";
-		ArrayList<Item> superList = new ArrayList<>();
-		for (UsuarioId usuarioId : usuarios.keySet()) {
-			for (Item item : this.usuarios.get(usuarioId).getListItem())
-				superList.add(item);
-		}
-		Collections.sort(superList, new OrdemAlfabetica());
-		for (Item item : superList)
+		Collections.sort(itens, new OrdemAlfabetica());
+		for (Item item : itens)
 			lista += item.toString() + "|";
 		return lista;
 	}
@@ -468,13 +540,8 @@ public class Controller {
 	 */
 	public String listarItensOrdenadosPorValor() {
 		String lista = "";
-		ArrayList<Item> superList = new ArrayList<>();
-		for (UsuarioId usuarioId : usuarios.keySet()) {
-			for (Item item : this.usuarios.get(usuarioId).getListItem())
-				superList.add(item);
-		}
-		Collections.sort(superList, new OrdemDeValor());
-		for (Item item : superList)
+		Collections.sort(itens, new OrdemDeValor());
+		for (Item item : itens)
 			lista += item.toString() + "|";
 		return lista;
 	}
@@ -492,8 +559,15 @@ public class Controller {
 	 */
 	public String pesquisarDetalhesItem(String nome, String telefone, String nomeItem) {
 		this.verificaUsuarioInvalido(nome, telefone);
-		return this.usuarios.get(new UsuarioId(nome, telefone)).pesquisarDetalhesItem(nomeItem);
+		existeItem(nomeItem, nome, telefone);
+		for (Item item : itens) {
+			if (item.getNome().equalsIgnoreCase(nomeItem) && item.getNomeDono().equalsIgnoreCase(nome)
+					&& item.getTelefoneDono().equalsIgnoreCase(telefone))
+				return item.toString();
+		}
+		return "";
 	}
+
 	/**
 	 * Recura historio de emprestimos onde o usuario emprestou seus itens para
 	 * outros usuarios.
@@ -506,9 +580,23 @@ public class Controller {
 	 */
 	public String listarEmprestimosUsuarioEmprestando(String nomeDono, String telefoneDono) {
 		this.verificaUsuarioInvalido(nomeDono, telefoneDono);
-		return this.usuarios.get(new UsuarioId(nomeDono, telefoneDono)).listarEmprestimosUsuarioEmprestando(nomeDono,
-				telefoneDono);
+		String mensagem = "Emprestimos: ";
+		ArrayList<Emprestimo> superlist = new ArrayList<Emprestimo>();
+		for (EmprestimoId emprestimoid : emprestimos.keySet()) {
+			if (emprestimos.get(emprestimoid).getNomeDonoItem().equalsIgnoreCase(nomeDono) && emprestimos.get(emprestimoid).getTelefoneDonoItem().equalsIgnoreCase(telefoneDono)) {
+				superlist.add(emprestimos.get(emprestimoid));
+			}		
+		}
+		Collections.sort(superlist, new OrdemAlfabeticaItem());
+		for(Emprestimo emprestimo : superlist) {
+			mensagem += emprestimo.toString() + "|";
+		}
+		if (mensagem.equals("Emprestimos: ")){
+			return "Nenhum item emprestado";
+		}
+		return mensagem;
 	}
+
 	/**
 	 * Recupera historio de emprestimos onde o usuario pegou emprestado itens de
 	 * outros usuario.
@@ -519,11 +607,27 @@ public class Controller {
 	 *            Telefone do usuario
 	 * @return lista com todos os emprestimos que o usuario pegou itens emprestados.
 	 */
-	public String listarEmprestimosUsuarioPegandoEmprestado(String nome, String telefone) {
-		this.verificaUsuarioInvalido(nome, telefone);
-		return this.usuarios.get(new UsuarioId(nome, telefone)).listarEmprestimosUsuarioPegandoEmprestado(nome,
-				telefone);
+	public String listarEmprestimosUsuarioPegandoEmprestado(String nomeDono, String telefoneDono) {
+		this.verificaUsuarioInvalido(nomeDono, telefoneDono);
+		this.verificaUsuarioInvalido(nomeDono, telefoneDono);
+		String mensagem = "Emprestimos pegos: ";
+		ArrayList<Emprestimo> superlist = new ArrayList<Emprestimo>();
+		for (EmprestimoId emprestimoid : emprestimos.keySet()) {
+			if (emprestimos.get(emprestimoid).getNomeRequerenteItem().equalsIgnoreCase(nomeDono) && emprestimos.get(emprestimoid).getTelefoneRequerenteItem().equalsIgnoreCase(telefoneDono)) {
+				superlist.add(emprestimos.get(emprestimoid));
+			}		
+		}
+		Collections.sort(superlist, new OrdemAlfabeticaItem());
+		for(Emprestimo emprestimo : superlist) {
+			mensagem += emprestimo.toString() + "|";
+		}
+		if (mensagem.equals("Emprestimos pegos: ")){
+			return "Nenhum item pego emprestado";
+		}
+		return mensagem;
 	}
+	
+
 	/**
 	 * Recupera historico de emprestimos do item.
 	 * 
@@ -533,13 +637,19 @@ public class Controller {
 	 */
 	public String listarEmprestimosItem(String nomeItem) {
 		String mensagem = "Emprestimos associados ao item: ";
-		for (UsuarioId usuarioId : usuarios.keySet()) {
-			mensagem += usuarios.get(usuarioId).listarEmprestimosItem(nomeItem);
+		for(Item item : itens) {
+			if(item.getNome().equals(nomeItem)) {
+				for(EmprestimoId emprestimoid : item.getEmprestimosId()) {
+					mensagem += emprestimos.get(emprestimoid).toString() + "|";
+				}
+			}
 		}
-		if (mensagem.equals("Emprestimos associados ao item: "))
+		if (mensagem.equals("Emprestimos associados ao item: ")){
 			return "Nenhum emprestimos associados ao item";
+		}
 		return mensagem;
 	}
+
 	/**
 	 * Recupera lista de todos os itens que estam disponiveis para emprestimos.
 	 * 
@@ -548,9 +658,10 @@ public class Controller {
 	public String listarItensNaoEmprestados() {
 		String mensagem = "";
 		ArrayList<Item> superlist = new ArrayList<Item>();
-		for(UsuarioId usuarioId : usuarios.keySet()) {
-			for	(Item item : usuarios.get(usuarioId).listarItensNaoEmprestados())
+		for(Item item : itens) {
+			if(!item.getIsEmprestado()) {
 				superlist.add(item);
+			}
 		}
 		Collections.sort(superlist, new OrdemAlfabetica());
 		for(Item item : superlist) {
@@ -558,42 +669,35 @@ public class Controller {
 		}
 		return mensagem;
 	}
-	
+
 	public String listarItensEmprestados() {
 		String mensagem = "";
 		ArrayList<Item> superlist = new ArrayList<Item>();
-		for(UsuarioId usuarioId : usuarios.keySet()) {
-			for	(Item item : usuarios.get(usuarioId).listarItensEmprestados())
-				superlist.add(item);
-		}
-		Collections.sort(superlist, new OrdemAlfabetica());
-		for(Item item : superlist) {
-			mensagem += item.toStringEmprestado()+ "|";
-		}
-		return mensagem;
-	}
-
-	public String listarTop10Itens() {
-		String mensagem = "";
-		int i = 1;
-		ArrayList<Item> superlist = new ArrayList<Item>();
-		for (UsuarioId usuarioId : usuarios.keySet()){
-			for (Item item: usuarios.get(usuarioId).listarTop10Itens()){
+		for(Item item : itens) {
+			if(item.getIsEmprestado()) {
 				superlist.add(item);
 			}
 		}
-		Collections.sort(superlist, new OrdemEmprestimos());
-		for(Item item : superlist) { 
-			if (i > 10)
-				break;
-			mensagem += i + ") " + item.toStringTop10() + "|";
-			i += 1;
+		Collections.sort(superlist, new OrdemAlfabetica());
+		for(Item item : superlist) {
+			mensagem += item.toStringEmprestado() + "|";
 		}
 		return mensagem;
 	}
 	
+	public String listarTop10Itens() {
+		String mensagem = "";
+		int i = 1;
+		Collections.sort(itens, new OrdemEmprestimos());
+		for (Item item : itens) {
+			if (i > 10)
+				break;
+			if (item.getNumEmprestimos() > 0) {
+			mensagem += i + ") " + item.toStringTop10() + "|";
+			i += 1;
+			}
+		}
+		return mensagem;
+	}
 
-
-	
-	
 }

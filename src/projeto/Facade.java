@@ -2,10 +2,10 @@
 package projeto;
 
 public class Facade {
-	private Controller controladorDeUsuarios;
+	private Controller controlador;
 
 	public Facade() {
-		this.controladorDeUsuarios = new Controller();
+		this.controlador = new Controller();
 	}
 
 	public void iniciarSistema() {
@@ -22,7 +22,7 @@ public class Facade {
 	 *            email
 	 */
 	public void cadastrarUsuario(String nome, String telefone, String email) {
-		this.controladorDeUsuarios.cadastrarUsuario(nome, telefone, email);
+		this.controlador.cadastrarUsuario(nome, telefone, email);
 	}
 	/**
 	 * Retorna informacao de um atributo especifico do usuario
@@ -36,7 +36,7 @@ public class Facade {
 	 * @return informacoes do atributo requerido
 	 */
 	public String getInfoUsuario(String nome, String telefone, String atributo) {
-		return this.controladorDeUsuarios.getInfoUsuario(nome, telefone, atributo);
+		return this.controlador.getInfoUsuario(nome, telefone, atributo);
 	}
 	/**
 	 * Remover usuario do sistema
@@ -47,7 +47,7 @@ public class Facade {
 	 *            Telefone do usuario
 	 */
 	public void removerUsuario(String nome, String telefone) {
-		this.controladorDeUsuarios.removerUsuario(nome, telefone);
+		this.controlador.removerUsuario(nome, telefone);
 	}
 	/**
 	 * Atualizar atributo especifico de um usuario
@@ -62,7 +62,7 @@ public class Facade {
 	 *            Nova informacao para substituicao do atributo
 	 */
 	public void atualizarUsuario(String nome, String telefone, String atributo, String valor) {
-		this.controladorDeUsuarios.atualizarUsuario(nome, telefone, atributo, valor);
+		this.controlador.atualizarUsuario(nome, telefone, atributo, valor);
 	}
 	/**
 	 * Cadastrar jogo eletronico como item de um usuario
@@ -79,7 +79,7 @@ public class Facade {
 	 *            Plataforma de leitura do item
 	 */
 	public void cadastrarEletronico(String nome, String telefone, String nomeItem, double preco, String plataforma) {
-		this.controladorDeUsuarios.cadastrarEletronico(nome, telefone, nomeItem, preco, plataforma);
+		this.controlador.cadastrarEletronico(nome, telefone, nomeItem, preco, plataforma);
 	}
 	/**
 	 * Retorna informacao de atributo especifico do item de um usuario
@@ -95,7 +95,7 @@ public class Facade {
 	 * @return informacoes do atributo
 	 */
 	public String getInfoItem(String nome, String telefone, String nomeItem, String atributo) {
-		return this.controladorDeUsuarios.getInfoItem(nome, telefone, nomeItem, atributo);
+		return this.controlador.getInfoItem(nome, telefone, nomeItem, atributo);
 
 	}
 	/**
@@ -112,7 +112,7 @@ public class Facade {
 	 * 
 	 **/
 	public void cadastrarJogoTabuleiro(String nome, String telefone, String nomeItem, double preco) {
-		this.controladorDeUsuarios.cadastrarTabuleiro(nome, telefone, nomeItem, preco);
+		this.controlador.cadastrarTabuleiro(nome, telefone, nomeItem, preco);
 	}
 	/**
 	 * Adiciona peca perdida na lista de pecas perdidas do jogo de tabuleiro
@@ -127,7 +127,7 @@ public class Facade {
 	 *            Nome da peca perdida
 	 */
 	public void adicionarPecaPerdida(String nome, String telefone, String nomeItem, String nomePeca) {
-		this.controladorDeUsuarios.adicionarPecaPerdida(nome, telefone, nomeItem, nomePeca);
+		this.controlador.adicionarPecaPerdida(nome, telefone, nomeItem, nomePeca);
 	}
 	/**
 	 * Cadatrar BluRay de Filme como item de um usuario
@@ -151,7 +151,7 @@ public class Facade {
 	 */
 	public void cadastrarBluRayFilme(String nome, String telefone, String nomeItem, double preco, int duracao,
 			String genero, String classificacao, int anoLancamento) {
-		this.controladorDeUsuarios.cadastrarBluRayFilme(nome, telefone, nomeItem, preco, duracao, classificacao, genero,
+		this.controlador.cadastrarBluRayFilme(nome, telefone, nomeItem, preco, duracao, classificacao, genero,
 				anoLancamento);
 	}
 	/**
@@ -176,7 +176,7 @@ public class Facade {
 	 */
 	public void cadastrarBluRayShow(String nome, String telefone, String nomeItem, double preco, int duracao,
 			int numeroFaixas, String artista, String classificacao) {
-		this.controladorDeUsuarios.cadastrarBluRayShow(nome, telefone, nomeItem, preco, duracao, classificacao,
+		this.controlador.cadastrarBluRayShow(nome, telefone, nomeItem, preco, duracao, classificacao,
 				numeroFaixas, artista);
 	}
 	/**
@@ -203,7 +203,7 @@ public class Facade {
 	 */
 	public void cadastrarBluRaySerie(String nome, String telefone, String nomeItem, double preco, String descricao,
 			int duracao, String classificacao, String genero, int temporada) {
-		this.controladorDeUsuarios.cadastrarBluRaySerie(nome, telefone, nomeItem, preco, duracao, classificacao, genero,
+		this.controlador.cadastrarBluRaySerie(nome, telefone, nomeItem, preco, duracao, classificacao, genero,
 				temporada);
 	}
 	/**
@@ -232,7 +232,7 @@ public class Facade {
 	 *            Nome do item
 	 */
 	public void removerItem(String nome, String telefone, String nomeItem) {
-		this.controladorDeUsuarios.removerItem(nome, telefone, nomeItem);
+		this.controlador.removerItem(nome, telefone, nomeItem);
 	}
 	/**
 	 * Atualiza atributo de um item
@@ -249,7 +249,7 @@ public class Facade {
 	 *            Nova informacao para o atributo
 	 */
 	public void atualizarItem(String nome, String telefone, String nomeItem, String atributo, String valor) {
-		this.controladorDeUsuarios.atualizarItem(nome, telefone, nomeItem, atributo, valor);
+		this.controlador.atualizarItem(nome, telefone, nomeItem, atributo, valor);
 	}
 	/**
 	 * Retorna lista de todos os itens cadastrados em ordem lexicografica
@@ -257,7 +257,7 @@ public class Facade {
 	 * @return lista ordenada de todos os itens
 	 */
 	public String listarItensOrdenadosPorNome(){
-		return this.controladorDeUsuarios.listarItensOrdenadosPorNome();
+		return this.controlador.listarItensOrdenadosPorNome();
 	}
 	/**
 	 * Retorna lista de todos os itens cadastrados em ordem, por preco
@@ -265,7 +265,7 @@ public class Facade {
 	 * @return lista ordenada de todos os itens
 	 */
 	public String listarItensOrdenadosPorValor() {
-		return this.controladorDeUsuarios.listarItensOrdenadosPorValor();
+		return this.controlador.listarItensOrdenadosPorValor();
 	}
 	/**
 	 * Registra emprestimo de item no sistema
@@ -287,7 +287,7 @@ public class Facade {
 	 */
 	public void registrarEmprestimo(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente, String nomeItem, 
 			String dataEmprestimo, int periodo){
-		this.controladorDeUsuarios.registrarEmprestimo(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo, periodo);
+		this.controlador.registrarEmprestimo(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo, periodo);
 	}
 	/**
 	 * Retorna informacoes de um item
@@ -301,7 +301,7 @@ public class Facade {
 	 * @return representacao textual das informacoes do item desejado
 	 */
 	public String pesquisarDetalhesItem(String nome, String telefone, String nomeItem){
-		return this.controladorDeUsuarios.pesquisarDetalhesItem(nome, telefone, nomeItem);
+		return this.controlador.pesquisarDetalhesItem(nome, telefone, nomeItem);
 	}
 	/**
 	 * Registra devolucao de item
@@ -323,7 +323,7 @@ public class Facade {
 	 */
 	public void devolverItem(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente, String nomeItem, 
 			String dataEmprestimo, String dataDevolucao){
-		this.controladorDeUsuarios.devolverItem(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo, dataDevolucao);
+		this.controlador.devolverItem(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo, dataDevolucao);
 	}
 	/**
 	 * Retorna historico de emprestimos de itens do usario que foram emprestados
@@ -336,7 +336,7 @@ public class Facade {
 	 */
 	public String listarEmprestimosUsuarioEmprestando(String nomeDono, String telefoneDono){
 		
-		return this.controladorDeUsuarios.listarEmprestimosUsuarioEmprestando(nomeDono, telefoneDono);
+		return this.controlador.listarEmprestimosUsuarioEmprestando(nomeDono, telefoneDono);
 	}
 	/**
 	 * Retorna historico de emprestimos de itens que o usuario pegou emprestado
@@ -348,7 +348,7 @@ public class Facade {
 	 * @return lista do historico de emprestimos do usuario
 	 */
 	public String listarEmprestimosUsuarioPegandoEmprestado(String nome, String telefone){
-		return this.controladorDeUsuarios.listarEmprestimosUsuarioPegandoEmprestado(nome, telefone);
+		return this.controlador.listarEmprestimosUsuarioPegandoEmprestado(nome, telefone);
 	}
 	/**
 	 * Retorna historico dos emprestimos de um item
@@ -358,7 +358,7 @@ public class Facade {
 	 * @return lista dos emprestimos do item
 	 */
 	public String listarEmprestimosItem(String nomeItem) {
-		return this.controladorDeUsuarios.listarEmprestimosItem(nomeItem);
+		return this.controlador.listarEmprestimosItem(nomeItem);
 	}
 	/**
 	 * Recupera a lista de todos os itens que nao estao emprestados no momento
@@ -366,15 +366,15 @@ public class Facade {
 	 * @return lista de itens nao emprestados
 	 */
 	public String listarItensNaoEmprestados() {
-		return this.controladorDeUsuarios.listarItensNaoEmprestados();
+		return this.controlador.listarItensNaoEmprestados();
 	}
 	
 	public String listarItensEmprestados(){
-		return this.controladorDeUsuarios.listarItensEmprestados();
+		return this.controlador.listarItensEmprestados();
 	}
 	
 	public String listarTop10Itens(){
-		return this.controladorDeUsuarios.listarTop10Itens();
+		return this.controlador.listarTop10Itens();
 	}
 	/**
 	 * Encerra o sistema

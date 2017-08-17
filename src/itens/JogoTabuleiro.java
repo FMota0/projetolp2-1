@@ -19,8 +19,8 @@ public class JogoTabuleiro extends Item{
 	 * @param preco
 	 *            Preco de venda do item
 	 */
-	public JogoTabuleiro(String nome, double preco){
-		super(nome, preco);
+	public JogoTabuleiro(String nome, double preco,String nomeDono, String telefoneDono){
+		super(nome, preco, nomeDono, telefoneDono);
 		this.pecasPerdidas = new ArrayList<String>();
 	}
 	/**

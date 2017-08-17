@@ -22,10 +22,14 @@ public abstract class BluRay extends Item {
 	 * @param classificacao
 	 *            Classificacao indicativa do conteudo do BluRay
 	 */
-	public BluRay(String nomeItem, double preco, int duracao, String classificacao) {
-		super(nomeItem, preco);
+	public BluRay(String nomeItem, double preco, int duracao, String classificacao, String nomeDono, String telefoneDono) {
+		super(nomeItem, preco, nomeDono, telefoneDono);
 		this.duracao = duracao;
 		this.classificacao = classificacao;
 	}
+	public String toStringTop10() {
+		return this.toString();
+	}
+
 
 }

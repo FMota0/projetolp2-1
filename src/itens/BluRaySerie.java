@@ -26,8 +26,8 @@ public class BluRaySerie extends BluRay {
 	 * @param temporada
 	 *            Temporada do BluRay da serie
 	 */
-	public BluRaySerie(String nomeItem, double preco, int duracao, String classificacao, String genero, int temporada) {
-		super(nomeItem, preco, duracao, classificacao);
+	public BluRaySerie(String nomeItem, double preco, int duracao, String classificacao, String genero, int temporada, String nomeDono, String telefoneDono) {
+		super(nomeItem, preco, duracao, classificacao, nomeDono, telefoneDono);
 		this.genero = genero;
 		this.temporada = temporada;
 	}

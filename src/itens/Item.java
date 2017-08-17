@@ -1,8 +1,7 @@
 package itens;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 import projeto.EmprestimoId;
 /**
@@ -16,9 +15,10 @@ public abstract class Item {
 	protected double preco;
 	protected String nome;
 	protected boolean isEmprestado;
-	protected ArrayList<EmprestimoId> emprestimoIds;
+	protected List<EmprestimoId> emprestimoIds;
 	protected int emprestimos;
-	
+	protected String nomeDono;
+	protected String telefoneDono;
 	/**
 	 * Verifica a validez da entrada do preco do item
 	 * 
@@ -51,7 +51,7 @@ public abstract class Item {
 	 *            Preco de venda do item
 	 */
 	
-	public Item(String nome, double preco) {
+	public Item(String nome, double preco, String nomeDono, String telefoneDono) {
 
 		this.valideNome(nome);
 		this.validePreco(preco);
@@ -60,6 +60,24 @@ public abstract class Item {
 		this.nome = nome;
 		this.isEmprestado = false;
 		this.emprestimoIds = new ArrayList<EmprestimoId>();
+		this.nomeDono = nomeDono;
+		this.telefoneDono = telefoneDono;
+	}
+
+	public String getNomeDono() {
+		return nomeDono;
+	}
+
+	public void setNomeDono(String nomeDono) {
+		this.nomeDono = nomeDono;
+	}
+
+	public String getTelefoneDono() {
+		return telefoneDono;
+	}
+
+	public void setTelefoneDono(String telefoneDono) {
+		this.telefoneDono = telefoneDono;
 	}
 
 	public double getPreco() {
@@ -102,6 +120,7 @@ public abstract class Item {
 			String nomeItem, String dataEmprestimo) {
 		emprestimoIds.add(
 				new EmprestimoId(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo));
+			this.mudaEstadoItem();
 
 	}
 	
@@ -110,6 +129,10 @@ public abstract class Item {
 	 * 
 	 * @return lista de todos os emprestimos
 	 */
+	
+	public void mudaEstadoItem() {
+		this.isEmprestado = !this.isEmprestado;
+	}
 	
 	public ArrayList<EmprestimoId> getEmprestimosId() {
 		return (ArrayList<EmprestimoId>) emprestimoIds;

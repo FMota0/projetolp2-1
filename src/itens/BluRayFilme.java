@@ -22,8 +22,8 @@ public class BluRayFilme extends BluRay {
 	 *            Ano de lancamento do filme
 	 */
 	public BluRayFilme(String nomeItem, double preco, int duracao, String classificacao, String genero,
-			int anoLancamento) {
-		super(nomeItem, preco, duracao, classificacao);
+			int anoLancamento, String nomeDono, String telefoneDono) {
+		super(nomeItem, preco, duracao, classificacao,nomeDono, telefoneDono);
 		this.genero = genero;
 		this.anoLancamento = anoLancamento;
 	}
@@ -34,5 +34,9 @@ public class BluRayFilme extends BluRay {
 				+ super.toString() + ", " + this.duracao + " min, " + this.classificacao + ", " + this.genero + ", "
 				+ this.anoLancamento;
 	}
+	public String toStringTop10() {
+		return this.toString();
+	}
+
 
 }
