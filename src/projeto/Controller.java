@@ -10,6 +10,9 @@ import ComparadoresEmprestimo.OrdemAlfabeticaItem;
 import ComparadoresItens.OrdemAlfabetica;
 import ComparadoresItens.OrdemDeValor;
 import ComparadoresItens.OrdemEmprestimos;
+import ComparadoresReputacao.OrdenaMelhorPiorReputacao;
+import ComparadoresReputacao.OrdenaPiorMelhorReputacao;
+import ComparadoresUsuario.OrdemAlfabeticaNome;
 import itens.BluRayFilme;
 import itens.BluRaySerie;
 import itens.BluRayShow;
@@ -204,8 +207,8 @@ public class Controller {
 			String plataforma) {
 
 		this.verificaUsuarioInvalido(nomeUsuario, telefoneUsuario);
-		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).addReputacao((preco / 20));
 		this.itens.add(new JogoEletronico(nomeItem, preco, plataforma, nomeUsuario, telefoneUsuario));
+		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).addReputacao((preco / 20), usuarioTemItens(nomeUsuario, telefoneUsuario));
 	}
 
 	/**
@@ -223,8 +226,8 @@ public class Controller {
 	public void cadastrarTabuleiro(String nomeUsuario, String telefoneUsuario, String nomeItem, double preco) {
 
 		this.verificaUsuarioInvalido(nomeUsuario, telefoneUsuario);
-		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).addReputacao((preco / 20));
 		this.itens.add(new JogoTabuleiro(nomeItem, preco, nomeUsuario, telefoneUsuario));
+		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).addReputacao((preco / 20), usuarioTemItens(nomeUsuario, telefoneUsuario));
 	}
 
 	/**
@@ -251,9 +254,9 @@ public class Controller {
 			int duracao, String classificacao, String genero, int temporada) {
 
 		this.verificaUsuarioInvalido(nomeUsuario, telefoneUsuario);
-		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).addReputacao((preco / 20));
 		this.itens.add(new BluRaySerie(nomeItem, preco, duracao, classificacao, genero, temporada, nomeUsuario,
 				telefoneUsuario));
+		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).addReputacao((preco / 20), usuarioTemItens(nomeUsuario, telefoneUsuario));
 	}
 
 	/**
@@ -280,9 +283,9 @@ public class Controller {
 			int duracao, String classificacao, int numeroFaixas, String artista) {
 
 		this.verificaUsuarioInvalido(nomeUsuario, telefoneUsuario);
-		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).addReputacao((preco / 20));
 		this.itens.add(new BluRayShow(nomeItem, preco, duracao, classificacao, numeroFaixas, artista, nomeUsuario,
 				telefoneUsuario));
+		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).addReputacao((preco / 20),usuarioTemItens(nomeUsuario, telefoneUsuario));
 	}
 
 	/**
@@ -309,9 +312,9 @@ public class Controller {
 			int duracao, String classificacao, String genero, int anoLancamento) {
 
 		this.verificaUsuarioInvalido(nomeUsuario, telefoneUsuario);
-		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).addReputacao((preco / 20));
 		this.itens.add(new BluRayFilme(nomeItem, preco, duracao, classificacao, genero, anoLancamento, nomeUsuario,
 				telefoneUsuario));
+		this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario)).addReputacao((preco / 20),usuarioTemItens(nomeUsuario, telefoneUsuario));
 	}
 
 	/**
@@ -444,15 +447,22 @@ public class Controller {
 				if (item.getIsEmprestado()) {
 					throw new IllegalStateException("Item emprestado no momento");
 				}
+				if(!usuarios.get(new UsuarioId(nomeRequerente, telefoneRequerente)).podeEmprestar()) {
+					throw new IllegalStateException("Usuario nao pode pegar nenhum item emprestado");
+				}
+				if(periodo > usuarios.get(new UsuarioId(nomeRequerente, telefoneRequerente)).periodoMaximo()) {
+					throw new IllegalStateException("Usuario impossiblitado de pegar emprestado por esse periodo");
+				}
 				emprestimos.put(
 						new EmprestimoId(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem,
 								dataEmprestimo),
 						new Emprestimo(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem,
 								dataEmprestimo, periodo));
+				
 				item.addEmprestimo(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem,
 						dataEmprestimo);
 				item.contaEmprestimo();
-				usuarios.get(new UsuarioId(nomeDono, telefoneDono)).addReputacao(item.getPreco() / 10);
+				usuarios.get(new UsuarioId(nomeDono, telefoneDono)).addReputacao(item.getPreco() / 10,usuarioTemItens(nomeDono, telefoneDono));
 			}
 		}
 	}
@@ -494,10 +504,10 @@ public class Controller {
 					int diasmulta = emprestimos.get(new EmprestimoId(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente,
 							nomeItem, dataEmprestimo)).getDiasMulta();
 					if(diasmulta > 0) {
-							usuarios.get(new UsuarioId(nomeRequerente, telefoneRequerente)).addReputacao(-(item.getPreco()/100)*diasmulta);
+							usuarios.get(new UsuarioId(nomeRequerente, telefoneRequerente)).addReputacao(-(item.getPreco()/100)*diasmulta,usuarioTemItens(nomeRequerente, telefoneRequerente));
 					}
 					else {
-						usuarios.get(new UsuarioId(nomeRequerente, telefoneRequerente)).addReputacao(item.getPreco()/20);
+						usuarios.get(new UsuarioId(nomeRequerente, telefoneRequerente)).addReputacao(item.getPreco()/20,usuarioTemItens(nomeRequerente, telefoneRequerente));
 					}
 
 				} else {
@@ -700,4 +710,75 @@ public class Controller {
 		return mensagem;
 	}
 
+	private boolean usuarioTemItens(String nomeDono, String telefoneDono) {
+		for (Item item : itens) {
+			if(item.getNomeDono().equalsIgnoreCase(nomeDono) && item.getTelefoneDono().equalsIgnoreCase(telefoneDono)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	
+	public String listarCaloteiros() {
+		String mensagem = "Lista de usuarios com reputacao negativa: ";
+		ArrayList<Usuario> superlist = new ArrayList<Usuario>();
+		for (UsuarioId usuarioid : usuarios.keySet()) {
+			if(!usuarios.get(usuarioid).podeEmprestar()) {
+				superlist.add(usuarios.get(usuarioid));
+			}
+		}
+		Collections.sort(superlist, new OrdemAlfabeticaNome());
+		for(Usuario usuario : superlist) {
+			mensagem += usuario.toString() + "|";
+		}
+		if (mensagem.equals("Lista de usuarios com reputacao negativa: ")) {
+			return "Nenhum usuario possui reputacao negativa";
+		}
+		return mensagem;
+	}
+
+	public String listarTop10MelhoresUsuarios() {
+		String mensagem = "";
+		int i = 1;
+		ArrayList<Usuario> superlist = new ArrayList<Usuario>();
+		for (UsuarioId usuarioid : usuarios.keySet()) {
+			superlist.add(usuarios.get(usuarioid));
+			
+		}
+		Collections.sort(superlist, new OrdenaPiorMelhorReputacao());
+		for(Usuario usuario : superlist) {
+			if(i > 10) {
+				break;
+			}
+			mensagem += i + ": " + usuario.getNome() + " - Reputacao: " + String.format("%.2f", Round.round(usuario.getReputacao(),2)) + "|";
+			i += 1;
+		}
+		
+		return mensagem;
+	
+	}
+	
+	public String listarTop10PioresUsuarios() {
+		String mensagem = "";
+		int i = 1;
+		ArrayList<Usuario> superlist = new ArrayList<Usuario>();
+		for (UsuarioId usuarioid : usuarios.keySet()) {
+			superlist.add(usuarios.get(usuarioid));
+			
+		}
+		Collections.sort(superlist, new OrdenaMelhorPiorReputacao());
+		for(Usuario usuario : superlist) {
+			if(i > 10) {
+				break;
+			}
+			
+			mensagem += i + ": " + usuario.getNome() + " - Reputacao: " + String.format("%.2f", Round.round(usuario.getReputacao(),2)) + "|";
+			i += 1;
+		}
+		
+		return mensagem;
+	
+	}
+	
 }

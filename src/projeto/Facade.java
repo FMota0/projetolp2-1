@@ -383,6 +383,17 @@ public class Facade {
 
 	}
 	
+	public String listarCaloteiros() {
+		return this.controlador.listarCaloteiros();
+	}
+	
+	public String listarTop10MelhoresUsuarios() {
+		return this.controlador.listarTop10MelhoresUsuarios();
+	}
+	public String listarTop10PioresUsuarios() {
+		return this.controlador.listarTop10PioresUsuarios();
+	}
+	
 	
 	
 }

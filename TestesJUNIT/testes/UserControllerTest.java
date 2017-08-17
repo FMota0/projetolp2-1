@@ -88,7 +88,7 @@ public class UserControllerTest {
 	public void listarUsuarioTest(){
 		Controller controle = new Controller();
 		controle.cadastrarUsuario("felipe", "11", "fmota@...");
-		assertEquals("felipe, 11, fmota@...", controle.listarUsuario("felipe", "11"));
+		assertEquals("felipe, fmota@..., 11", controle.listarUsuario("felipe", "11"));
 	}
 	
 }
