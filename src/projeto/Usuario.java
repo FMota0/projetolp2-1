@@ -103,8 +103,8 @@ public class Usuario {
 		this.email = email;
 	}
 	
-	public void addReputacao(double reputacao){
-		this.reputacaoController.addReputacao(reputacao);
+	public void addReputacao(double reputacao, boolean temItens){
+		this.reputacaoController.addReputacao(reputacao, temItens);
 	}
 	
 	public double getReputacao(){
@@ -115,7 +115,7 @@ public class Usuario {
 	 */
 	@Override
 	public String toString() {
-		return usuarioid.getNome() + ", " + this.usuarioid.getTelefone() + ", " + this.email;
+		return usuarioid.getNome() + ", " + this.email + ", " + this.usuarioid.getTelefone();
 	}
 	
 	/**
@@ -134,6 +134,8 @@ public class Usuario {
 			return this.getEmail();
 		else if (atributo.toLowerCase().equals("reputacao"))
 			return "" + this.getReputacao();
+		else if (atributo.toLowerCase().equals("cartao"))
+			return "" + this.reputacaoController.toString();
 		else
 			throw new IllegalArgumentException("Atributo de usuario invalido");
 	}
@@ -186,6 +188,13 @@ public class Usuario {
 		} else if (!usuarioid.equals(other.usuarioid))
 			return false;
 		return true;
+	}
+	public int periodoMaximo() {
+		return this.reputacaoController.periodoMaximo();
+	}
+	
+	public boolean podeEmprestar() {
+		return this.reputacaoController.podeEmprestar();
 	}
 
 
