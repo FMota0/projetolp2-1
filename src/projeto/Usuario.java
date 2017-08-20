@@ -1,18 +1,6 @@
 
 package projeto;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
-import ComparadoresEmprestimo.OrdemAlfabeticaItem;
-import itens.BluRayFilme;
-import itens.BluRaySerie;
-import itens.BluRayShow;
-import itens.Item;
-import itens.JogoEletronico;
-import itens.JogoTabuleiro;
 
 /**
  * Usuario representado por : Nome Telefone Email Conjunto de itens;

@@ -1,17 +1,7 @@
 package projeto;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import ComparadoresEmprestimo.OrdemAlfabeticaItem;
-import ComparadoresItens.OrdemAlfabetica;
-import ComparadoresItens.OrdemDeValor;
-import ComparadoresItens.OrdemEmprestimos;
 import itens.Item;
-import itens.JogoTabuleiro;
 
 /**
  * 
@@ -26,12 +16,12 @@ public class Controller {
 	 * 
 	 */
 	private UserController usuariosController;
-	private Map<EmprestimoId, Emprestimo> emprestimos;
+	private LoanController emprestimoController;
 	private ItemController itensController;
 
 	public Controller() {
 		this.usuariosController = new UserController();
-		this.emprestimos = new HashMap<EmprestimoId, Emprestimo>();
+		this.emprestimoController = new LoanController();
 		this.itensController = new ItemController();
 	}
 
@@ -360,11 +350,7 @@ public class Controller {
 		if(periodo > requerente.periodoMaximo()) {
 			throw new IllegalStateException("Usuario impossiblitado de pegar emprestado por esse periodo");
 		}
-		emprestimos.put(
-				new EmprestimoId(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem,
-						dataEmprestimo),
-				new Emprestimo(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem,
-						dataEmprestimo, periodo));
+		this.emprestimoController.registrarEmprestimo(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo, periodo);
 		item.addEmprestimo(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem,
 				dataEmprestimo);
 		item.contaEmprestimo();
@@ -396,16 +382,15 @@ public class Controller {
 		this.usuariosController.verificaUsuarioInvalido(nomeDono, telefoneDono);
 		this.usuariosController.verificaUsuarioInvalido(nomeRequerente, telefoneRequerente);
 		this.itensController.existeItem(nomeItem, nomeDono, telefoneDono);
-		if (!emprestimos.containsKey(
-				new EmprestimoId(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo)))
+		if (!this.emprestimoController.existeEmprestimo(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo))
 			throw new IllegalStateException("Emprestimo nao encontrado");
 		Item item = this.itensController.getItem(nomeItem, nomeDono, telefoneDono);
 		if (item.getIsEmprestado()) {
-			emprestimos.get(new EmprestimoId(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente,
-					nomeItem, dataEmprestimo)).setDataDevolucao(dataDevolucao);
+			Emprestimo paraMudar = this.emprestimoController.getEmprestimo(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente,
+					nomeItem, dataEmprestimo);
+			paraMudar.setDataDevolucao(dataDevolucao);
 			item.mudaEstadoItem();
-			int diasmulta = emprestimos.get(new EmprestimoId(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente,
-					nomeItem, dataEmprestimo)).getDiasMulta();
+			int diasmulta = paraMudar.getDiasMulta();
 			Usuario requerente = this.usuariosController.getUsuario(nomeRequerente, telefoneRequerente);
 			if(diasmulta > 0) {
 					requerente.addReputacao(-(item.getPreco()/100)*diasmulta,usuarioTemItens(nomeRequerente, telefoneRequerente));
@@ -467,21 +452,7 @@ public class Controller {
 	 */
 	public String listarEmprestimosUsuarioEmprestando(String nomeDono, String telefoneDono) {
 		this.usuariosController.verificaUsuarioInvalido(nomeDono, telefoneDono);
-		String mensagem = "Emprestimos: ";
-		ArrayList<Emprestimo> superlist = new ArrayList<Emprestimo>();
-		for (EmprestimoId emprestimoid : emprestimos.keySet()) {
-			if (emprestimos.get(emprestimoid).getNomeDonoItem().equalsIgnoreCase(nomeDono) && emprestimos.get(emprestimoid).getTelefoneDonoItem().equalsIgnoreCase(telefoneDono)) {
-				superlist.add(emprestimos.get(emprestimoid));
-			}		
-		}
-		Collections.sort(superlist, new OrdemAlfabeticaItem());
-		for(Emprestimo emprestimo : superlist) {
-			mensagem += emprestimo.toString() + "|";
-		}
-		if (mensagem.equals("Emprestimos: ")){
-			return "Nenhum item emprestado";
-		}
-		return mensagem;
+		return this.emprestimoController.listarEmprestimosUsuarioEmprestando(nomeDono, telefoneDono);
 	}
 
 	/**
@@ -497,21 +468,7 @@ public class Controller {
 	public String listarEmprestimosUsuarioPegandoEmprestado(String nomeDono, String telefoneDono) {
 		this.usuariosController.verificaUsuarioInvalido(nomeDono, telefoneDono);
 		this.usuariosController.verificaUsuarioInvalido(nomeDono, telefoneDono);
-		String mensagem = "Emprestimos pegos: ";
-		ArrayList<Emprestimo> superlist = new ArrayList<Emprestimo>();
-		for (EmprestimoId emprestimoid : emprestimos.keySet()) {
-			if (emprestimos.get(emprestimoid).getNomeRequerenteItem().equalsIgnoreCase(nomeDono) && emprestimos.get(emprestimoid).getTelefoneRequerenteItem().equalsIgnoreCase(telefoneDono)) {
-				superlist.add(emprestimos.get(emprestimoid));
-			}		
-		}
-		Collections.sort(superlist, new OrdemAlfabeticaItem());
-		for(Emprestimo emprestimo : superlist) {
-			mensagem += emprestimo.toString() + "|";
-		}
-		if (mensagem.equals("Emprestimos pegos: ")){
-			return "Nenhum item pego emprestado";
-		}
-		return mensagem;
+		return this.emprestimoController.listarEmprestimosUsuarioPegandoEmprestado(nomeDono, telefoneDono);
 	}
 	
 
@@ -526,7 +483,7 @@ public class Controller {
 		String mensagem = "Emprestimos associados ao item: ";
 		List<EmprestimoId> emprestimoId = this.itensController.getListaEmprestimos(nomeItem);
 		for(EmprestimoId emprestimoid : emprestimoId) {
-			mensagem += emprestimos.get(emprestimoid).toString() + "|";
+			mensagem += this.emprestimoController.getEmprestimo(emprestimoid).toString() + "|";
 		}
 		if (mensagem.equals("Emprestimos associados ao item: ")){
 			return "Nenhum emprestimos associados ao item";

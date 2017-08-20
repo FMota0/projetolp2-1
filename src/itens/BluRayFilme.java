@@ -1,6 +1,5 @@
 package itens;
 
-import java.util.Locale;
 
 public class BluRayFilme extends BluRay {
 	private String genero;

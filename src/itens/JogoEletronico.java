@@ -1,6 +1,5 @@
 package itens;
 
-import java.util.Locale;
 /**
  * Instancia itens do tipo Jogo Eletronico
  * 

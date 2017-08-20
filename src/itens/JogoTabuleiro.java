@@ -1,7 +1,6 @@
 package itens;
 
 import java.util.ArrayList;
-import java.util.Locale;
 /**
  * Instancia itens do tipo Jodo de Tabuleiro
  * 

@@ -1,15 +1,7 @@
 package projeto;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.Arrays;
-
-import itens.Item;
 /**
  * Instancia emprestimo de um item.
  * 

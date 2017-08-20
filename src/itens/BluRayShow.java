@@ -1,6 +1,5 @@
 package itens;
 
-import java.util.Locale;
 /**
  * Instacia itens do tipo BluRay de Shows
  * 
