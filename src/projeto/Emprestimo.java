@@ -22,6 +22,8 @@ public class Emprestimo {
 	private LocalDate dataInicialEmprestimo;
 	private int numeroDiasParaEmprestimo;
 	private LocalDate dataDeDevolucao;
+	private String dataInicialEmprestimoStr;
+	private String dataDevolucaoStr;
 	
 	/**
 	 * Gera representacao comparavel de data
@@ -63,6 +65,8 @@ public class Emprestimo {
 		this.dataInicialEmprestimo = this.parse(dataInicialEmprestimo);
 		this.numeroDiasParaEmprestimo = numeroDiasParaEmprestimo;
 		this.dataDeDevolucao = null;
+		this.dataInicialEmprestimoStr = dataInicialEmprestimo;
+		this.dataDevolucaoStr = null;
 	}
 	/**
 	 * Recupera nome do usuario dono do item.
@@ -112,26 +116,9 @@ public class Emprestimo {
 	 */
 	public void setDataDevolucao(String dataDevolucao) {
 		this.dataDeDevolucao = this.parse(dataDevolucao);
+		this.dataDevolucaoStr = dataDevolucao;
 	}
-	/**
-	 * Gera string da data inicial do emprestimo
-	 * 
-	 * @return representacao textual da data
-	 */
-	private String dataInicial() { // eu nao sei mexer com LocalDate e nem
-									// pesquisar no google. Felipe
-		return this.dataInicialEmprestimo.getDayOfMonth() + "/" + this.dataInicialEmprestimo.getMonthValue() + "/"
-				+ this.dataInicialEmprestimo.getYear();
-	}
-	/**
-	 * Gera string da data de devolucao do emprestimo
-	 * 
-	 * @return representacao textual da data
-	 */
-	private String dataDevolucao() {
-		return this.dataDeDevolucao.getDayOfMonth() + "/" + this.dataDeDevolucao.getMonthValue() + "/"
-				+ this.dataDeDevolucao.getYear();
-	}
+
 	/**
 	 * Retorna representacao textual de um emprestimo.
 	 */
@@ -141,10 +128,10 @@ public class Emprestimo {
 		if (this.dataDeDevolucao == null)
 			entregado = "Emprestimo em andamento";
 		else
-			entregado = this.dataDevolucao();
+			entregado = this.dataDevolucaoStr;
 		return "EMPRESTIMO - De: " + this.emprestimoid.getNomeDonoItem() + ", Para: "
 				+ this.emprestimoid.getNomeRequerenteItem() + ", " + this.emprestimoid.getNomeItem() + ", "
-				+ this.dataInicial() + ", " + this.numeroDiasParaEmprestimo + " dias, ENTREGA: " + entregado;
+				+ this.dataInicialEmprestimoStr + ", " + this.numeroDiasParaEmprestimo + " dias, ENTREGA: " + entregado;
 	}
 	/**
 	 * Personaliza hashCode do objeto emprestimo.
