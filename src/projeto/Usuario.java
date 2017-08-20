@@ -24,8 +24,7 @@ public class Usuario {
 
 	private UsuarioId usuarioid;
 	private String email;
-	private ItemController itemController;
-	private EmprestimoController emprestimoController;
+	private ReputacaoController reputacaoController;
 
 	public Usuario(String nome, String telefone, String email) {
 
@@ -35,14 +34,8 @@ public class Usuario {
 
 		this.email = email;
 		this.usuarioid = new UsuarioId(nome, telefone);
-		this.itemController = new ItemController();
-		this.emprestimoController = new EmprestimoController();
+		this.reputacaoController = new ReputacaoController();
 	}
-
-	public void cadastraItem(Item item) {
-		itemController.cadastraItem(item);
-	}
-
 	/**
 	 * Validando o nome do usuario
 	 * 
@@ -109,16 +102,29 @@ public class Usuario {
 		this.valideEmail(email);
 		this.email = email;
 	}
-
+	
+	public void addReputacao(double reputacao, boolean temItens){
+		this.reputacaoController.addReputacao(reputacao, temItens);
+	}
+	
+	public double getReputacao(){
+		return this.reputacaoController.getReputacao();
+	}
+	/**
+	 * Representacao textual de um usuario
+	 */
 	@Override
 	public String toString() {
-		return usuarioid.getNome() + ", " + email + ", " + this.email;
+		return usuarioid.getNome() + ", " + this.email + ", " + this.usuarioid.getTelefone();
 	}
-
-	public boolean existeItem(String nomeItem) {
-		return itemController.existeItem(nomeItem);
-	}
-
+	
+	/**
+	 * Retorna atributo do usuario
+	 * 
+	 * @param atributo
+	 *            Atributo desejado
+	 * @return conteudo do atributo
+	 */
 	public String getAtributo(String atributo) {
 		if (atributo.toLowerCase().equals("nome"))
 			return this.getNome();
@@ -126,10 +132,21 @@ public class Usuario {
 			return this.getTelefone();
 		else if (atributo.toLowerCase().equals("email"))
 			return this.getEmail();
+		else if (atributo.toLowerCase().equals("reputacao"))
+			return "" + this.getReputacao();
+		else if (atributo.toLowerCase().equals("cartao"))
+			return "" + this.reputacaoController.toString();
 		else
 			throw new IllegalArgumentException("Atributo de usuario invalido");
 	}
-
+	/**
+	 * Modifica conteudo do atributo do usuario
+	 * 
+	 * @param atributo
+	 *            Nome do atributo
+	 * @param valor
+	 *            Novo conteudo do atributo
+	 */
 	public void mudaAtributo(String atributo, String valor) {
 		if (atributo.toLowerCase().equals("nome"))
 			this.setNome(valor);
@@ -141,93 +158,6 @@ public class Usuario {
 			throw new IllegalArgumentException("Atributo de usuario invalido");
 	}
 
-	public String getInfoItem(String nomeItem, String atributo) {
-
-		return itemController.getInfoItem(nomeItem, atributo);
-	}
-
-	public boolean adicionarPecaPerdida(String nomeItem, String peca) {
-
-		return itemController.adicionarPecaPerdida(nomeItem, peca);
-	}
-
-	public void removerItem(String nomeItem) {
-		itemController.removerItem(nomeItem);
-	}
-
-	public void atualizarItem(String nomeItem, String atributo, String valor) {
-		itemController.atualizarItem(nomeItem, atributo, valor);
-	}
-
-	public void cadastrarEletronico(String nomeItem, double preco, String plataforma) {
-		itemController.cadastrarEletronico(nomeItem, preco, plataforma);
-
-	}
-
-	public void cadastrarTabuleiro(String nomeItem, double preco) {
-		itemController.cadastrarTabuleiro(nomeItem, preco);
-	}
-
-	public void cadastrarBluRaySerie(String nomeItem, double preco, int duracao, String classificacao, String genero,
-			int temporada) {
-		itemController.cadastrarBluRaySerie(nomeItem, preco, duracao, classificacao, genero, temporada);
-
-	}
-
-	public void cadastrarBluRayShow(String nomeItem, double preco, int duracao, String classificacao, int numeroFaixas,
-			String artista) {
-		itemController.cadastrarBluRayShow(nomeItem, preco, duracao, classificacao, numeroFaixas, artista);
-
-	}
-
-	public void cadastrarBluRayFilme(String nomeItem, double preco, int duracao, String classificacao, String genero,
-			int anoLancamento) {
-		itemController.cadastrarBluRayFilme(nomeItem, preco, duracao, classificacao, genero, anoLancamento);
-
-	}
-
-	public void registrarEmprestimo(String nomeDono, String telefoneDono, String nomeRequerente,
-			String telefoneRequerente, String nomeItem, String dataEmprestimo, int periodo) {
-
-		if (nomeDono.equals(this.usuarioid.getNome()) && telefoneDono.equals(this.usuarioid.getTelefone()))
-			if (!existeItem(nomeItem))
-				throw new NullPointerException("Item nao encontrado");
-
-		if (nomeDono.equals(this.usuarioid.getNome()) && telefoneDono.equals(this.usuarioid.getTelefone()))
-			if (!itemController.estaEmprestado(nomeItem)) {
-				emprestimoController.registrarEmprestimo(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente,
-						nomeItem, dataEmprestimo, periodo);
-				itemController.registrarEmprestimo(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem,
-						dataEmprestimo);
-			} else
-				throw new IllegalStateException("Item emprestado no momento");
-		else
-			emprestimoController.registrarEmprestimo(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente,
-					nomeItem, dataEmprestimo, periodo);
-
-	}
-
-	public void mudaEstadoItem(String nomeItem) {
-		itemController.mudaEstadoItem(nomeItem);
-	}
-
-	public void devolverItem(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente,
-			String nomeItem, String dataEmprestimo, String dataDevolucao) {
-
-		if (nomeDono.equals(this.usuarioid.getNome()) && telefoneDono.equals(this.usuarioid.getTelefone())) {
-			if (itemController.estaEmprestado(nomeItem))
-				emprestimoController.devolverItem(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem,
-						dataEmprestimo, dataDevolucao);
-		} else if (nomeRequerente.equals(this.usuarioid.getNome())
-				&& telefoneRequerente.equals(this.usuarioid.getTelefone()))
-			emprestimoController.devolverItem(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem,
-					dataEmprestimo, dataDevolucao);
-
-	}
-
-	public ArrayList<Item> getListItem() {
-		return itemController.getListItem();
-	}
 
 	@Override
 	public int hashCode() {
@@ -259,33 +189,13 @@ public class Usuario {
 			return false;
 		return true;
 	}
-
-	public String pesquisarDetalhesItem(String nomeItem) {
-		return itemController.pesquisarDetalhesItem(nomeItem);
+	public int periodoMaximo() {
+		return this.reputacaoController.periodoMaximo();
+	}
+	
+	public boolean podeEmprestar() {
+		return this.reputacaoController.podeEmprestar();
 	}
 
-	public String listarEmprestimosUsuarioEmprestando(String nomeDono, String telefoneDono) {
-		return this.emprestimoController.listarEmprestimosUsuarioEmprestando(nomeDono, telefoneDono);
-	}
-
-	public String listarEmprestimosUsuarioPegandoEmprestado(String nome, String telefone) {
-		return this.emprestimoController.listarEmprestimosUsuarioPegandoEmprestado(nome, telefone);
-	}
-
-	public String listarEmprestimosItem(String nomeItem) {
-		String mensagem = "";
-		if (itemController.existeItem(nomeItem)) {
-			{
-				mensagem += emprestimoController.toStringEmprestimo(itemController.getEmprestimos(nomeItem));
-
-			}
-		}
-		return mensagem;
-		
-
-	}
-	public ArrayList<Item> listarItensNaoEmprestados(){
-		return this.itemController.getListItemNaoEmprestado();
-	}
 
 }

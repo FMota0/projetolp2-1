@@ -49,7 +49,14 @@ public class UsuarioId {
 			throw new IllegalArgumentException("Telefone de usuario invalido");
 	
 	}
-	
+	/**
+	 * Construtor do UsuarioId
+	 * 
+	 * @param nome
+	 *            Nome
+	 * @param telefone
+	 *            Telefone
+	 */
 	public UsuarioId(String nome, String telefone){
 		
 		this.valideNome(nome);
@@ -58,7 +65,9 @@ public class UsuarioId {
 		this.nome = nome;
 		this.telefone = telefone;
 	}
-
+	/**
+	 * Personalizacao do hashCode do UsuarioId
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -67,7 +76,9 @@ public class UsuarioId {
 		result = prime * result + ((telefone == null) ? 0 : telefone.hashCode());
 		return result;
 	}
-
+	/**
+	 * Personalizacao do equals do UsuarioId
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

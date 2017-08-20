@@ -10,7 +10,10 @@ public class Main {
 	    				"TestesEasy/usecase_2.txt", 
 	    				"TestesEasy/usecase_3.txt", 
 	    				"TestesEasy/usecase_4.txt",
-	    				"TestesEasy/usecase_5.txt"}; //separe cada script de teste por virgula.
+	    				"TestesEasy/usecase_5.txt",
+	    				"TestesEasy/usecase_6.txt",
+	    				"TestesEasy/usecase_7.txt",
+	    				"TestesEasy/usecase_8.txt"}; //separe cada script de teste por virgula.
 	    EasyAccept.main(args);
 	}
 

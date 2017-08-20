@@ -2,7 +2,7 @@
 # PROJETO LP2 - US2 #
 #####################
 
-
+iniciarSistema
 
 cadastrarEletronico nome="Joao" telefone="98888-8888" nomeItem="Pokemon Sun" preco=99.99 plataforma="NINTENDO_3DS"
 expect "99.99" getInfoItem nome="Joao" telefone="98888-8888" nomeItem="Pokemon Sun" atributo="Preco"
