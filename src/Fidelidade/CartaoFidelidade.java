@@ -1,4 +1,4 @@
-package projeto;
+package Fidelidade;
 
 public interface CartaoFidelidade {
 	

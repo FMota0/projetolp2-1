@@ -1,4 +1,4 @@
-package projeto;
+package Fidelidade;
 
 public class FreeRyder implements CartaoFidelidade{
 	public boolean podeEmprestar() {

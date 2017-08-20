@@ -1,16 +1,19 @@
-package projeto;
+package Fidelidade;
 
-public class BomAmigo implements CartaoFidelidade{
+public class Noob implements CartaoFidelidade{
+	public Noob() {
+		
+	}
 	public boolean podeEmprestar() {
 		return true;
 	}
 	
 	public int periodoMaximo() {
-		return 14;
+		return 7;
 	}
 	
 	public String toString() {
-		return "BomAmigo";
+		return "Noob";
 	}
-
+	
 }

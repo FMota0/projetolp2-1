@@ -1,5 +1,11 @@
 package projeto;
 
+import Fidelidade.BomAmigo;
+import Fidelidade.Caloteiro;
+import Fidelidade.CartaoFidelidade;
+import Fidelidade.FreeRyder;
+import Fidelidade.Noob;
+
 public class ReputacaoController {
 	private double reputacao;
 	private CartaoFidelidade cartaofidelidade;
