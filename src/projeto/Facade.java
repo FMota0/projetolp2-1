@@ -382,14 +382,29 @@ public class Facade {
 	public void fecharSistema() {
 
 	}
-	
+	/**
+	 * Retorna uma lista de todos os usuarios do sistema com reputacao de caloteiro.
+	 * 
+	 * @return lista de usuarios cadastrados com reputacao de caloteiro
+	 */
 	public String listarCaloteiros() {
 		return this.controlador.listarCaloteiros();
 	}
-	
+	/**
+	 * Retorna uma lista com os 10 usuarios com as melhores reputacao e trasacoes de
+	 * emprestimo.
+	 * 
+	 * @return lista com o 10 melhores usuairos do sistema
+	 */
 	public String listarTop10MelhoresUsuarios() {
 		return this.controlador.listarTop10MelhoresUsuarios();
 	}
+	/**
+	 * Retorna uma lista com os 10 usuarios com as piores reputacao e trasacoes de
+	 * emprestimo.
+	 * 
+	 * @return lista com o 10 piores usuairos do sistema
+	 */
 	public String listarTop10PioresUsuarios() {
 		return this.controlador.listarTop10PioresUsuarios();
 	}

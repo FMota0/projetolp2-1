@@ -5,11 +5,19 @@ import Fidelidade.Caloteiro;
 import Fidelidade.CartaoFidelidade;
 import Fidelidade.FreeRyder;
 import Fidelidade.Noob;
-
+/**
+ * Classe controladora das atividades relacionadas a reputacao dos usuarios
+ * 
+ * @author Hugo
+ *
+ */
 public class ReputacaoController {
 	private double reputacao;
 	private CartaoFidelidade cartaofidelidade;
-	
+	/**
+	 * Inicia o Controller com todos os cartoes fidelidades com o tipo "FreeRyder" e
+	 * a nota da repotucao como 0.
+	 */
 	public ReputacaoController(){
 		this.reputacao = 0.0;
 		this.cartaofidelidade = new FreeRyder();
