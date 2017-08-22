@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import projeto.EmprestimoId;
+
 /**
- * Instacia itens
+ * Classe abstrata responsavel por conter as caracteristicas semelhantes de
+ * todos os itens.
  * 
  * @author Hugo, Felipe Mota, Yago Gusmao
  *
@@ -19,29 +21,31 @@ public abstract class Item {
 	protected int emprestimos;
 	protected String nomeDono;
 	protected String telefoneDono;
+
 	/**
 	 * Verifica a validez da entrada do preco do item
 	 * 
 	 * @param preco
 	 *            Preco de venda do item
 	 */
-	
+
 	private void validePreco(double preco) {
 		if (preco < 0)
 			throw new IllegalArgumentException("Preco invalido");
 	}
-	
+
 	/**
 	 * Verifica a validez da entrada do nome do usuario.
 	 * 
 	 * @param nome
 	 *            Nome do usuario
 	 */
-	
+
 	private void valideNome(String nome) {
 		if (nome == null || nome.trim().equals(""))
 			throw new IllegalArgumentException("Nome de usuario invalido");
 	}
+
 	/**
 	 * Construtor de um item
 	 * 
@@ -50,7 +54,7 @@ public abstract class Item {
 	 * @param preco
 	 *            Preco de venda do item
 	 */
-	
+
 	public Item(String nome, double preco, String nomeDono, String telefoneDono) {
 
 		this.valideNome(nome);
@@ -97,15 +101,15 @@ public abstract class Item {
 		this.validePreco(preco);
 		this.nome = nome;
 	}
-	
-	public void contaEmprestimo(){
+
+	public void contaEmprestimo() {
 		this.emprestimos += 1;
 	}
-	
-	public int getNumEmprestimos(){
+
+	public int getNumEmprestimos() {
 		return this.emprestimos;
 	}
-	
+
 	/**
 	 * Adiciona novo emprestimo no registro de emprestimos
 	 * 
@@ -120,24 +124,24 @@ public abstract class Item {
 			String nomeItem, String dataEmprestimo) {
 		emprestimoIds.add(
 				new EmprestimoId(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo));
-			this.mudaEstadoItem();
+		this.mudaEstadoItem();
 
 	}
-	
+
 	/**
 	 * Recupera historico de emprestimos
 	 * 
 	 * @return lista de todos os emprestimos
 	 */
-	
+
 	public void mudaEstadoItem() {
 		this.isEmprestado = !this.isEmprestado;
 	}
-	
+
 	public ArrayList<EmprestimoId> getEmprestimosId() {
 		return (ArrayList<EmprestimoId>) emprestimoIds;
 	}
-	
+
 	/**
 	 * Modifica atributo (nome ou preco) de item
 	 * 
@@ -156,6 +160,7 @@ public abstract class Item {
 			throw new IllegalArgumentException("Argumento invalido");
 
 	}
+
 	/**
 	 * Retorna informacao de um atributo do item (nome ou preco)
 	 * 
@@ -181,20 +186,21 @@ public abstract class Item {
 	public void setIsEmprestado(boolean emprestimo) {
 		this.isEmprestado = emprestimo;
 	}
-	
-	public String toStringEmprestado(){
-		return "Dono do item: " + emprestimoIds.get(emprestimoIds.size()-1).getNomeDonoItem() + ", Nome do item emprestado: " + this.nome;
+
+	public String toStringEmprestado() {
+		return "Dono do item: " + emprestimoIds.get(emprestimoIds.size() - 1).getNomeDonoItem()
+				+ ", Nome do item emprestado: " + this.nome;
 	}
-	
-	public String toString(){
+
+	public String toString() {
 		if (this.isEmprestado)
-			return  "Emprestado";
+			return "Emprestado";
 		else
-			return  "Nao emprestado";
+			return "Nao emprestado";
 	}
+
 	public String toStringTop10() {
 		return null;
 	}
-	
 
 }
