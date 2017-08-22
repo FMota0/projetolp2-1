@@ -2,7 +2,7 @@ package projeto;
 
 /**
  * Iterface responsavel por conter os metodos semelhantes de todos os tipos de
- * cartaoes fidelidades.(Bom Amigo, FreeRyde, Noob e Caloteiro)
+ * reputacao do sistema.(Bom Amigo, FreeRyde, Noob e Caloteiro)
  * 
  * @author Hugo Addobbati
  *
