@@ -11,14 +11,14 @@ import Fidelidade.Noob;
  * @author Hugo
  *
  */
-public class ReputacaoController {
+public class ReputacaoUtil {
 	private double reputacao;
 	private CartaoFidelidade cartaofidelidade;
 	/**
 	 * Inicia o Controller com todos os cartoes fidelidades com o tipo "FreeRyder" e
 	 * a nota da repotucao como 0.
 	 */
-	public ReputacaoController(){
+	public ReputacaoUtil(){
 		this.reputacao = 0.0;
 		this.cartaofidelidade = new FreeRyder();
 	}

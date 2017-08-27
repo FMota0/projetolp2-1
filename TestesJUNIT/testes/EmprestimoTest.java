@@ -14,7 +14,7 @@ public class EmprestimoTest {
 		controle.cadastrarTabuleiro("Joao", "98888-8888", "War", 70.0);
 		controle.adicionarPecaPerdida("Joao", "98888-8888", "War", "dado");
 		controle.cadastrarUsuario("Carlos", "89999-9999", "sem email");
-		controle.registrarEmprestimo("Joao", "98888-8888", "Carlos", "89999-9999", "War", "01/01/2018", 7);
+		controle.registrarEmprestimo("Joao", "98888-8888", "Carlos", "89999-9999", "War", "01/01/2018", 5);
 
 		// Item emprestado no momento
 		controle.registrarEmprestimo("Joao", "98888-8888", "Josefina", "77777-7777", "War", "02/01/2018", 2);

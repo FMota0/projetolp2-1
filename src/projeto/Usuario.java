@@ -12,7 +12,7 @@ public class Usuario {
 
 	private UsuarioId usuarioid;
 	private String email;
-	private ReputacaoController reputacaoController;
+	private ReputacaoUtil reputacaoController;
 
 	public Usuario(String nome, String telefone, String email) {
 
@@ -22,7 +22,7 @@ public class Usuario {
 
 		this.email = email;
 		this.usuarioid = new UsuarioId(nome, telefone);
-		this.reputacaoController = new ReputacaoController();
+		this.reputacaoController = new ReputacaoUtil();
 	}
 	/**
 	 * Validando o nome do usuario
