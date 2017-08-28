@@ -1,5 +1,6 @@
 package projeto;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 /**
@@ -8,7 +9,7 @@ import java.time.temporal.ChronoUnit;
  * @author Hugo Addobbati, Yago Gusmao
  *
  */
-public class Emprestimo {
+public class Emprestimo implements Serializable{
 
 	private EmprestimoId emprestimoid;
 	private LocalDate dataInicialEmprestimo;

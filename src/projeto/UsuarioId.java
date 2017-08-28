@@ -1,11 +1,13 @@
 package projeto;
 
+import java.io.Serializable;
+
 /**
  * Identificador para usuario
  * 
  * @author Felipe Mota, Yago Gusmao 
  */
-public class UsuarioId {
+public class UsuarioId implements Serializable{
 
 	private String nome;
 	private String telefone;

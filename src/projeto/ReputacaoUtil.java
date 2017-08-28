@@ -1,5 +1,7 @@
 package projeto;
 
+import java.io.Serializable;
+
 import Fidelidade.BomAmigo;
 import Fidelidade.Caloteiro;
 import Fidelidade.CartaoFidelidade;
@@ -11,7 +13,7 @@ import Fidelidade.Noob;
  * @author Hugo
  *
  */
-public class ReputacaoUtil {
+public class ReputacaoUtil implements Serializable{
 	private double reputacao;
 	private CartaoFidelidade cartaofidelidade;
 	/**

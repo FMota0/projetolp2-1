@@ -1,6 +1,8 @@
 package projeto;
 
-public class EmprestimoId {
+import java.io.Serializable;
+
+public class EmprestimoId implements Serializable{
 
 	private String nomeDonoItem;
 	private String telefoneDonoItem;

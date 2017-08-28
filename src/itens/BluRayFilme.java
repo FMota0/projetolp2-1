@@ -1,7 +1,8 @@
 package itens;
 
+import java.io.Serializable;
 
-public class BluRayFilme extends BluRay {
+public class BluRayFilme extends BluRay implements Serializable{
 	private String genero;
 	private int anoLancamento;
 	/**

@@ -1,5 +1,6 @@
 package itens;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import projeto.EmprestimoId;
  * @author Hugo, Felipe Mota, Yago Gusmao
  *
  */
-public abstract class Item {
+public abstract class Item implements Serializable{
 
 	protected double preco;
 	protected String nome;

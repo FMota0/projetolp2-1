@@ -1,11 +1,14 @@
 package Fidelidade;
+
+import java.io.Serializable;
+
 /**
  * Classe responsavel por instanciar o tipo de reputacao Bom Amigo.
  * 
  * @author Hugo Addobbati
  *
  */
-public class BomAmigo implements CartaoFidelidade{
+public class BomAmigo implements CartaoFidelidade, Serializable{
 	/**
 	 * Retorna a condicao do usuario de fazer emprestimos.
 	 * 

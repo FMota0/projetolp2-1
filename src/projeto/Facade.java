@@ -9,6 +9,7 @@ public class Facade {
 	}
 
 	public void iniciarSistema() {
+		this.controlador.iniciarSistema();
 		
 	}
 	/**
@@ -380,7 +381,7 @@ public class Facade {
 	 * Encerra o sistema
 	 */
 	public void fecharSistema() {
-
+		this.controlador.fecharSistema();
 	}
 	/**
 	 * Retorna uma lista de todos os usuarios do sistema com reputacao de caloteiro.

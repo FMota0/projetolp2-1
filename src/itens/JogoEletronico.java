@@ -1,12 +1,14 @@
 package itens;
 
+import java.io.Serializable;
+
 /**
  * Instancia itens do tipo Jogo Eletronico
  * 
  * @author HugoAddobbati
  *
  */
-public class JogoEletronico extends Item {
+public class JogoEletronico extends Item implements Serializable{
 	private String plataforma;
 	/**
 	 * Construtor de um item JogoEletronico

@@ -1,5 +1,6 @@
 package itens;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 /**
  * Instancia itens do tipo Jodo de Tabuleiro
@@ -7,7 +8,7 @@ import java.util.ArrayList;
  * @author Hugo Addobbati
  *
  */
-public class JogoTabuleiro extends Item{
+public class JogoTabuleiro extends Item implements Serializable{
 	
 	private ArrayList<String> pecasPerdidas;
 	/**

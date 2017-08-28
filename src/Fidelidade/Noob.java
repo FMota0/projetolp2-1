@@ -1,11 +1,14 @@
 package Fidelidade;
+
+import java.io.Serializable;
+
 /**
  * Classe responsavel por instanciar o tipo de reputacao Noob.
  * 
  * @author Hugo Addobbati
  *
  */
-public class Noob implements CartaoFidelidade{
+public class Noob implements CartaoFidelidade, Serializable{
 	public Noob() {
 		
 	}

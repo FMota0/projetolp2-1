@@ -1,12 +1,14 @@
 package Fidelidade;
 
+import java.io.Serializable;
+
 /**
  * Classe responsavel por instanciar o tipo de reputacao FreeRyder.
  * 
  * @author Hugo Addobbati
  *
  */
-public class FreeRyder implements CartaoFidelidade {
+public class FreeRyder implements CartaoFidelidade , Serializable{
 	/**
 	 * Retorna a condicao do usuario de fazer emprestimos.
 	 * 

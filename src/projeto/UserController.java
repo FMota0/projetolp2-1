@@ -1,5 +1,6 @@
 package projeto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -10,11 +11,11 @@ import ComparadoresReputacao.OrdenaPiorMelhorReputacao;
 import ComparadoresUsuario.OrdemAlfabeticaNome;
 import Utilidade.Round;
 
-public class UserController {
+public class UserController implements Serializable{
 
 	private Map<UsuarioId, Usuario> usuarios;
 
-	public UserController() {
+	public UserController(){
 		this.usuarios = new HashMap<UsuarioId, Usuario>();
 	}
 

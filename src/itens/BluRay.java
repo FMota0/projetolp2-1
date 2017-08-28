@@ -1,12 +1,14 @@
 package itens;
 
+import java.io.Serializable;
+
 /**
  * Instacia itens do tipo BluRay
  * 
  * @author Hugo Addobbati
  *
  */
-public abstract class BluRay extends Item {
+public abstract class BluRay extends Item implements Serializable{
 	protected int duracao;
 	protected String classificacao;
 

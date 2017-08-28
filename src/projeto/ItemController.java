@@ -6,6 +6,7 @@ import ComparadoresItens.OrdemAlfabetica;
 import ComparadoresItens.OrdemDeValor;
 import ComparadoresItens.OrdemEmprestimos;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -16,7 +17,7 @@ import itens.Item;
 import itens.JogoEletronico;
 import itens.JogoTabuleiro;
 
-public class ItemController {
+public class ItemController implements Serializable{
 
 	private List<Item> itens;
 

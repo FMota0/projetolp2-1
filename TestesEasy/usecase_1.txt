@@ -2,7 +2,6 @@
 # PROJETO LP2 - US1 #
 #####################
 
-iniciarSistema
 
 cadastrarUsuario nome="Joao" telefone="98888-8888" email="joao@email.com"
 expect "joao@email.com" getInfoUsuario nome="Joao" telefone="98888-8888" atributo="Email"

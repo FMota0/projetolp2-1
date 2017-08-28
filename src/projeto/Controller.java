@@ -1,6 +1,12 @@
 package projeto;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.List;
+
 import itens.Item;
 
 /**
@@ -523,6 +529,83 @@ public class Controller {
 	
 	public String listarTop10PioresUsuarios() {
 		return this.usuariosController.listarTop10PioresUsuarios();
+	}
+
+	public void fecharSistema() {
+		try {
+			ObjectOutputStream oos1 = new ObjectOutputStream(new FileOutputStream("UserController.txt"));
+			oos1.writeObject(this.usuariosController);
+			oos1.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			ObjectOutputStream oos2 = new ObjectOutputStream(new FileOutputStream("ItemController.txt"));
+			oos2.writeObject(this.itensController);
+			oos2.close();
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+			
+		}
+		try {
+			ObjectOutputStream oos3 = new ObjectOutputStream(new FileOutputStream("EmprestimoController.txt"));
+			oos3.writeObject(this.emprestimoController);
+			oos3.close();
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+			
+		}
+		
+	}
+	
+	public void iniciarSistema() {
+		UserController uc = null;
+		ItemController ic = null;
+		LoanController lc = null;
+		try {
+			ObjectInputStream ois1 = new ObjectInputStream(new FileInputStream("UserController.txt"));
+			try {
+				uc = (UserController) ois1.readObject();
+				ois1.close();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			ObjectInputStream ois1 = new ObjectInputStream(new FileInputStream("ItemController.txt"));
+			try {
+				ic = (ItemController) ois1.readObject();
+				ois1.close();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			ObjectInputStream ois1 = new ObjectInputStream(new FileInputStream("EmprestimoController.txt"));
+			try {
+				lc = (LoanController) ois1.readObject();
+				ois1.close();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+				return;
+			}
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+			return;
+		}
+		
+		this.usuariosController = uc;
+		this.itensController = ic;
+		this.emprestimoController = lc;
 	}
 	
 }

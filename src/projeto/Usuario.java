@@ -1,6 +1,7 @@
 
 package projeto;
 
+import java.io.Serializable;
 
 /**
  * Usuario representado por : Nome Telefone Email Conjunto de itens;
@@ -8,7 +9,7 @@ package projeto;
  * @author Hugo, Yago
  * 
  */
-public class Usuario {
+public class Usuario implements Serializable{
 
 	private UsuarioId usuarioid;
 	private String email;

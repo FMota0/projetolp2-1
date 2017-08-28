@@ -1,11 +1,14 @@
 package Fidelidade;
+
+import java.io.Serializable;
+
 /**
  * Classe responsavel por instanciar o tipo de reputacao Caloteiro.
  * 
  * @author Hugo Addobbati
  *
  */
-public class Caloteiro implements CartaoFidelidade{
+public class Caloteiro implements CartaoFidelidade, Serializable{
 	/**
 	 * Retornara a condicao do usuario de fazer emprestimos.
 	 * 
