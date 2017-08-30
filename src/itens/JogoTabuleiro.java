@@ -2,15 +2,18 @@ package itens;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+
 /**
  * Instancia itens do tipo Jodo de Tabuleiro
  * 
  * @author Hugo Addobbati
  *
  */
+
 public class JogoTabuleiro extends Item implements Serializable{
 	
 	private ArrayList<String> pecasPerdidas;
+	
 	/**
 	 * Construtor de um item Jogo de Tabuleiro
 	 * 
@@ -19,16 +22,19 @@ public class JogoTabuleiro extends Item implements Serializable{
 	 * @param preco
 	 *            Preco de venda do item
 	 */
+	
 	public JogoTabuleiro(String nome, double preco,String nomeDono, String telefoneDono){
 		super(nome, preco, nomeDono, telefoneDono);
 		this.pecasPerdidas = new ArrayList<String>();
 	}
+	
 	/**
 	 * Registra peca na lista de pecas perdidas do jogo
 	 * 
 	 * @param peca
 	 * @return lista de pecas perdidas
 	 */
+	
 	public boolean adicionarPecaPerdida(String peca){
 		return pecasPerdidas.add(peca);
 	}

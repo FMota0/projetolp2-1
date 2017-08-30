@@ -1,16 +1,19 @@
 package itens;
 
 import java.io.Serializable;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import projeto.EmprestimoId;
+
 /**
  * Instacia itens
  * 
  * @author Hugo, Felipe Mota, Yago Gusmao
  *
  */
+
 public abstract class Item implements Serializable{
 
 	protected double preco;
@@ -20,6 +23,7 @@ public abstract class Item implements Serializable{
 	protected int emprestimos;
 	protected String nomeDono;
 	protected String telefoneDono;
+	
 	/**
 	 * Verifica a validez da entrada do preco do item
 	 * 
@@ -43,6 +47,7 @@ public abstract class Item implements Serializable{
 		if (nome == null || nome.trim().equals(""))
 			throw new IllegalArgumentException("Nome de usuario invalido");
 	}
+	
 	/**
 	 * Construtor de um item
 	 * 
@@ -117,6 +122,7 @@ public abstract class Item implements Serializable{
 	 * @param nomeItem
 	 * @param dataEmprestimo
 	 */
+	
 	public void addEmprestimo(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente,
 			String nomeItem, String dataEmprestimo) {
 		emprestimoIds.add(
@@ -147,6 +153,7 @@ public abstract class Item implements Serializable{
 	 * @param valor
 	 *            Informacao atual para substituicao
 	 */
+	
 	public void mudaAtributo(String atributo, String valor) {
 
 		if (atributo.toLowerCase().equals("preco"))
@@ -157,6 +164,7 @@ public abstract class Item implements Serializable{
 			throw new IllegalArgumentException("Argumento invalido");
 
 	}
+	
 	/**
 	 * Retorna informacao de um atributo do item (nome ou preco)
 	 * 
@@ -193,6 +201,7 @@ public abstract class Item implements Serializable{
 		else
 			return  "Nao emprestado";
 	}
+	
 	public String toStringTop10() {
 		return null;
 	}

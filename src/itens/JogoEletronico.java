@@ -5,11 +5,13 @@ import java.io.Serializable;
 /**
  * Instancia itens do tipo Jogo Eletronico
  * 
- * @author HugoAddobbati
+ * @author Hugo Acrobático
  *
  */
 public class JogoEletronico extends Item implements Serializable{
+	
 	private String plataforma;
+	
 	/**
 	 * Construtor de um item JogoEletronico
 	 * 
@@ -20,6 +22,7 @@ public class JogoEletronico extends Item implements Serializable{
 	 * @param plataforma
 	 *            Plataforma de funcionamento do jogo
 	 */
+	
 	public JogoEletronico(String nome, double preco, String plataforma, String nomeDono, String telefoneDono) {
 		super(nome, preco, nomeDono, telefoneDono);
 		this.plataforma = plataforma;

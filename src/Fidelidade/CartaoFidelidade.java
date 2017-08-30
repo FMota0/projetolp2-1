@@ -7,12 +7,15 @@ package Fidelidade;
  * @author Hugo Addobbati
  *
  */
+
 public interface CartaoFidelidade {
+	
 	/**
 	 * Retornara a condicao do usuario de fazer emprestimos.
 	 * 
 	 * @return boolean representando a condicao do usuario.
 	 */
+	
 	public boolean podeEmprestar();
 
 	/**
@@ -20,6 +23,7 @@ public interface CartaoFidelidade {
 	 * 
 	 * @return numero de dias
 	 */
+	
 	public int periodoMaximo();
 
 }

@@ -8,6 +8,7 @@ import java.io.Serializable;
  * @author Hugo Addobbati
  *
  */
+
 public abstract class BluRay extends Item implements Serializable{
 	protected int duracao;
 	protected String classificacao;
@@ -24,11 +25,13 @@ public abstract class BluRay extends Item implements Serializable{
 	 * @param classificacao
 	 *            Classificacao indicativa do conteudo do BluRay
 	 */
+	
 	public BluRay(String nomeItem, double preco, int duracao, String classificacao, String nomeDono, String telefoneDono) {
 		super(nomeItem, preco, nomeDono, telefoneDono);
 		this.duracao = duracao;
 		this.classificacao = classificacao;
 	}
+	
 	public String toStringTop10() {
 		return this.toString();
 	}

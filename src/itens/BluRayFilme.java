@@ -3,8 +3,10 @@ package itens;
 import java.io.Serializable;
 
 public class BluRayFilme extends BluRay implements Serializable{
+	
 	private String genero;
 	private int anoLancamento;
+	
 	/**
 	 * Construtor de um item BluRay de Filme
 	 * 
@@ -21,6 +23,7 @@ public class BluRayFilme extends BluRay implements Serializable{
 	 * @param anoLancamento
 	 *            Ano de lancamento do filme
 	 */
+	
 	public BluRayFilme(String nomeItem, double preco, int duracao, String classificacao, String genero,
 			int anoLancamento, String nomeDono, String telefoneDono) {
 		super(nomeItem, preco, duracao, classificacao,nomeDono, telefoneDono);
@@ -34,6 +37,7 @@ public class BluRayFilme extends BluRay implements Serializable{
 				+ super.toString() + ", " + this.duracao + " min, " + this.classificacao + ", " + this.genero + ", "
 				+ this.anoLancamento;
 	}
+	
 	public String toStringTop10() {
 		return this.toString();
 	}

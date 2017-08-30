@@ -28,6 +28,7 @@ public class UserController implements Serializable{
 	 *            Telefone do usuario
 	 * @return Usuario cadastrado com os paramentros dados
 	 */
+	
 	public boolean existeUsuario(String nome, String telefone) {
 		return usuarios.containsKey(new UsuarioId(nome, telefone));
 	}
@@ -40,6 +41,7 @@ public class UserController implements Serializable{
 	 * @param telefone
 	 *            Telefone do usuario
 	 */
+	
 	public void verificaUsuarioInvalido(String nome, String telefone) {
 		if (!this.existeUsuario(nome, telefone))
 			throw new IllegalArgumentException("Usuario invalido");
@@ -53,6 +55,7 @@ public class UserController implements Serializable{
 	 * @param telefone
 	 *            Telefone do usuario
 	 */
+	
 	public void verificaUsuarioJaCadastrado(String nome, String telefone) {
 		if (this.existeUsuario(nome, telefone))
 			throw new IllegalArgumentException("Usuario ja cadastrado");
@@ -68,6 +71,7 @@ public class UserController implements Serializable{
 	 * @param email
 	 *            Email do usuario
 	 */
+	
 	public void cadastrarUsuario(String nome, String telefone, String email) {
 		this.verificaUsuarioJaCadastrado(nome, telefone);
 		this.usuarios.put(new UsuarioId(nome, telefone), new Usuario(nome, telefone, email));
@@ -81,6 +85,7 @@ public class UserController implements Serializable{
 	 * @param telefone
 	 *            Telefone do usuario
 	 */
+	
 	public void removerUsuario(String nome, String telefone) {
 		this.verificaUsuarioInvalido(nome, telefone);
 		this.usuarios.remove(new UsuarioId(nome, telefone));
@@ -98,6 +103,7 @@ public class UserController implements Serializable{
 	 * @param valor
 	 *            Novo valor que o atributo deve receber
 	 */
+	
 	public void atualizarUsuario(String nome, String telefone, String atributo, String valor) {
 
 		this.verificaUsuarioInvalido(nome, telefone);
@@ -125,6 +131,7 @@ public class UserController implements Serializable{
 	 *            telefone do usuario
 	 * @return Padrao textual das informacoes do usuario requerido
 	 */
+	
 	public String listarUsuario(String nome, String telefone) {
 
 		this.verificaUsuarioInvalido(nome, telefone);
@@ -135,6 +142,7 @@ public class UserController implements Serializable{
 	/**
 	 * Retorna representacao textual de todos os usuarios.
 	 */
+	
 	@Override
 	public String toString() {
 		String str = "";
@@ -155,6 +163,7 @@ public class UserController implements Serializable{
 	 *            Atributo desejado para informacoes
 	 * @return informacoes do atributo do usuario
 	 */
+	
 	public String getInfoUsuario(String nome, String telefone, String atributo) {
 		this.verificaUsuarioInvalido(nome, telefone);
 		return this.usuarios.get(new UsuarioId(nome, telefone)).getAtributo(atributo);
@@ -165,6 +174,13 @@ public class UserController implements Serializable{
 		return this.usuarios.get(new UsuarioId(nomeUsuario, telefoneUsuario));
 	}
 
+	/**
+	 * Retorna uma lista com os 10 usuarios com as melhores reputacao e trasacoes de
+	 * emprestimo.
+	 * 
+	 * @return lista com o 10 melhores usuairos do sistema
+	 */
+	
 	public String listarTop10MelhoresUsuarios() {
 		String mensagem = "";
 		int i = 1;
@@ -185,6 +201,13 @@ public class UserController implements Serializable{
 		return mensagem;
 	}
 
+	/**
+	 * Retorna uma lista com os 10 usuarios com as piores reputacao e trasacoes de
+	 * emprestimo.
+	 * 
+	 * @return lista com o 10 piores usuairos do sistema
+	 */
+	
 	public String listarTop10PioresUsuarios() {
 		String mensagem = "";
 		int i = 1;
@@ -208,6 +231,12 @@ public class UserController implements Serializable{
 
 	}
 
+	/**
+	 * Retorna uma lista de todos os usuarios do sistema com reputacao de caloteiro.
+	 * 
+	 * @return lista de usuarios cadastrados com reputacao de caloteiro
+	 */
+	
 	public String listarCaloteiros() {
 		String mensagem = "Lista de usuarios com reputacao negativa: ";
 		ArrayList<Usuario> superlist = new ArrayList<Usuario>();

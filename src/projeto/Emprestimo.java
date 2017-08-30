@@ -3,14 +3,17 @@ package projeto;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+
 /**
  * Instancia emprestimo de um item.
  * 
  * @author Hugo Addobbati, Yago Gusmao
  *
  */
+
 public class Emprestimo implements Serializable{
 
+	
 	private EmprestimoId emprestimoid;
 	private LocalDate dataInicialEmprestimo;
 	private int numeroDiasParaEmprestimo;
@@ -24,6 +27,7 @@ public class Emprestimo implements Serializable{
 	 * @param format
 	 * @return LocalDate
 	 */
+	
 	private LocalDate parse(String format) {
 		String lista[] = format.split("/"); // DD - MM - YYYY
 		int dia = Integer.parseInt(lista[0]);
@@ -32,6 +36,7 @@ public class Emprestimo implements Serializable{
 		LocalDate date = LocalDate.of(ano, mes, dia);
 		return date;
 	}
+	
 	/**
 	 * Construtor de um emprestimo.
 	 * 
@@ -50,6 +55,7 @@ public class Emprestimo implements Serializable{
 	 * @param numeroDiasParaEmprestimo
 	 *            Numero de dias de duracao do emprestimo
 	 */
+	
 	public Emprestimo(String nomeDonoItem, String telefoneDonoItem, String nomeRequerenteItem,
 			String telefoneRequerente, String nomeItem, String dataInicialEmprestimo, int numeroDiasParaEmprestimo) {
 
@@ -61,52 +67,64 @@ public class Emprestimo implements Serializable{
 		this.dataInicialEmprestimoStr = dataInicialEmprestimo;
 		this.dataDevolucaoStr = null;
 	}
+	
 	/**
 	 * Recupera nome do usuario dono do item.
 	 * 
 	 * @return nome do usuario
 	 */
+	
 	public String getNomeDonoItem() {
 		return this.emprestimoid.getNomeDonoItem();
 	}
+	
 	/**
 	 * Recupera telefone do usuario dono do item.
 	 * 
 	 * @return telefone do usuario
 	 */
+	
 	public String getTelefoneDonoItem() {
 		return this.emprestimoid.getTelefoneDonoItem();
 	}
+	
 	/**
 	 * Recupera nome do usuario requerente do item.
 	 * 
 	 * @return nome do usuario
 	 */
+	
 	public String getNomeRequerenteItem() {
 		return this.emprestimoid.getNomeRequerenteItem();
 	}
+	
 	/**
 	 * Recupera telefone do usuario requerente do item.
 	 * 
 	 * @return telefone do usuario
 	 */
+	
 	public String getTelefoneRequerenteItem() {
 		return this.emprestimoid.getTelefoneRequerenteItem();
 	}
+	
 	/**
 	 * Recupera nome do item.
 	 * 
 	 * @return nome do item
 	 */
+	
 	public String getNomeItem() {
 		return this.emprestimoid.getNomeItem();
 	}
+	
 	/**
 	 * Modifica data de devolucao do item emprestado.
 	 * 
 	 * @param dataDevolucao
 	 *            Data de devolução do item
 	 */
+	
 	public void setDataDevolucao(String dataDevolucao) {
 		this.dataDeDevolucao = this.parse(dataDevolucao);
 		this.dataDevolucaoStr = dataDevolucao;
@@ -115,6 +133,7 @@ public class Emprestimo implements Serializable{
 	/**
 	 * Retorna representacao textual de um emprestimo.
 	 */
+	
 	@Override
 	public String toString() {
 		String entregado;
@@ -126,9 +145,11 @@ public class Emprestimo implements Serializable{
 				+ this.emprestimoid.getNomeRequerenteItem() + ", " + this.emprestimoid.getNomeItem() + ", "
 				+ this.dataInicialEmprestimoStr + ", " + this.numeroDiasParaEmprestimo + " dias, ENTREGA: " + entregado;
 	}
+	
 	/**
 	 * Personaliza hashCode do objeto emprestimo.
 	 */
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -139,9 +160,11 @@ public class Emprestimo implements Serializable{
 		result = prime * result + numeroDiasParaEmprestimo;
 		return result;
 	}
+	
 	/**
 	 * Personaliza o equals do objeto emprestimo.
 	 */
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

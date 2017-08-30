@@ -17,6 +17,7 @@ public class UsuarioId implements Serializable{
 	 * @param nome
 	 * 		Nome do usuario
 	 */
+	
 	private void valideNome(String nome){
 		
 		if(nome == null || nome.trim().equals(""))
@@ -45,12 +46,14 @@ public class UsuarioId implements Serializable{
 	 * @param telefone
 	 * 		Telefone do usuario
 	 */
+	
 	private void valideTelefone(String telefone){
 		
 		if(telefone == null || telefone.trim().equals(""))
 			throw new IllegalArgumentException("Telefone de usuario invalido");
 	
 	}
+	
 	/**
 	 * Construtor do UsuarioId
 	 * 
@@ -59,6 +62,7 @@ public class UsuarioId implements Serializable{
 	 * @param telefone
 	 *            Telefone
 	 */
+	
 	public UsuarioId(String nome, String telefone){
 		
 		this.valideNome(nome);
@@ -67,9 +71,11 @@ public class UsuarioId implements Serializable{
 		this.nome = nome;
 		this.telefone = telefone;
 	}
+	
 	/**
 	 * Personalizacao do hashCode do UsuarioId
 	 */
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -78,9 +84,11 @@ public class UsuarioId implements Serializable{
 		result = prime * result + ((telefone == null) ? 0 : telefone.hashCode());
 		return result;
 	}
+	
 	/**
 	 * Personalizacao do equals do UsuarioId
 	 */
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

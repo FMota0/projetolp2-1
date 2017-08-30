@@ -19,9 +19,6 @@ import itens.Item;
  */
 public class Controller {
 
-	/**
-	 * 
-	 */
 	private UserController usuariosController;
 	private LoanController emprestimoController;
 	private ItemController itensController;
@@ -42,6 +39,7 @@ public class Controller {
 	 * @param email
 	 *            Email do usuario
 	 */
+	
 	public void cadastrarUsuario(String nome, String telefone, String email) {
 		this.usuariosController.cadastrarUsuario(nome, telefone, email);
 	}
@@ -54,6 +52,7 @@ public class Controller {
 	 * @param telefone
 	 *            Telefone do usuario
 	 */
+	
 	public void removerUsuario(String nome, String telefone) {
 		this.usuariosController.removerUsuario(nome, telefone);
 	}
@@ -70,6 +69,7 @@ public class Controller {
 	 * @param valor
 	 *            Novo valor que o atributo deve receber
 	 */
+	
 	public void atualizarUsuario(String nome, String telefone, String atributo, String valor) {
 		this.usuariosController.atualizarUsuario(nome, telefone, atributo, valor);
 	}
@@ -83,6 +83,7 @@ public class Controller {
 	 *            Telefone do usuario
 	 * @return Usuario cadastrado com os paramentros dados
 	 */
+	
 	public boolean existeUsuario(String nome, String telefone) {
 		return this.usuariosController.existeUsuario(nome, telefone);
 	}
@@ -96,6 +97,7 @@ public class Controller {
 	 *            telefone do usuario
 	 * @return Padrao textual das informacoes do usuario requerido
 	 */
+	
 	public String listarUsuario(String nome, String telefone) {
 		return this.usuariosController.listarUsuario(nome, telefone);
 	}
@@ -111,6 +113,7 @@ public class Controller {
 	 *            Atributo desejado para informacoes
 	 * @return informacoes do atributo do usuario
 	 */
+	
 	public String getInfoUsuario(String nome, String telefone, String atributo) {
 		return this.usuariosController.getInfoUsuario(nome, telefone, atributo);
 	}
@@ -129,13 +132,14 @@ public class Controller {
 	 * @param plataforma
 	 *            Plataforma de funcionamento do item
 	 */
+	
 	public void cadastrarEletronico(String nomeUsuario, String telefoneUsuario, String nomeItem, double preco,
 			String plataforma) {
 
 		this.usuariosController.verificaUsuarioInvalido(nomeUsuario, telefoneUsuario);
 		this.itensController.cadastrarEletronico(nomeUsuario, telefoneUsuario, nomeItem, preco, plataforma);
-		Usuario paraMudar = this.usuariosController.getUsuario(nomeUsuario, telefoneUsuario);
-		paraMudar.addReputacao((preco / 20), usuarioTemItens(nomeUsuario, telefoneUsuario));
+		Usuario usuario = this.usuariosController.getUsuario(nomeUsuario, telefoneUsuario);
+		usuario.addReputacao((preco / 20), usuarioTemItens(nomeUsuario, telefoneUsuario));
 	}
 
 	/**
@@ -150,12 +154,13 @@ public class Controller {
 	 * @param preco
 	 *            Preco de venda do item
 	 */
+	
 	public void cadastrarTabuleiro(String nomeUsuario, String telefoneUsuario, String nomeItem, double preco) {
 
 		this.usuariosController.verificaUsuarioInvalido(nomeUsuario, telefoneUsuario);
 		this.itensController.cadastrarTabuleiro(nomeUsuario, telefoneUsuario, nomeItem, preco);
-		Usuario paraMudar = this.usuariosController.getUsuario(nomeUsuario, telefoneUsuario);
-		paraMudar.addReputacao((preco / 20), usuarioTemItens(nomeUsuario, telefoneUsuario));
+		Usuario usuario = this.usuariosController.getUsuario(nomeUsuario, telefoneUsuario);
+		usuario.addReputacao((preco / 20), usuarioTemItens(nomeUsuario, telefoneUsuario));
 	}
 
 	/**
@@ -178,13 +183,14 @@ public class Controller {
 	 * @param temporada
 	 *            Numero da temporada
 	 */
+	
 	public void cadastrarBluRaySerie(String nomeUsuario, String telefoneUsuario, String nomeItem, double preco,
 			int duracao, String classificacao, String genero, int temporada) {
 
 		this.usuariosController.verificaUsuarioInvalido(nomeUsuario, telefoneUsuario);
 		this.itensController.cadastrarBluRaySerie(nomeUsuario, telefoneUsuario, nomeItem, preco, duracao, classificacao, genero, temporada);
-		Usuario paraMudar = this.usuariosController.getUsuario(nomeUsuario, telefoneUsuario);
-		paraMudar.addReputacao((preco / 20), usuarioTemItens(nomeUsuario, telefoneUsuario));
+		Usuario usuario = this.usuariosController.getUsuario(nomeUsuario, telefoneUsuario);
+		usuario.addReputacao((preco / 20), usuarioTemItens(nomeUsuario, telefoneUsuario));
 	}
 
 	/**
@@ -207,13 +213,14 @@ public class Controller {
 	 * @param artista
 	 *            Nome do artista do show
 	 */
+	
 	public void cadastrarBluRayShow(String nomeUsuario, String telefoneUsuario, String nomeItem, double preco,
 			int duracao, String classificacao, int numeroFaixas, String artista) {
 
 		this.usuariosController.verificaUsuarioInvalido(nomeUsuario, telefoneUsuario);
 		this.itensController.cadastrarBluRayShow(nomeUsuario, telefoneUsuario, nomeItem, preco, duracao, classificacao, numeroFaixas, artista);
-		Usuario paraMudar = this.usuariosController.getUsuario(nomeUsuario, telefoneUsuario);
-		paraMudar.addReputacao((preco / 20), usuarioTemItens(nomeUsuario, telefoneUsuario));
+		Usuario usuario = this.usuariosController.getUsuario(nomeUsuario, telefoneUsuario);
+		usuario.addReputacao((preco / 20), usuarioTemItens(nomeUsuario, telefoneUsuario));
 	}
 
 	/**
@@ -236,13 +243,14 @@ public class Controller {
 	 * @param anoLancamento
 	 *            Ano de lancamento do filme
 	 */
+	
 	public void cadastrarBluRayFilme(String nomeUsuario, String telefoneUsuario, String nomeItem, double preco,
 			int duracao, String classificacao, String genero, int anoLancamento) {
 
 		this.usuariosController.verificaUsuarioInvalido(nomeUsuario, telefoneUsuario);
 		this.itensController.cadastrarBluRayFilme(nomeUsuario, telefoneUsuario, nomeItem, preco, duracao, classificacao, genero, anoLancamento);
-		Usuario paraMudar = this.usuariosController.getUsuario(nomeUsuario, telefoneUsuario);
-		paraMudar.addReputacao((preco / 20), usuarioTemItens(nomeUsuario, telefoneUsuario));
+		Usuario usuario = this.usuariosController.getUsuario(nomeUsuario, telefoneUsuario);
+		usuario.addReputacao((preco / 20), usuarioTemItens(nomeUsuario, telefoneUsuario));
 	}
 
 	/**
@@ -258,6 +266,7 @@ public class Controller {
 	 *            Atributos desejado para saber a informacao
 	 * @return Informacao do atributo
 	 */
+	
 	public String getInfoItem(String nome, String telefone, String nomeItem, String atributo) {
 
 		this.usuariosController.verificaUsuarioInvalido(nome, telefone);
@@ -277,6 +286,7 @@ public class Controller {
 	 * @param peca
 	 *            Nome da peca perdida
 	 */
+	
 	public void adicionarPecaPerdida(String nome, String telefone, String nomeItem, String peca) {
 
 		this.usuariosController.verificaUsuarioInvalido(nome, telefone);
@@ -294,6 +304,7 @@ public class Controller {
 	 * @param nomeItem
 	 *            Nome de item
 	 */
+	
 	public void removerItem(String nome, String telefone, String nomeItem) {
 		this.usuariosController.verificaUsuarioInvalido(nome, telefone);
 		this.itensController.existeItem(nomeItem, nome, telefone);
@@ -313,6 +324,7 @@ public class Controller {
 	 *            Atributo que sera atualizado
 	 * @param valor
 	 */
+	
 	public void atualizarItem(String nome, String telefone, String nomeItem, String atributo, String valor) {
 
 		this.usuariosController.verificaUsuarioInvalido(nome, telefone);
@@ -338,13 +350,14 @@ public class Controller {
 	 * @param periodo
 	 *            Periodo de emprestimo do item
 	 */
+	
 	public void registrarEmprestimo(String nomeDono, String telefoneDono, String nomeRequerente,
 			String telefoneRequerente, String nomeItem, String dataEmprestimo, int periodo) {
 
 		this.usuariosController.verificaUsuarioInvalido(nomeDono, telefoneDono);
 		this.usuariosController.verificaUsuarioInvalido(nomeRequerente, telefoneRequerente);
 		this.itensController.existeItem(nomeItem, nomeDono, telefoneDono);
-		this.itensController.registrarEmprestimo(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo, periodo);
+		
 		Item item = this.itensController.getItem(nomeItem, nomeDono, telefoneDono);
 		
 		if (item.getIsEmprestado()) {
@@ -357,10 +370,13 @@ public class Controller {
 		if(periodo > requerente.periodoMaximo()) {
 			throw new IllegalStateException("Usuario impossiblitado de pegar emprestado por esse periodo");
 		}
+		
 		this.emprestimoController.registrarEmprestimo(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo, periodo);
+		
 		item.addEmprestimo(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem,
 				dataEmprestimo);
 		item.contaEmprestimo();
+		
 		Usuario dono = this.usuariosController.getUsuario(nomeDono, telefoneDono);
 		dono.addReputacao(item.getPreco() / 10,  usuarioTemItens(nomeDono, telefoneDono));
 	}
@@ -383,21 +399,20 @@ public class Controller {
 	 * @param dataDevolucao
 	 *            Data que foi realizada a devolucao do item
 	 */
+	
 	public void devolverItem(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente,
 			String nomeItem, String dataEmprestimo, String dataDevolucao) {
 
 		this.usuariosController.verificaUsuarioInvalido(nomeDono, telefoneDono);
 		this.usuariosController.verificaUsuarioInvalido(nomeRequerente, telefoneRequerente);
 		this.itensController.existeItem(nomeItem, nomeDono, telefoneDono);
+		
 		if (!this.emprestimoController.existeEmprestimo(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo))
 			throw new IllegalStateException("Emprestimo nao encontrado");
 		Item item = this.itensController.getItem(nomeItem, nomeDono, telefoneDono);
 		if (item.getIsEmprestado()) {
-			Emprestimo paraMudar = this.emprestimoController.getEmprestimo(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente,
-					nomeItem, dataEmprestimo);
-			paraMudar.setDataDevolucao(dataDevolucao);
 			item.mudaEstadoItem();
-			int diasmulta = paraMudar.getDiasMulta();
+			int diasmulta = this.emprestimoController.devolverItem(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo, dataDevolucao);
 			Usuario requerente = this.usuariosController.getUsuario(nomeRequerente, telefoneRequerente);
 			if(diasmulta > 0) {
 					requerente.addReputacao(-(item.getPreco()/100)*diasmulta,usuarioTemItens(nomeRequerente, telefoneRequerente));
@@ -416,6 +431,7 @@ public class Controller {
 	 * 
 	 * @return lista de todos os itens registrados
 	 */
+	
 	public String listarItensOrdenadosPorNome() {
 		return this.itensController.listarItensOrdenadosPorNome();
 	}
@@ -426,6 +442,7 @@ public class Controller {
 	 * 
 	 * @return lista de todos os itens registrados
 	 */
+	
 	public String listarItensOrdenadosPorValor() {
 		return this.itensController.listarItensOrdenadosPorValor();
 	}
@@ -441,6 +458,7 @@ public class Controller {
 	 *            Nome de item
 	 * @return informacoes gerais do item pesquisado
 	 */
+	
 	public String pesquisarDetalhesItem(String nome, String telefone, String nomeItem) {
 		this.usuariosController.verificaUsuarioInvalido(nome, telefone);
 		this.itensController.existeItem(nomeItem, nome, telefone);
@@ -457,6 +475,7 @@ public class Controller {
 	 *            Telefone do usuario dono do item
 	 * @return lista com todos os emprestimos que o usuario emprestou itens.
 	 */
+	
 	public String listarEmprestimosUsuarioEmprestando(String nomeDono, String telefoneDono) {
 		this.usuariosController.verificaUsuarioInvalido(nomeDono, telefoneDono);
 		return this.emprestimoController.listarEmprestimosUsuarioEmprestando(nomeDono, telefoneDono);
@@ -472,13 +491,13 @@ public class Controller {
 	 *            Telefone do usuario
 	 * @return lista com todos os emprestimos que o usuario pegou itens emprestados.
 	 */
+	
 	public String listarEmprestimosUsuarioPegandoEmprestado(String nomeDono, String telefoneDono) {
 		this.usuariosController.verificaUsuarioInvalido(nomeDono, telefoneDono);
 		this.usuariosController.verificaUsuarioInvalido(nomeDono, telefoneDono);
 		return this.emprestimoController.listarEmprestimosUsuarioPegandoEmprestado(nomeDono, telefoneDono);
 	}
 	
-
 	/**
 	 * Recupera historico de emprestimos do item.
 	 * 
@@ -486,10 +505,11 @@ public class Controller {
 	 *            Nome do item
 	 * @return lista com todos os emprestimos do item.
 	 */
+	
 	public String listarEmprestimosItem(String nomeItem) {
 		String mensagem = "Emprestimos associados ao item: ";
-		List<EmprestimoId> emprestimoId = this.itensController.getListaEmprestimos(nomeItem);
-		for(EmprestimoId emprestimoid : emprestimoId) {
+		List<EmprestimoId> listaEmprestimos = this.itensController.getListaEmprestimos(nomeItem);
+		for(EmprestimoId emprestimoid : listaEmprestimos) {
 			mensagem += this.emprestimoController.getEmprestimo(emprestimoid).toString() + "|";
 		}
 		if (mensagem.equals("Emprestimos associados ao item: ")){
@@ -503,25 +523,31 @@ public class Controller {
 	 * 
 	 * @return lista de itens nao emprestados
 	 */
+	
 	public String listarItensNaoEmprestados() {
 		return this.itensController.listarItensNaoEmprestados();
 	}
+	
 	/**
 	 * Lista os itens emprestados
 	 * 
 	 * @return lista de itens emprestados
 	 */
+	
 	public String listarItensEmprestados() {
 		return this.itensController.listarItensEmprestados();
 	}
+	
 	/**
 	 * Retorna a lista dos 10 itens mais emprestados
 	 * 
 	 * @return lista dos 10 itens mais empretados
 	 */
+	
 	public String listarTop10Itens() {
 		return this.itensController.listarTop10Itens();
 	}
+	
 	/**
 	 * Metodo auxiliar de controlador para saber se o usuario possui itens
 	 * @param nomeDono
@@ -552,41 +578,49 @@ public class Controller {
 	public String listarTop10MelhoresUsuarios() {
 		return this.usuariosController.listarTop10MelhoresUsuarios();
 	}
+	
 	/**
 	 * Recupera lista dos 10 usuarios com a pior reputacao
 	 * 
 	 * @return representacao textual dos piores usuarios
 	 */
+	
 	public String listarTop10PioresUsuarios() {
 		return this.usuariosController.listarTop10PioresUsuarios();
 	}
+	
 	/**
 	 * Metodo resposavel por encerrar o sistema e salvar os dados
 	 */
+	
 	public void fecharSistema() {
+		
 		try{
-		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("ObjController.txt"));
-		oos.writeObject(this.usuariosController);
-		oos.writeObject(this.emprestimoController);
-		oos.writeObject(this.itensController);
-		oos.close();
-		}
-		catch (IOException e) {
+				
+			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("ObjController.txt"));
+			oos.writeObject(this.usuariosController);
+			oos.writeObject(this.emprestimoController);
+			oos.writeObject(this.itensController);
+			oos.close();
+		
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		
-		
 	}
+	
 	/**
 	 * Metodo responsavel por Inicializar o sistema e salvar os dados
 	 */
 	
 	public void iniciarSistema() {
+		
 		UserController uc = null;
 		ItemController ic = null;
 		LoanController lc = null;
+		
 		try {
+			
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream("ObjController.txt"));
 			uc = (UserController) ois.readObject();
 			lc = (LoanController) ois.readObject();
@@ -595,19 +629,20 @@ public class Controller {
 			this.usuariosController = uc;
 			this.itensController = ic;
 			ois.close();
-		}
-		
-		catch(FileNotFoundException e) {
+			
+		}catch(FileNotFoundException e) {
+			
 			this.usuariosController = new UserController();
 			this.emprestimoController = new LoanController();
 			this.itensController = new ItemController();
 			return;
-		}
-		catch(IOException e) {
+			
+		}catch(IOException e) {
 			e.printStackTrace();
-		}
-		catch(ClassNotFoundException e) {
+			
+		}catch(ClassNotFoundException e) {
 			e.printStackTrace();
+			
 		}
 		
 		

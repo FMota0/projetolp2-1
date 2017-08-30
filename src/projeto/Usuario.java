@@ -25,12 +25,14 @@ public class Usuario implements Serializable{
 		this.usuarioid = new UsuarioId(nome, telefone);
 		this.reputacaoController = new ReputacaoUtil();
 	}
+	
 	/**
 	 * Validando o nome do usuario
 	 * 
 	 * @param nome
 	 *            Nome do usuario
 	 */
+	
 	private void valideNome(String nome) {
 
 		if (nome == null || nome.trim().equals(""))
@@ -44,6 +46,7 @@ public class Usuario implements Serializable{
 	 * @param telefone
 	 *            Telefone do usuario
 	 */
+	
 	private void valideTelefone(String telefone) {
 
 		if (telefone == null || telefone.trim().equals(""))
@@ -57,6 +60,7 @@ public class Usuario implements Serializable{
 	 * @param email
 	 *            Email do usuario
 	 */
+	
 	private void valideEmail(String email) {
 
 		if (email == null || email.trim().equals(""))
@@ -80,7 +84,6 @@ public class Usuario implements Serializable{
 	public void setTelefone(String telefone) {
 		this.valideTelefone(telefone);
 		this.usuarioid.setTelefone(telefone);
-		;
 	}
 
 	public String getEmail() {
@@ -99,9 +102,11 @@ public class Usuario implements Serializable{
 	public double getReputacao(){
 		return this.reputacaoController.getReputacao();
 	}
+	
 	/**
 	 * Representacao textual de um usuario
 	 */
+	
 	@Override
 	public String toString() {
 		return usuarioid.getNome() + ", " + this.email + ", " + this.usuarioid.getTelefone();
@@ -114,6 +119,7 @@ public class Usuario implements Serializable{
 	 *            Atributo desejado
 	 * @return conteudo do atributo
 	 */
+	
 	public String getAtributo(String atributo) {
 		if (atributo.toLowerCase().equals("nome"))
 			return this.getNome();
@@ -128,6 +134,7 @@ public class Usuario implements Serializable{
 		else
 			throw new IllegalArgumentException("Atributo de usuario invalido");
 	}
+	
 	/**
 	 * Modifica conteudo do atributo do usuario
 	 * 
@@ -136,6 +143,7 @@ public class Usuario implements Serializable{
 	 * @param valor
 	 *            Novo conteudo do atributo
 	 */
+	
 	public void mudaAtributo(String atributo, String valor) {
 		if (atributo.toLowerCase().equals("nome"))
 			this.setNome(valor);
@@ -178,6 +186,7 @@ public class Usuario implements Serializable{
 			return false;
 		return true;
 	}
+	
 	public int periodoMaximo() {
 		return this.reputacaoController.periodoMaximo();
 	}

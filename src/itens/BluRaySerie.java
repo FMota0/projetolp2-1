@@ -8,9 +8,12 @@ import java.io.Serializable;
  * @author Hugo Addobbati
  *
  */
+
 public class BluRaySerie extends BluRay implements Serializable{
+	
 	private String genero;
 	private int temporada;
+	
 	/**
 	 * Construtor de um item BluRay de Serie
 	 * 
@@ -27,6 +30,7 @@ public class BluRaySerie extends BluRay implements Serializable{
 	 * @param temporada
 	 *            Temporada do BluRay da serie
 	 */
+	
 	public BluRaySerie(String nomeItem, double preco, int duracao, String classificacao, String genero, int temporada, String nomeDono, String telefoneDono) {
 		super(nomeItem, preco, duracao, classificacao, nomeDono, telefoneDono);
 		this.genero = genero;

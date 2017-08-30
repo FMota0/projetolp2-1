@@ -4,12 +4,14 @@ import java.io.Serializable;
 
 public class EmprestimoId implements Serializable{
 
+	
 	private String nomeDonoItem;
 	private String telefoneDonoItem;
 	private String nomeRequerenteItem;
 	private String telefoneRequerenteItem;
 	private String nomeItem;
 	private String dataEmprestimo;
+	
 	/**
 	 * Construtor do EmprestimoId
 	 * 
@@ -26,6 +28,7 @@ public class EmprestimoId implements Serializable{
 	 * @param dataEmprestimo
 	 *            Data da realizacao do emprestimo
 	 */
+	
 	public EmprestimoId(String nomeDonoItem, String telefoneDonoItem, String nomeRequerenteItem,
 			String telefoneRequerente, String nomeItem, String dataEmprestimo) {
 
@@ -53,9 +56,11 @@ public class EmprestimoId implements Serializable{
 	public void setTelefoneDonoItem(String telefoneDonoItem) {
 		this.telefoneDonoItem = telefoneDonoItem;
 	}
+	
 	/**
 	 * Retorna representacao textual de um EmprestimoId
 	 */
+	
 	@Override
 	public String toString() {
 		return "EmprestimoId [nomeDonoItem=" + nomeDonoItem + ", telefoneDonoItem=" + telefoneDonoItem
@@ -94,6 +99,7 @@ public class EmprestimoId implements Serializable{
 	public void setDataEmprestimo(String dataEmprestimo) {
 		this.dataEmprestimo = dataEmprestimo;
 	}
+	
 	/**
 	 * Valida se o usuario eh dono do item
 	 * 
@@ -103,14 +109,15 @@ public class EmprestimoId implements Serializable{
 	 *            Telefone do usuario
 	 * @return
 	 */
+	
 	public boolean isDono(String nomeDono, String telefoneDono) {
 		return this.nomeDonoItem.equals(nomeDono) && this.telefoneDonoItem.equals(telefoneDono);
 	}
 
-
 	/**
 	 * Personaliza hashCode do objeto EmprestimoId
 	 */
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -123,9 +130,11 @@ public class EmprestimoId implements Serializable{
 		result = prime * result + ((telefoneRequerenteItem == null) ? 0 : telefoneRequerenteItem.hashCode());
 		return result;
 	}
+	
 	/**
 	 * Personaliza equals do objeto EmprestimoId
 	 */
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -167,6 +176,7 @@ public class EmprestimoId implements Serializable{
 			return false;
 		return true;
 	}
+	
 	/**
 	 * Verifica a validade do usuario requerente do item
 	 * 
@@ -176,6 +186,7 @@ public class EmprestimoId implements Serializable{
 	 *            Telefone do usuario requerente do item
 	 * @return boolean
 	 */
+	
 	public boolean isRequerente(String nome, String telefone) {
 		return this.nomeRequerenteItem.equals(nome) && this.telefoneRequerenteItem.equals(telefone);
 	}
