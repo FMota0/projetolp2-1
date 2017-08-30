@@ -1,6 +1,7 @@
 package projeto;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -26,9 +27,9 @@ public class Controller {
 	private ItemController itensController;
 
 	public Controller() {
-		this.usuariosController = new UserController();
-		this.emprestimoController = new LoanController();
-		this.itensController = new ItemController();
+		this.usuariosController = null;
+		this.emprestimoController = null;
+		this.itensController = null;
 	}
 
 	/**
@@ -505,107 +506,111 @@ public class Controller {
 	public String listarItensNaoEmprestados() {
 		return this.itensController.listarItensNaoEmprestados();
 	}
-
+	/**
+	 * Lista os itens emprestados
+	 * 
+	 * @return lista de itens emprestados
+	 */
 	public String listarItensEmprestados() {
 		return this.itensController.listarItensEmprestados();
 	}
-	
+	/**
+	 * Retorna a lista dos 10 itens mais emprestados
+	 * 
+	 * @return lista dos 10 itens mais empretados
+	 */
 	public String listarTop10Itens() {
 		return this.itensController.listarTop10Itens();
 	}
-
+	/**
+	 * Metodo auxiliar de controlador para saber se o usuario possui itens
+	 * @param nomeDono
+	 * @param telefoneDono
+	 * @return boolean
+	 */
+	
 	private boolean usuarioTemItens(String nomeDono, String telefoneDono) {
 		return this.itensController.usuarioTemItens(nomeDono, telefoneDono);
 	}
 	
+	/**
+	 * Recupera lista de caloteiros
+	 * 
+	 * @return caloteiros
+	 */
 	
 	public String listarCaloteiros() {
 		return this.usuariosController.listarCaloteiros();
 	}
-
+	
+	/**
+	 * Recupera lista dos 10 usuarios com a melhor reputacao
+	 * 	
+	 * @return representacao textual dos melhores usuarios
+	 */
+	
 	public String listarTop10MelhoresUsuarios() {
 		return this.usuariosController.listarTop10MelhoresUsuarios();
 	}
-	
+	/**
+	 * Recupera lista dos 10 usuarios com a pior reputacao
+	 * 
+	 * @return representacao textual dos piores usuarios
+	 */
 	public String listarTop10PioresUsuarios() {
 		return this.usuariosController.listarTop10PioresUsuarios();
 	}
-
+	/**
+	 * Metodo resposavel por encerrar o sistema e salvar os dados
+	 */
 	public void fecharSistema() {
-		try {
-			ObjectOutputStream oos1 = new ObjectOutputStream(new FileOutputStream("UserController.txt"));
-			oos1.writeObject(this.usuariosController);
-			oos1.close();
-		} catch (IOException e) {
+		try{
+		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("ObjController.txt"));
+		oos.writeObject(this.usuariosController);
+		oos.writeObject(this.emprestimoController);
+		oos.writeObject(this.itensController);
+		oos.close();
+		}
+		catch (IOException e) {
 			e.printStackTrace();
-		}
-		try {
-			ObjectOutputStream oos2 = new ObjectOutputStream(new FileOutputStream("ItemController.txt"));
-			oos2.writeObject(this.itensController);
-			oos2.close();
-		}
-		catch(IOException e) {
-			e.printStackTrace();
-			
-		}
-		try {
-			ObjectOutputStream oos3 = new ObjectOutputStream(new FileOutputStream("EmprestimoController.txt"));
-			oos3.writeObject(this.emprestimoController);
-			oos3.close();
-		}
-		catch(IOException e) {
-			e.printStackTrace();
-			
 		}
 		
+		
+		
 	}
+	/**
+	 * Metodo responsavel por Inicializar o sistema e salvar os dados
+	 */
 	
 	public void iniciarSistema() {
 		UserController uc = null;
 		ItemController ic = null;
 		LoanController lc = null;
 		try {
-			ObjectInputStream ois1 = new ObjectInputStream(new FileInputStream("UserController.txt"));
-			try {
-				uc = (UserController) ois1.readObject();
-				ois1.close();
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		try {
-			ObjectInputStream ois1 = new ObjectInputStream(new FileInputStream("ItemController.txt"));
-			try {
-				ic = (ItemController) ois1.readObject();
-				ois1.close();
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		try {
-			ObjectInputStream ois1 = new ObjectInputStream(new FileInputStream("EmprestimoController.txt"));
-			try {
-				lc = (LoanController) ois1.readObject();
-				ois1.close();
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-				return;
-			}
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-			return;
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream("ObjController.txt"));
+			uc = (UserController) ois.readObject();
+			lc = (LoanController) ois.readObject();
+			ic = (ItemController) ois.readObject();
+			this.emprestimoController = lc;
+			this.usuariosController = uc;
+			this.itensController = ic;
+			ois.close();
 		}
 		
-		this.usuariosController = uc;
-		this.itensController = ic;
-		this.emprestimoController = lc;
+		catch(FileNotFoundException e) {
+			this.usuariosController = new UserController();
+			this.emprestimoController = new LoanController();
+			this.itensController = new ItemController();
+			return;
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		}
+		catch(ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		
 	}
 	
 }
